@@ -1,0 +1,112 @@
+/* Base Styling */
+.add-review {
+    background-color: #1c1c1c; /* Dark charcoal background */
+    color: #f8f8f8; /* Light text for readability */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin: 20px auto;
+}
+
+.add-review h3 {
+    color: #ffd700; /* Gold accent for headings */
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem;
+}
+
+/* Form Styling */
+.add-review form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.add-review label {
+    font-size: 1rem;
+    color: #e0e0e0; /* Slightly muted text color for labels */
+}
+
+.add-review input[type="text"],
+.add-review textarea {
+    background-color: #2b2b2b; /* Slightly lighter charcoal */
+    color: #f8f8f8;
+    border: 1px solid #ffd700; /* Gold border */
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.add-review input[type="text"]:focus,
+.add-review textarea:focus {
+    border-color: #ffdd66; /* Lighter gold on focus */
+}
+
+.add-review textarea {
+    resize: none;
+    height: 100px;
+}
+
+.add-review input[type="file"] {
+    background-color: transparent;
+    color: #ffd700;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+
+.add-review button {
+    background-color: #ffd700;
+    color: #1c1c1c; /* Dark text for contrast */
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-review button:hover {
+    background-color: #ffdd66; /* Lighter gold on hover */
+}
+
+.add-review button:disabled {
+    background-color: #a39567; /* Muted gold for disabled state */
+    cursor: not-allowed;
+}
+
+/* Star Rating Styling */
+.add-review .dv-star-rating {
+    display: flex;
+    justify-content: center;
+}
+
+.add-review .dv-star-rating .dv-star-rating-star {
+    color: #ffd700; /* Gold stars */
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.add-review .dv-star-rating .dv-star-rating-star:hover,
+.add-review .dv-star-rating .dv-star-rating-star.active {
+    color: #ffdd66; /* Lighter gold for active or hovered stars */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 425px) {
+    .add-review {
+        padding: 15px;
+    }
+
+    .add-review h3 {
+        font-size: 1.5rem;
+    }
+
+    .add-review button {
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+}

@@ -1,0 +1,273 @@
+/* Container Styles */
+.all-orders-table,.all-orders {
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.all-orders-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+/* Input and Dropdown Styles */
+.all-orders-search-input {
+  flex: 1 1 300px;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.all-orders-search-input:focus {
+  border-color: #007bff;
+}
+
+.all-orders-status-filter,
+.all-orders-category-filter,
+.all-orders-subcategory-filter {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+.all-orders-status-filter:focus,
+.all-orders-category-filter:focus,
+.all-orders-subcategory-filter:focus {
+  border-color: #007bff;
+}
+
+/* Table Styles */
+.all-orders-table-content {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.all-orders-table-content th,
+.all-orders-table-content td {
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.all-orders-table-content th {
+  background-color: #007bff;
+  color: #fff;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.all-orders-table-content tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Status Badge Styles */
+.all-orders-status {
+  padding: 5px 20px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.all-orders-status.processing {
+  background-color: #ffc107;
+  color: #fff;
+}
+
+.all-orders-status.shipped {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.all-orders-status.cancelled {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Button Styles */
+.all-orders .all-orders-btn {
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border: none;
+  border-radius: 4px;
+  margin: 0px 5px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.all-orders .view-btn {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.all-orders .view-btn:hover {
+  background-color: #0056b3;
+}
+
+.all-orders .tracking-btn {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.all-orders .tracking-btn:hover {
+  background-color: #1e7e34;
+}
+
+.all-orders .delete-btn {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.all-orders .delete-btn:hover {
+  background-color: #c82333;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .all-orders-filters {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .all-orders-search-input,
+  .all-orders-status-filter,
+  .all-orders-category-filter,
+  .all-orders-subcategory-filter {
+    flex: 1 1 auto;
+    width: 100%;
+  }
+
+  .all-orders-table-content th,
+  .all-orders-table-content td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .all-orders-btn {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+}
+
+/* Additional mobile-specific styling */
+@media (max-width: 768px) {
+  /* Make filters stack vertically */
+  .all-orders-filters {
+    flex-direction: column;
+    gap: 15px;
+    align-items: stretch;
+  }
+
+  /* Input and dropdown adjustments */
+  .all-orders-search-input,
+  .all-orders-status-filter,
+  .all-orders-category-filter,
+  .all-orders-subcategory-filter {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  /* Table column adjustments */
+  .all-orders-table-content th,
+  .all-orders-table-content td {
+    font-size: 12px;
+    padding: 10px;
+  }
+
+  /* Reduce button sizes */
+  .all-orders-btn {
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+
+  /* Make table more compact */
+  .all-orders-table-content {
+    border-radius: 8px;
+    overflow: hidden;
+    font-size: 12px;
+  }
+}
+
+/* Mobile optimization */
+@media (max-width: 480px) {
+  /* Input fields and buttons */
+  .all-orders-search-input,
+  .all-orders-status-filter,
+  .all-orders-category-filter,
+  .all-orders-subcategory-filter {
+    font-size: 12px;
+    padding: 8px;
+  }
+  .all-orders-header{
+    display: block !important;
+  }
+  /* Status badge font adjustments */
+  .all-orders-status {
+    font-size: 10px;
+    padding: 4px 15px;
+  }
+
+  /* Button size adjustments */
+  .all-orders .all-orders-btn {
+    padding: 5px 8px;
+    font-size: 9px;
+  }
+
+  .all-orders-table-content th,
+  .all-orders-table-content td {
+    padding: 8px;
+    font-size: 10px;
+  }
+  .all-orders .view-btn{
+    padding: 5px 20px !important;
+    margin-bottom: 5px;
+  }
+}
+.all-orders-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.all-orders-refresh {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.refresh-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  border-radius: 5px;
+  transition: 0.3s ease-in-out;
+}
+
+.refresh-btn i {
+  font-size: 16px;
+}
+
+.refresh-btn:hover {
+  background-color: #0056b3;
+}

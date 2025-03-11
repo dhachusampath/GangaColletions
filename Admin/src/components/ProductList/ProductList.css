@@ -1,0 +1,225 @@
+/* Product List Table */
+.product-list-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+}
+
+.product-table th,
+.product-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.product-table th {
+  background-color: #f8f8f8;
+  color: #333;
+  font-weight: bold;
+}
+
+.product-name {
+  background: none;
+  border: none;
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.product-name:hover {
+  color: #0056b3;
+}
+
+/* Modal Styling */
+.product-detail-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow: auto;
+  padding: 10px;
+}
+
+.product-detail-modal-content {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 1200px;
+  position: relative;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+}
+
+.product-detail-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 30px;
+  color: #333;
+  cursor: pointer;
+}
+
+.product-detail-close:hover {
+  color: #e74c3c;
+}
+
+/* Product Name and Description Styling */
+.product-detail-modal h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.product-detail-modal p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 10px 0;
+  color: #555;
+}
+
+/* Product Sizes List */
+.product-detail-modal h3 {
+  font-size: 20px;
+  color: #333;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.product-detail-modal ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.product-detail-modal li {
+  background: #f8f8f8;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-detail-modal li:hover {
+  background: #e9f7fd;
+}
+
+/* Product Images */
+.product-image {
+  width: 120px;
+  height: 120px;
+  margin: 10px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-image:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+
+/* Sizes Table and Price */
+.product-size-price {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  color: #333;
+}
+
+.product-size-price span {
+  margin-right: 10px;
+}
+.export-csv-btn{
+  padding: 10px 8px;
+  color: white;
+  background-color: blue;
+  border: none;
+  border-radius: 5px;
+}
+/* Modal Scroll and Responsiveness */
+@media (max-width: 768px) {
+  .product-detail-modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .product-detail-modal h2 {
+    font-size: 22px;
+  }
+
+  .product-detail-modal p {
+    font-size: 14px;
+  }
+
+  .product-detail-modal li {
+    font-size: 14px;
+  }
+
+  .product-image {
+    width: 100px;
+    height: 100px;
+  }
+}
+/* ProductList.css */
+
+/* Filters Section */
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.filters select {
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.filters select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.apply-filters-btn,
+.reset-filters-btn,
+.export-csv-btn {
+  padding: 8px 16px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.apply-filters-btn:hover,
+.reset-filters-btn:hover,
+.export-csv-btn:hover {
+  background-color: #0056b3;
+}
+
+.reset-filters-btn {
+  background-color: #dc3545;
+}
+
+.reset-filters-btn:hover {
+  background-color: #c82333;
+}

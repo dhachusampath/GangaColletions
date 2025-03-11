@@ -1,0 +1,132 @@
+/* General Styles */
+.user-list {
+  padding: 20px;
+}
+
+.user-list-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.user-list-search-input,
+.user-list-role-filter,
+.user-list-status-filter {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  width: 200px; /* set fixed width */
+}
+
+.user-list-export-btn {
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.user-list-export-btn:hover {
+  background-color: #0056b3;
+}
+
+.user-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.user-list-table th,
+.user-list-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+  font-size: 14px;
+}
+
+.user-list-table th {
+  background-color: #f4f4f4;
+}
+
+/* Responsive Design */
+
+/* Tablet and Below (1024px and below) */
+@media (max-width: 1024px) {
+  .user-list-filters {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .user-list-search-input,
+  .user-list-role-filter,
+  .user-list-status-filter {
+    width: 100%; /* Make inputs fill available space */
+  }
+
+  .user-list-export-btn {
+    width: 100%; /* Make export button full width on smaller devices */
+  }
+
+  .user-list-table th,
+  .user-list-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* Mobile Devices (768px and below) */
+@media (max-width: 768px) {
+  /* Stacking filters vertically */
+  .user-list-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .user-list-search-input,
+  .user-list-role-filter,
+  .user-list-status-filter {
+    font-size: 14px;
+    padding: 10px;
+    width: 100%; /* Full width for inputs */
+  }
+
+  .user-list-export-btn {
+    padding: 12px 20px;
+    width: 100%; /* Full width for the export button */
+  }
+
+  .user-list-table th,
+  .user-list-table td {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+/* Small Mobile Devices (480px and below) */
+@media (max-width: 480px) {
+  .user-list {
+    padding: 10px;
+  }
+
+  .user-list-search-input,
+  .user-list-role-filter,
+  .user-list-status-filter {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .user-list-export-btn {
+    padding: 10px 15px;
+    font-size: 12px;
+  }
+
+  .user-list-table th,
+  .user-list-table td {
+    font-size: 10px;
+    padding: 6px;
+  }
+}

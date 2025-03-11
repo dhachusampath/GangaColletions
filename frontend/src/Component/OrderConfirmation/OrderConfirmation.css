@@ -1,0 +1,180 @@
+.order-confirmation-container {
+    max-width: 800px;
+    margin: 20px auto;
+    background: #1a1a1a; /* Dark charcoal */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    color: #d4af37; /* Gold */
+  }
+  
+  .order-confirmation-header {
+    background-color: #000000; /* Deep black */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .order-confirmation-logo {
+    font-family: 'Libre Baskerville', serif;
+    color: #d4af37; /* Gold */
+    font-size: 28px;
+    margin: 0;
+  }
+  
+  .order-confirmation-nav {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .order-confirmation-nav a {
+    text-decoration: none;
+    color: #d4af37; /* Gold */
+    font-size: 14px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+  }
+  
+  .order-confirmation-nav a:hover {
+    color: #f5e1a4; /* Lighter gold */
+  }
+  
+  .order-confirmation-details {
+    padding: 20px;
+    color: #d4af37; /* Gold */
+  }
+  
+  .order-confirmation-thank-you {
+    text-align: center;
+    font-size: 22px;
+    color: #f5e1a4; /* Light gold */
+    margin-bottom: 10px;
+  }
+  
+  .order-confirmation-number {
+    text-align: center;
+    color: #b3b3b3; /* Light charcoal */
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  
+  .order-confirmation-shipping-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .order-confirmation-shipping,
+  .order-confirmation-billing,
+  .order-confirmation-date {
+    font-size: 14px;
+    color: #b3b3b3; /* Light charcoal */
+  }
+  
+  .order-confirmation-card-type {
+    color: #d4af37; /* Gold */
+    font-size: 12px;
+  }
+  
+  .order-confirmation-status {
+    text-align: center;
+    margin: 20px 0;
+    color: #d4af37; /* Gold */
+  }
+  
+  .order-confirmation-track-button {
+    background-color: #d4af37; /* Gold */
+    color: #000000; /* Black text */
+    border: none;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .order-confirmation-track-button:hover {
+    background-color: #f5e1a4; /* Lighter gold */
+    color: #1a1a1a; /* Dark charcoal */
+  }
+  
+  .order-confirmation-divider {
+    border: none;
+    border-top: 1px solid #444444; /* Dark line */
+    margin: 20px 0;
+  }
+  
+  .order-confirmation-summary {
+    margin-top: 20px;
+  }
+  
+  .order-confirmation-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .order-confirmation-item-image {
+    width: 80px;
+    border-radius: 5px;
+  }
+  
+  .order-confirmation-item-details {
+    flex-grow: 1;
+    margin-left: 20px;
+    font-size: 14px;
+    color: #d4af37; /* Gold */
+  }
+  
+  .order-confirmation-item-price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #f5e1a4; /* Light gold */
+  }
+  
+  .order-confirmation-totals {
+    margin-top: 20px;
+    font-size: 14px;
+  }
+  
+  .order-confirmation-total-row {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+    color: #d4af37; /* Gold */
+  }
+  
+  .order-confirmation-total-grand {
+    font-weight: bold;
+    font-size: 16px;
+    color: #f5e1a4; /* Light gold */
+  }
+  
+  .order-confirmation-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #2e2e2e; /* Dark charcoal */
+    font-size: 12px;
+    color: #999999; /* Medium charcoal */
+    line-height: 1.6;
+  }
+  .order-confirmation-status p {
+    padding: 10px 0px;
+  }
+  
+  @media (max-width:480px) {
+    .order-confirmation-container{
+        margin: 0px;
+        border-radius: 0;
+    }
+    .order-confirmation-footer{
+        display: none;
+    }
+    .order-confirmation-shipping-info{
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  }

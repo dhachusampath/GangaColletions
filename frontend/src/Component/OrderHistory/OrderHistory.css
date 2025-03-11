@@ -1,0 +1,234 @@
+.order-history-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #1e1e1e; /* Dark charcoal background */
+  color: #f5f5f5; /* Light text for contrast */
+}
+
+.order-history-title {
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  color: #ffd700; /* Gold color */
+  margin-bottom: 10px;
+}
+
+.order-history-count {
+  font-size: 1.2rem;
+  text-align: center;
+  color: #c0c0c0; /* Soft silver for muted text */
+  margin-bottom: 20px;
+}
+
+.order-history-card {
+  background: #2c2c2c; /* Slightly lighter charcoal for contrast */
+  border: 1px solid #3a3a3a;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* .order-history-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+} */
+
+.order-status {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #f5f5f5; /* Light text */
+}
+
+.status-dispatched {
+  color: #ffd700; /* Gold for dispatched */
+}
+
+.status-delivered {
+  color: #8bc34a; /* Green for delivered */
+}
+
+.order-number {
+  font-size: 1rem;
+  color: #c0c0c0; /* Soft silver */
+  margin-bottom: 15px;
+}
+
+.order-preview {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.order-preview-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.preview-item-image {
+  width: 70px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid #ffd700; /* Gold border for product images */
+}
+
+.preview-item-name {
+  font-size: 0.9rem;
+  color: #ffd700; /* Gold */
+  margin-top: 5px;
+}
+
+.order-more-items {
+  font-size: 0.9rem;
+  color: #c0c0c0; /* Soft silver */
+  align-self: center;
+}
+
+.order-actions {
+  text-align: right;
+}
+
+.action-button {
+  padding: 10px 20px;
+  font-size: 0.9rem;
+  color: #1e1e1e; /* Dark text for buttons */
+  background: #ffd700; /* Gold */
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s ease-in-out;
+}
+
+.action-button:hover {
+  background: #d4af37; /* Slightly darker gold for hover */
+  transform: scale(1.05); /* Subtle hover effect */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .order-preview {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .preview-item-image {
+    width: 60px;
+    height: 60px;
+  }
+
+  .order-history-container {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 425px) {
+  .order-status {
+    text-align: center;
+  }
+
+  .order-actions {
+    text-align: center;
+    margin-top: 10px;
+  }
+}
+/* OrderHistory.css */
+.track-order-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.track-order-modal .modal-content {
+  background-color: #1e1e1e; /* Dark charcoal background */
+  line-height: 40px;
+  padding: 20px;
+  max-width: 500px;
+  width: 100%;
+  border-radius: 8px;
+  position: relative;
+}
+
+.track-order-modal .close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.track-order-modal h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.track-order-modal p {
+  font-size: 16px;
+  margin: 5px 0;
+  color: white;
+}
+
+@media (max-width:480px) {
+  .track-order-modal .modal-content {
+    max-width: 300px;
+  }
+  
+}
+.track-receipt-thumbnail {
+  width: 100px;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.track-receipt-thumbnail:hover {
+  transform: scale(1.1);
+}
+
+.image-modal .modal-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.full-track-receipt-image {
+  max-width: 100%;
+  height: auto;
+}
+
+.image-modal {
+  position: fixed;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.close-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 30px;
+  cursor: pointer;
+}

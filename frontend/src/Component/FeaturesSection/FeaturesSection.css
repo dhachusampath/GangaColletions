@@ -1,0 +1,115 @@
+.features-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  flex-wrap: wrap; /* Allow wrapping of items for small screens */
+}
+
+.feature-item {
+  text-align: center;
+  max-width: 200px;
+  margin: 10px;
+}
+
+.feature-item .icon {
+  font-size: 40px;
+  color: #d4a373; /* Gold color */
+  margin-bottom: 10px;
+}
+
+.feature-item h3 {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.feature-item p {
+  font-size: 14px;
+  color: #ffffff;
+  margin-top: 0;
+}
+
+/* Adjust for mobile screens */
+@media (max-width: 767px) {
+  .features-section {
+    justify-content: center; /* Center items on smaller screens */
+  }
+
+  .feature-item {
+    max-width: 100%;
+    padding: 10px;
+  }
+
+  .feature-item .icon i{
+    font-size: 30px; /* Smaller icons for mobile */
+  }
+
+  .feature-item h3 {
+    font-size: 14px; /* Adjust title size */
+  }
+
+  .feature-item p {
+    font-size: 12px; /* Adjust description size */
+  }
+}
+
+/* Adjust for tablets (portrait and smaller screens) */
+@media (max-width: 1024px) and (min-width: 768px) {
+  .features-section {
+    justify-content: space-around; /* Spread items out evenly */
+  }
+
+  .feature-item {
+    max-width: 45%; /* Allow for two columns */
+  }
+
+  .feature-item .icon i {
+    font-size: 35px; /* Adjust icon size */
+  }
+
+  .feature-item h3 {
+    font-size: 15px; /* Adjust title size */
+  }
+
+  .feature-item p {
+    font-size: 13px; /* Adjust description size */
+  }
+}
+
+/* Large screens (desktop) */
+@media (min-width: 1025px) {
+  .features-section {
+    justify-content: space-between; /* Default behavior for desktop */
+  }
+
+  .feature-item .icon {
+    font-size: 40px; /* Default icon size for large screens */
+  }
+
+  .feature-item h3 {
+    font-size: 16px; /* Default title size */
+  }
+
+  .feature-item p {
+    font-size: 14px; /* Default description size */
+  }
+}
+
+/* Customize icons (you can use FontAwesome or SVGs) */
+.feature-item .icon.shield {
+  content: url('path-to-your-shield-icon.svg'); /* Replace with actual icon path */
+}
+
+.feature-item .icon.lightbulb {
+  content: url('path-to-your-lightbulb-icon.svg');
+}
+
+.feature-item .icon.question-circle {
+  content: url('path-to-your-question-icon.svg');
+}
+
+.feature-item .icon.box {
+  content: url('path-to-your-box-icon.svg');
+}

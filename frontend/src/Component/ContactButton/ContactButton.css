@@ -1,0 +1,68 @@
+/* Positioning the buttons at the bottom right corner */
+.jewelry-contact-buttons {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 999;
+  }
+  
+  /* Styling each button */
+  .jewelry-contact-buttons a {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 50%;
+    background-color: #d4af37; /* Elegant gold */
+    color: white;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    text-decoration: none;
+  }
+  
+  /* WhatsApp Button - Green Color */
+  .jewelry-contact-buttons .whatsapp-button {
+    background-color: #25d366; /* WhatsApp Green */
+  }
+  
+  /* Call Button - Blue Color */
+  .jewelry-contact-buttons .call-button {
+    background-color: #007bff; /* Blue Color for Call */
+  }
+  
+  /* Hover effects */
+  .jewelry-contact-buttons a:hover {
+    background-color: #128c7e; /* Darker green for WhatsApp on hover */
+    transform: scale(1.1);
+  }
+  
+  /* Call button hover effect */
+  .jewelry-contact-buttons .call-button:hover {
+    background-color: #0056b3; /* Darker blue for Call button on hover */
+  }
+  
+  /* Icon size and positioning */
+  .contact-icon {
+    font-size: 2rem;
+    color: white;
+  }
+  
+  /* Adjustments for mobile and smaller screens */
+  @media (max-width: 768px) {
+    .contact-icon {
+      font-size: 1.8rem;
+    }
+  
+    .jewelry-contact-buttons a {
+      padding: 12px;
+    }
+  }
+  
+  @media (max-width: 425px) {
+    .contact-icon {
+      font-size: 1.6rem;
+    }
+  
+    .jewelry-contact-buttons a {
+      padding: 10px;
+    }
+  }
+  

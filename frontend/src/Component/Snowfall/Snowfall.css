@@ -1,0 +1,196 @@
+.snowflakes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1000000;
+  }
+  
+  .snowflake {
+    --size: 1vw;
+    width: var(--size);
+    height: var(--size);
+    background: white;
+    border-radius: 50%;
+    position: absolute;
+    top: -5vh; /* Start a bit above the viewport */
+    opacity: var(--opacity, 1); /* Add random opacity */
+    animation: snowfall var(--duration, 6s) linear infinite;
+  }
+  
+  /* Snowfall animation */
+  @keyframes snowfall {
+    0% {
+      transform: translateY(0) translateX(var(--left-ini, 0));
+    }
+    100% {
+      transform: translateY(100vh) translateX(var(--left-end, 0));
+    }
+  }
+  
+  /* Snowflake Variations */
+  .snowflake:nth-child(1) {
+    --size: 0.5vw; /* Small */
+    --opacity: 0.6;
+    --duration: 4s;
+    --left-ini: 5vw;
+    --left-end: -5vw;
+    left: 5vw;
+    animation-delay: -1s;
+  }
+  
+  .snowflake:nth-child(2) {
+    --size: 1vw; /* Medium */
+    --opacity: 0.8;
+    --duration: 5s;
+    --left-ini: -5vw;
+    --left-end: 10vw;
+    left: -5vw;
+    animation-delay: -2s;
+  }
+  
+  .snowflake:nth-child(3) {
+    --size: 2vw; /* Large */
+    --opacity: 0.9;
+    --duration: 6s;
+    --left-ini: 10vw;
+    --left-end: 15vw;
+    left: 10vw;
+    animation-delay: -3s;
+  }
+  
+  .snowflake:nth-child(4) {
+    --size: 0.8vw; /* Small */
+    --opacity: 0.7;
+    --duration: 4.5s;
+    --left-ini: 15vw;
+    --left-end: 5vw;
+    left: 15vw;
+    animation-delay: -2s;
+  }
+  
+  .snowflake:nth-child(5) {
+    --size: 1.5vw; /* Medium */
+    --opacity: 0.85;
+    --duration: 5.5s;
+    --left-ini: 20vw;
+    --left-end: -10vw;
+    left: 20vw;
+    animation-delay: -1.5s;
+  }
+  
+  .snowflake:nth-child(6) {
+    --size: 2.5vw; /* Large */
+    --opacity: 0.9;
+    --duration: 7s;
+    --left-ini: 30vw;
+    --left-end: 15vw;
+    left: 30vw;
+    animation-delay: -4s;
+  }
+  
+  .snowflake:nth-child(7) {
+    --size: 1.2vw; /* Medium */
+    --opacity: 0.75;
+    --duration: 6s;
+    --left-ini: -10vw;
+    --left-end: 20vw;
+    left: -10vw;
+    animation-delay: -3s;
+  }
+  
+  .snowflake:nth-child(8) {
+    --size: 0.7vw; /* Small */
+    --opacity: 0.5;
+    --duration: 4.2s;
+    --left-ini: 40vw;
+    --left-end: -15vw;
+    left: 40vw;
+    animation-delay: -3s;
+  }
+  
+  .snowflake:nth-child(9) {
+    --size: 1.8vw; /* Medium */
+    --opacity: 0.8;
+    --duration: 5s;
+    --left-ini: 50vw;
+    --left-end: 5vw;
+    left: 50vw;
+    animation-delay: -2.5s;
+  }
+  
+  .snowflake:nth-child(10) {
+    --size: 1vw; /* Small */
+    --opacity: 0.6;
+    --duration: 4.8s;
+    --left-ini: 60vw;
+    --left-end: -10vw;
+    left: 60vw;
+    animation-delay: -1.2s;
+  }
+  
+  .snowflake:nth-child(11) {
+    --size: 2vw; /* Large */
+    --opacity: 0.9;
+    --duration: 6.5s;
+    --left-ini: 70vw;
+    --left-end: 20vw;
+    left: 70vw;
+    animation-delay: -3.8s;
+  }
+  
+  .snowflake:nth-child(12) {
+    --size: 1.3vw; /* Medium */
+    --opacity: 0.7;
+    --duration: 5.2s;
+    --left-ini: 80vw;
+    --left-end: 15vw;
+    left: 80vw;
+    animation-delay: -2.7s;
+  }
+  
+  .snowflake:nth-child(13) {
+    --size: 1.6vw; /* Medium */
+    --opacity: 0.85;
+    --duration: 6s;
+    --left-ini: 90vw;
+    --left-end: 10vw;
+    left: 90vw;
+    animation-delay: -4s;
+  }
+  
+  .snowflake:nth-child(14) {
+    --size: 0.9vw; /* Small */
+    --opacity: 0.5;
+    --duration: 4s;
+    --left-ini: 100vw;
+    --left-end: -5vw;
+    left: 100vw;
+    animation-delay: -1.5s;
+  }
+  
+  .snowflake:nth-child(15) {
+    --size: 1.4vw; /* Medium */
+    --opacity: 0.8;
+    --duration: 5.5s;
+    --left-ini: 110vw;
+    --left-end: 15vw;
+    left: 110vw;
+    animation-delay: -2s;
+  }
+  
+  .snowflake:nth-child(16) {
+    --size: 2.3vw; /* Large */
+    --opacity: 0.9;
+    --duration: 7s;
+    --left-ini: 120vw;
+    --left-end: 25vw;
+    left: 120vw;
+    animation-delay: -3s;
+  }
+  
+  /* Add more variations as needed */
+  

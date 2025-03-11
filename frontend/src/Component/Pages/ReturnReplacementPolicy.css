@@ -1,0 +1,126 @@
+/* General Styles */
+.policy-container {
+    color: #f0e6d2; /* Soft gold */
+    background-color: #1a1a1a; /* Dark background */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .policy-banner {
+    background: url('../../assets/return-banner.png') no-repeat center center/cover;
+    text-align: center;
+    color: #f0e6d2;
+    padding: 60px 20px;
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  }
+  
+  .policy-banner h1 {
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeInDown 1s ease;
+  }
+  
+  .policy-banner p {
+    animation: fadeInUp 1s ease;
+  }
+  
+  .policy-content {
+    max-width: 1500px;
+    margin: 0px auto;
+    padding: 20px;
+  }
+  
+  .policy-section {
+    margin-bottom: 20px;
+  }
+  
+  .policy-section h2 {
+    color: #d4af37; /* Gold */
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  .policy-section p {
+    color: #e0d8c6; /* Soft light gold */
+    line-height: 1.6;
+  }
+  
+  .policy-section ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .policy-section ol {
+    list-style-type: decimal;
+    padding-left: 20px;
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .policy-banner h1 {
+      font-size: 2.5rem;
+    }
+  
+    .policy-banner p {
+      font-size: 1.2rem;
+    }
+  
+    .policy-content {
+      padding: 10px;
+    }
+  
+    .policy-section h2 {
+      font-size: 1.5rem;
+    }
+  
+    .policy-section p {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 425px) {
+    .policy-banner {
+      padding: 40px 15px;
+    }
+  
+    .policy-banner h1 {
+      font-size: 1rem;
+    }
+  
+    .policy-banner p {
+      font-size: 1rem;
+    }
+  
+    .policy-section h2 {
+      font-size: 1.3rem;
+    }
+  
+    .policy-section p {
+      font-size: 0.9rem;
+    }
+  }
+  

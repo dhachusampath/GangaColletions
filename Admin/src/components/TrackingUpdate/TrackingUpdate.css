@@ -1,0 +1,151 @@
+/* General Styles */
+.tracking-update-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  
+  .tracking-update-title {
+    text-align: center;
+    color: #000;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .order-info p {
+    font-size: 1.1rem;
+    margin: 8px 0;
+    color: #333;
+  }
+  
+  .status {
+    font-weight: bold;
+  }
+  
+  .status.pending {
+    color: orange;
+  }
+  
+  .status.shipped {
+    color: green;
+  }
+  
+  .status.canceled {
+    color: red;
+  }
+  
+  /* Form Styles */
+  .tracking-update-form {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 2px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    display: block;
+  }
+  
+  .form-input,
+  .form-input-file {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin-top: 5px;
+  }
+  
+  .form-input:focus,
+  .form-input-file:focus {
+    border-color: #007BFF;
+    outline: none;
+  }
+  
+  .btn-update-tracking {
+    background-color: #000;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 2px;
+    cursor: pointer;
+    border: none;
+    font-size: 1.2rem;
+  }
+  
+  .btn-update-tracking:hover {
+    background-color: #444;
+  }
+  
+  /* Image Preview Styles */
+  .image-preview {
+    margin-top: 10px;
+    text-align: center;
+  }
+  
+  .preview-image {
+    max-width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  .back-button{
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .tracking-update-container {
+      padding: 15px;
+    }
+  
+    .tracking-update-title {
+      font-size: 1.5rem;
+    }
+  
+    .order-info p {
+      font-size: 1rem;
+    }
+  
+    .form-input,
+    .form-input-file,
+    .btn-update-tracking {
+      font-size: 0.9rem;
+    }
+  
+    .btn-update-tracking {
+      padding: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .tracking-update-container {
+      padding: 10px;
+    }
+  
+    .tracking-update-title {
+      font-size: 1.2rem;
+    }
+  
+    .form-input,
+    .form-input-file,
+    .btn-update-tracking {
+      font-size: 0.85rem;
+      padding: 8px;
+    }
+  
+    .btn-update-tracking {
+      padding: 10px;
+    }
+  }
+  

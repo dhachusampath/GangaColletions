@@ -1,0 +1,113 @@
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+  }
+}
+
+.bill-template-container {
+  width: 210mm; /* A4 width */
+  min-height: 297mm; /* A4 height */
+  padding: 20mm;
+  margin: 20px auto;
+  background: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+}
+
+/* Header */
+.bill-header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #000;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+}
+
+.bill-logo img {
+  max-width: 80px;
+}
+
+.bill-company-info {
+  text-align: center;
+}
+
+.bill-company-info h1 {
+  font-size: 22px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.bill-invoice-details {
+  text-align: right;
+}
+
+/* Customer Info */
+.bill-customer-info,
+.bill-order-details,
+.bill-total-section,
+.bill-payment-section,
+.bill-terms-section {
+  margin-bottom: 15px;
+}
+
+h2 {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+/* Table */
+.bill-order-details table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 5px;
+}
+
+.bill-order-details table, 
+.bill-order-details th, 
+.bill-order-details td {
+  border: 1px solid black;
+}
+
+.bill-order-details th, 
+.bill-order-details td {
+  padding: 8px;
+  text-align: left;
+}
+
+/* Totals */
+.bill-total-section p {
+  text-align: right;
+  margin: 5px 0;
+}
+
+/* Payment */
+.bill-payment-details p {
+  text-align: left;
+  margin: 5px 0;
+}
+
+/* Footer */
+.bill-footer-section {
+  text-align: right;
+  font-weight: bold;
+  margin-top: 30px;
+}
+
+/* Button */
+.bill-download-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.bill-download-btn:hover {
+  background-color: #0056b3;
+}

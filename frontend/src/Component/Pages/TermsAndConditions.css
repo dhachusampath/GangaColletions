@@ -1,0 +1,118 @@
+/* General Styles */
+.terms-container {
+    color: #f0e6d2; /* Soft gold */
+    background-color: #1a1a1a; /* Dark background */
+    padding: 0;
+    margin: 0;
+  }
+  
+  .terms-banner {
+    background: url('../../assets/about-banner.png') no-repeat center center/cover;
+    text-align: center;
+    color: #f0e6d2;
+    padding: 60px 20px;
+    background-blend-mode: overlay;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+  }
+  
+  .terms-banner h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    animation: fadeInDown 1s ease;
+  }
+  
+  .terms-banner p {
+    font-size: 1.5rem;
+    animation: fadeInUp 1s ease;
+  }
+  
+  .terms-content {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  
+  .terms-section {
+    margin-bottom: 20px;
+  }
+  
+  .terms-section h2 {
+    color: #d4af37; /* Gold */
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  .terms-section p {
+    color: #e0d8c6; /* Soft light gold */
+    line-height: 1.6;
+  }
+  
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .terms-banner h1 {
+      font-size: 2.5rem;
+    }
+  
+    .terms-banner p {
+      font-size: 1.2rem;
+    }
+  
+    .terms-content {
+      padding: 10px;
+    }
+  
+    .terms-section h2 {
+      font-size: 1.5rem;
+    }
+  
+    .terms-section p {
+      font-size: 1rem;
+    }
+  }
+  
+  @media (max-width: 425px) {
+    .terms-banner {
+      padding: 40px 15px;
+    }
+  
+    .terms-banner h1 {
+      font-size: 2rem;
+    }
+  
+    .terms-banner p {
+      font-size: 1rem;
+    }
+  
+    .terms-section h2 {
+      font-size: 1.3rem;
+    }
+  
+    .terms-section p {
+      font-size: 0.9rem;
+    }
+  }
+  

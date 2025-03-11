@@ -1,0 +1,207 @@
+/* General Styles */
+.stock-inventory-container {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding: 20px;
+}
+
+/* Heading for both Mobile and Desktop */
+.stock-inventory-container h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+/* Search Bar */
+.search-bar {
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 100%;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Mobile-only Design */
+.mobile-design {
+  display: block;
+  margin-bottom: 20px;
+}
+
+/* Desktop-only Design */
+.desktop-design {
+  display: none;
+}
+
+/* Table Layout for Desktop */
+.desktop-design .product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.desktop-design .product-table th, .desktop-design .product-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.desktop-design .product-table th {
+  background-color: #f0f0f0;
+}
+
+.desktop-design .size-row {
+  margin-bottom: 10px;
+}
+
+.desktop-design .size-row span {
+  font-size: 1rem;
+}
+
+.desktop-design .stock-input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.desktop-design .update-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.desktop-design .update-button:hover {
+  background-color: #45a049;
+}
+
+/* Mobile Design Styles */
+.mobile-design .product-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.mobile-design .product-list h2 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.mobile-design .size-row {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+.update-feedback{
+  text-align: center;
+  color: #45a049;
+  font-size: 18px;
+  font-weight: 700;
+}
+.mobile-design .size-row span {
+  font-size: 1rem;
+  color: #555;
+}
+
+.mobile-design .stock-input {
+  width: 50%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.mobile-design .update-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.mobile-design .update-button:hover {
+  background-color: #45a049;
+}
+
+/* Media Queries for Devices */
+
+/* For mobile screens */
+@media (max-width: 768px) {
+  .desktop-design {
+    display: none;  /* Hide the desktop design */
+  }
+
+  .mobile-design {
+    display: block;  /* Show the mobile design */
+  }
+
+  .stock-inventory-container h1 {
+    font-size: 1.6rem;
+  }
+
+  .search-bar input {
+    font-size: 1rem;
+  }
+
+  .mobile-design .product-table th,
+  .mobile-design .product-table td {
+    padding: 8px;
+  }
+
+  .mobile-design .size-row {
+    margin-bottom: 10px;
+  }
+
+  .mobile-design .stock-input {
+    width: 70%;
+    font-size: 0.9rem;
+  }
+
+  .mobile-design .update-button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* For larger screens (tablet and desktop) */
+@media (min-width: 769px) {
+  .mobile-design {
+    display: none;  /* Hide the mobile design */
+  }
+
+  .desktop-design {
+    display: block;  /* Show the desktop design */
+  }
+
+  .stock-inventory-container h1 {
+    font-size: 2rem;
+  }
+
+  .desktop-design .search-bar input {
+    font-size: 1.1rem;
+  }
+
+  .desktop-design .product-table th,
+  .desktop-design .product-table td {
+    padding: 12px;
+  }
+
+  .desktop-design .size-row {
+    margin-bottom: 12px;
+  }
+
+  .desktop-design .stock-input {
+    width: 60px;
+    font-size: 1rem;
+  }
+
+  .desktop-design .update-button {
+    padding: 10px 15px;
+    font-size: 1rem;
+  }
+}

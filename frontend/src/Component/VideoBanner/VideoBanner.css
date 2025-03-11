@@ -1,0 +1,47 @@
+/* General Styles */
+.video-banner {
+    width: 100%;
+    height: auto;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Desktop/Tablet */
+  .video-container.desktop {
+    display: block;
+  }
+  
+  .video-container.mobile {
+    display: none;
+  }
+  
+  .video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures video fills container without distortion */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1024px) {
+    .video-container.desktop {
+      display: none; /* Hide desktop video on tablet and mobile */
+    }
+    
+    .video-container.mobile {
+      display: block; /* Show mobile video on smaller screens */
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .video-container.desktop {
+      display: none; /* Hide desktop video on tablet and mobile */
+    }
+  
+    .video-container.mobile {
+      display: block; /* Show mobile video on smaller screens */
+    }
+    .video{
+      height: 400px !important;
+    }
+  }
+  

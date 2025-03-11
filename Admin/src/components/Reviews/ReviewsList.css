@@ -1,0 +1,104 @@
+.reviews-list-container {
+    margin: 20px;
+    padding: 20px;
+    background-color: #000; /* Black background */
+    border-radius: 2px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.2); /* Soft white shadow */
+    color: #fff; /* White text for readability */
+  }
+  
+  .reviews-list-container h2 {
+    text-align: center;
+    color: #fff; /* White text */
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .reviews-list-container  .filter-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+  }
+  
+  .reviews-list-container .filter-container label {
+    font-size: 16px;
+    color: #fff; /* White label text */
+  }
+  
+  .reviews-list-container .filter-container select {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #fff; /* White border for contrast */
+    background-color: #000; /* Black background */
+    color: #fff; /* White text */
+  }
+  
+  .reviews-list-container .reviews-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    color: #fff; /* White table text */
+  }
+  
+  .reviews-list-container .reviews-table th,
+  .reviews-list-container .reviews-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #fff; /* White border for separation */
+  }
+  
+  .reviews-list-container  .reviews-table th {
+    background-color: #111; /* Slightly lighter black for header */
+  }
+  
+  .reviews-list-container .reviews-table tr:hover {
+    background-color: #222; /* Lighter black for hover effect */
+  }
+  
+  .reviews-list-container .media-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .reviews-list-container .media-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 5px;
+    border: 1px solid #fff; /* White border */
+  }
+  
+  .reviews-list-container .delete-btn {
+    padding: 8px 12px;
+    background-color: #fff; /* White button */
+    color: #000; /* Black text */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .reviews-list-container .delete-btn:hover {
+    background-color: #ccc; /* Gray hover effect */
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .reviews-list-container  .reviews-table {
+      font-size: 14px;
+    }
+  
+    .reviews-list-container .media-image {
+      width: 40px;
+      height: 40px;
+    }
+  
+    .reviews-list-container .filter-container {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+  

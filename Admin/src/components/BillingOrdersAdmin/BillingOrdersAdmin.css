@@ -1,0 +1,103 @@
+.billing-orders-admin {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .billing-orders-title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .loading-text,
+  .error-text,
+  .no-orders-text {
+    text-align: center;
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .billing-orders-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .billing-orders-table th,
+  .billing-orders-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .billing-orders-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .view-details-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 2px;
+  }
+  
+  .view-details-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Modal Styling */
+  .order-details-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 500px;
+    max-width: 90%;
+  }
+  
+  .close-btn {
+    float: right;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .close-btn:hover {
+    color: red;
+  }
+  
+  .order-customer-info {
+    margin-bottom: 15px;
+  }
+  
+  .order-items-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .order-items-table th,
+  .order-items-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .order-total {
+    margin-top: 15px;
+    font-size: 18px;
+    text-align: right;
+  }
+  

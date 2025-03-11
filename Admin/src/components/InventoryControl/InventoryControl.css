@@ -1,0 +1,133 @@
+/* General styling for the container */
+.inventory-control-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.inventory-control-title {
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.inventory-control-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.inventory-control-table th,
+.inventory-control-table td {
+  padding: 12px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+.inventory-threshold-input {
+  width: 100px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.inventory-save-button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.inventory-save-button:hover {
+  background-color: #45a049;
+}
+
+.inventory-alerts-title {
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+.inventory-alerts-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.inventory-alert-item {
+  padding: 10px;
+  background-color: #f8d7da;
+  margin-bottom: 8px;
+  border-radius: 4px;
+  color: #721c24;
+}
+
+.inventory-no-alerts {
+  font-style: italic;
+  color: #6c757d;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .inventory-control-container {
+    padding: 15px;
+  }
+
+  .inventory-control-title {
+    font-size: 1.5rem;
+  }
+
+  .inventory-control-table th,
+  .inventory-control-table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .inventory-threshold-input {
+    width: 80px;
+  }
+
+  .inventory-save-button {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
+  .inventory-alerts-title {
+    font-size: 1.2rem;
+  }
+
+  .inventory-alert-item {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 425px) {
+  .inventory-control-title {
+    font-size: 1.2rem;
+  }
+
+  .inventory-control-table th,
+  .inventory-control-table td {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+
+  .inventory-threshold-input {
+    width: 70px;
+  }
+
+  .inventory-save-button {
+    padding: 7px 14px;
+    font-size: 0.8rem;
+  }
+
+  .inventory-alerts-title {
+    font-size: 1rem;
+  }
+
+  .inventory-alert-item {
+    font-size: 0.8rem;
+  }
+}

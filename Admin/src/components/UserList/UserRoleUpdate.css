@@ -1,0 +1,45 @@
+.user-list {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .user-list-filters {
+    margin-bottom: 20px;
+  }
+  
+  .user-list-search-input,
+  .user-list-role-filter {
+    padding: 8px;
+    margin-right: 10px;
+  }
+  
+  .user-list-role-update-btn {
+    padding: 10px;
+    margin-right: 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .user-list-role-update-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .user-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .user-list-table th,
+  .user-list-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .user-list-table th {
+    background-color: #f4f4f4;
+  }
+  

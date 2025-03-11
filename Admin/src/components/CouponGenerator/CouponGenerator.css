@@ -1,0 +1,116 @@
+.coupon-generator-container {
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .coupon-generator-container .coupon-generator-title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  .coupon-generator-container .coupon-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .coupon-generator-container  .coupon-form-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .coupon-generator-container .coupon-form-label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+  }
+  
+  .coupon-generator-container .coupon-form-input, .coupon-form-select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    outline: none;
+    background-color: #fff;
+  }
+  
+  .coupon-generator-container .coupon-form-input:focus, .coupon-form-select:focus {
+    border-color: #007bff;
+  }
+  
+  .coupon-generator-container .coupon-form-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .coupon-generator-container .coupon-form-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .coupon-generator-container .coupon-table-container {
+    margin-top: 30px;
+  }
+  
+  .coupon-generator-container .coupon-table-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  .coupon-generator-container .coupon-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .coupon-generator-container .coupon-table th, .coupon-table td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ccc;
+  }
+  
+  .coupon-generator-container .coupon-table th {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+  
+  .coupon-generator-container .coupon-table-btn {
+    padding: 6px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .coupon-generator-container  .edit-btn {
+    background-color: #28a745;
+    color: white;
+    margin-bottom: 10px;
+    padding: 6px 20px !important;
+  }
+  
+  .coupon-generator-container .edit-btn:hover {
+    background-color: #218838;
+  }
+  
+  .coupon-generator-container .delete-btn {
+    background-color: #dc3545;
+    color: white;
+  }
+  
+  .coupon-generator-container .delete-btn:hover {
+    background-color: #c82333;
+  }
+  

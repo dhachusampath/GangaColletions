@@ -1,0 +1,137 @@
+/* Global Styles */
+.order-failure-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #121212; /* Dark background */
+    color: #d4af37; /* Gold text */
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .order-failure-content {
+    max-width: 600px;
+    background: #1c1c1c; /* Slightly lighter dark background */
+    padding: 30px;
+    border-radius: 5px;
+    /* box-shadow: 0 0 20px rgba(212, 175, 55, 0.3); Soft golden glow */
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  
+  /* Title Styling */
+  .order-failure-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #ffcc00; /* Bright gold */
+  }
+  
+  /* Message Styling */
+  .order-failure-message {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  /* Failure Details */
+  .failure-details {
+    text-align: left;
+    margin-bottom: 20px;
+  }
+  
+  .failure-details h2 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #ffcc00;
+  }
+  
+  .failure-details ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+  
+  .failure-details li {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  
+  /* CTA Buttons */
+  .cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+  }
+  
+  .retry-payment-button,
+  .contact-support-button {
+    background: linear-gradient(45deg, #d4af37, #ffcc00);
+    color: #121212;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .retry-payment-button:hover,
+  .contact-support-button:hover {
+    background: linear-gradient(45deg, #ffcc00, #d4af37);
+    transform: scale(1.05);
+  }
+  
+  /* Support Information */
+  .support-info {
+    margin-top: 20px;
+  }
+  
+  .support-info h2 {
+    font-size: 1.3rem;
+    color: #ffcc00;
+    margin-bottom: 10px;
+  }
+  
+  .support-info p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* Footer */
+  .order-failure-footer {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+  }
+  
+  /* Animations */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 600px) {
+    .order-failure-content {
+      width: 90%;
+      padding: 20px;
+    }
+  
+    .cta-buttons {
+      flex-direction: column;
+    }
+  
+    .retry-payment-button,
+    .contact-support-button {
+      width: 100%;
+    }
+  }
+  

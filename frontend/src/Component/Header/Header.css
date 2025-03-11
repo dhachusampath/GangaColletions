@@ -1,0 +1,615 @@
+/* General Styles */
+:root {
+  --light-brown: #2c2c2c;
+  --gold: #daa520;
+  --white: #ffffff;
+  --dark-gray: #333;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: var(--dark-gray);
+  color: var(--white);
+}
+
+.header {
+  width: 100%;
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--light-brown);
+  color: var(--white);
+  z-index: 100;
+}
+
+/* Desktop Header */
+.desktop-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.2rem 2rem;
+}
+
+.logo {
+  /* font-size: 1.5rem; */
+  font-weight: bold;
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav a {
+  text-decoration: none;
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-btn {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: -400px;
+  z-index: 1000;
+  background-color: var(--light-brown);
+  padding: 1rem;
+  border: 1px solid var(--gold);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  max-height: 300px;
+  overflow-y: auto;
+}
+/* Style the scrollbar itself */
+.dropdown-content::-webkit-scrollbar {
+  width: 8px; /* width of the scrollbar */
+}
+
+/* Style the track (the background of the scrollbar) */
+.dropdown-content::-webkit-scrollbar-track {
+  background: var(--light-brown); /* track color */
+  border-radius: 4px;
+}
+
+/* Style the handle (the draggable part of the scrollbar) */
+.dropdown-content::-webkit-scrollbar-thumb {
+  background-color: var(--gold); /* thumb color */
+  border-radius: 4px;
+  border: 2px solid var(--light-brown); /* optional border around the thumb */
+}
+
+/* Style the thumb when it's hovered over */
+.dropdown-content::-webkit-scrollbar-thumb:hover {
+  background-color: darkgoldenrod; /* a darker shade on hover */
+}
+.category{
+  width: 160px;
+}
+
+.dropdown:hover .dropdown-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.dropdown-content h4 {
+  margin: 0.5rem 0;
+  font-size: 1rem;
+  cursor: pointer;
+  color: var(--gold);
+}
+
+.dropdown-content ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dropdown-content li {
+  margin: 0.5rem 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+
+.dropdown-content li {
+  width: 150px; /* Set a specific width for the subcategory items */
+  margin-bottom: 5px; /* Optional: to add space between each subcategory item */
+  border-radius: 5px; /* Optional: to round the corners of the subcategory items */
+  text-align: left; /* Optional: to align text to the left */
+}
+
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.icon {
+  font-size: 1.2rem;
+  color: var(--white);
+  cursor: pointer;
+}
+
+/* Mobile Header */
+.mobile-header {
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--light-brown);
+}
+
+.mobile-header .icon {
+  font-size: 1.5rem;
+}
+
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 75%;
+  height: 100%;
+  background-color: var(--dark-gray);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 1rem;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1.5rem;
+  padding: 2px;
+  align-self: flex-end;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.mobile-nav a {
+  text-decoration: none;
+  color: var(--white);
+  font-size: 1rem;
+}
+
+.mobile-category {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.category-btn {
+  background: none;
+  border: none;
+  color: var(--white);
+  font-size: 1rem;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nested-list {
+  list-style: none;
+  padding-left: 1.5rem;
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+}
+
+.nested-list li {
+  font-size: 0.9rem;
+  color: var(--white);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .desktop-header {
+    display: none;
+  }
+
+  .mobile-header {
+    display: flex;
+  }
+}
+.actions {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.icon {
+  font-size: 24px;
+  position: relative;
+}
+
+.cart-container {
+  position: relative;
+}
+
+.cart-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+.cart-sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100%;
+  background-color: #2c2c2c;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2); /* Deeper shadow for better visibility */
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+  z-index: 1000;
+  overflow-y: auto; /* Allows scrolling for longer content */
+}
+
+.cart-sidebar .close-btn {
+  background: none;
+  border: none;
+  font-size: 20px; /* Slightly larger for better visibility */
+  color: #fff; /* Matches theme color */
+  cursor: pointer;
+  align-self: flex-end;
+}
+
+.cart-sidebar .close-btn:hover {
+  color: #007bff; /* Hover effect for interactivity */
+}
+
+.cart-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Increased spacing between items */
+}
+.cart-content h3{
+  color: #f9c74f;
+  text-align: center;
+
+}
+.view-cart-btn {
+  margin-top: 20px;
+  padding: 8px 20px; /* Slightly larger for better accessibility */
+  background-color: #f9c74f;
+  color: #000000;
+  border: none;
+  font-weight: 500;
+  border-radius: 3px; /* Rounded corners for a modern look */
+  cursor: pointer;
+  font-size: 16px; /* Larger font for better readability */
+}
+
+.view-cart-btn:hover {
+  background-color: #edb124;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Hover shadow for a better effect */
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px; /* Increased spacing for better separation */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Lighter border for a softer design */
+  padding-bottom: 12px;
+}
+
+.cart-item-image {
+  width: 60px; /* Slightly larger for better visibility */
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px; /* More rounded corners */
+  margin-right: 15px; /* Increased spacing for better alignment */
+}
+
+.cart-item-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px; /* Improved spacing for details */
+  color: #fff; /* Ensure text is readable */
+}
+
+.cart-item-details .item-name {
+  font-weight: bold;
+  font-size: 14px; /* Ensure better readability */
+}
+
+.cart-item-details .item-price {
+  font-size: 15px;
+  padding: 8px 12px;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid #ddd;
+  border-radius: 0px;
+  padding: 5px;
+  width: 100px;
+  height: 25px;
+}
+
+.quantity-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: #fffbfb;
+  color: rgb(0, 0, 0);
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 0px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* .quantity-btn:hover {
+  background-color: #ffffffd3;
+  transform: scale(1.1);
+} */
+
+.quantity-controls span {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+
+/* Mobile Enhancements */
+@media (max-width: 768px) {
+  .cart-sidebar {
+    width: 280px; /* Reduce width for smaller screens */
+    padding: 15px;
+  }
+
+  .cart-item-image {
+    width: 50px;
+    height: 50px;
+  }
+
+  .cart-item-details {
+    gap: 3px;
+  }
+
+  .view-cart-btn {
+    font-size: 14px; /* Slightly smaller for better fit */
+    padding: 10px 20px;
+  }
+
+  .quantity-btn {
+    padding: 5px 10px;
+  }
+}
+.remove-item-btn {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  border-radius: 2px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.remove-item-btn:hover {
+  background-color: #ff1a1a;
+}
+.cart-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100%;
+  /* background-color: #fff; */
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-content {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-bottom: 80px; /* Space for the fixed cart summary */
+}
+
+.cart-items {
+  margin: 0;
+  padding: 15px;
+  overflow-x: hidden;
+  list-style-type: none;
+}
+
+.fixed-summary {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%; /* Match the width of the sidebar */
+  background-color: #000000;
+  padding: 10px 20px;
+  border-top: 1px solid #ddd;
+  z-index: 10;
+}
+
+/* Style the scrollbar itself */
+.cart-items::-webkit-scrollbar {
+  width: 8px; /* width of the scrollbar */
+}
+
+/* Style the track (the background of the scrollbar) */
+.cart-items::-webkit-scrollbar-track {
+  background: var(--light-brown); /* track color */
+  border-radius: 4px;
+}
+
+/* Style the handle (the draggable part of the scrollbar) */
+.cart-items::-webkit-scrollbar-thumb {
+  background-color: var(--gold); /* thumb color */
+  border-radius: 4px;
+  border: 2px solid var(--light-brown); /* optional border around the thumb */
+}
+
+/* Style the thumb when it's hovered over */
+.cart-items::-webkit-scrollbar-thumb:hover {
+  background-color: darkgoldenrod; /* a darker shade on hover */
+}
+
+@media (max-width:480px) {
+  .card-image{
+    height: 190px;
+  }
+  .logo{
+    margin-left: -28px;
+  }
+
+  
+}
+
+@media (max-width:680px) {
+  .cart-sidebar{
+    display: none;
+  }
+  .search-bar{
+    top: 94px;
+  }
+}
+.cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.cart-count {
+  position: absolute;
+  top: -5px;
+  background-color: red; /* Or any other color */
+  color: white;
+  border-radius: 50%;
+  padding: 5px 7px;
+  font-size: 9px;
+  font-weight: bold;
+}
+.cart-icon-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.Cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: red; /* Or any other color */
+  color: white;
+  border-radius: 50%;
+  padding: 5px 7px;
+  font-size: 8px;
+  font-weight: bold;
+}
+
+.icon {
+  cursor: pointer;
+}
+/* Search bar container */
+
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: #1c1c1c; /* Dark carbon color */
+  border: 1px solid #d4af37; /* Gold border */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Enhanced shadow */
+  border-radius: 8px; /* Softer edges for luxury feel */
+  width: 200px; /* Slightly wider for better usability */
+  padding: 12px 16px; /* More spacious padding */
+  z-index: 10;
+}
+
+.dropdown-menu a,
+.dropdown-menu button {
+  display: block;
+  padding: 10px 14px; /* Balanced spacing */
+  color: #d4af37; /* Gold text color */
+  font-weight: 500; /* Slightly bold for emphasis */
+  text-decoration: none;
+  border: none;
+  width: 100%;
+  background: none;
+  cursor: pointer;
+  transition: background 0.3s ease, color 0.3s ease; /* Smooth transitions */
+}
+
+.dropdown-menu a:hover,
+.dropdown-menu button:hover {
+  background: #282828; /* Darker shade for hover */
+  color: #ffffff; /* Light text on hover for contrast */
+  border-radius: 6px; /* Rounded hover effect */
+}
+
+.dropdown-menu a:active,
+.dropdown-menu button:active {
+  background: #3c3c3c; /* Slightly lighter than hover */
+  color: #f8f8f8; /* Subtle white */
+}
+
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  right: 12px; /* Adjust to align with menu */
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #1c1c1c transparent; /* Arrow in carbon color */
+}
+
+.wholesaler-tag {
+  background-color: green;
+  color: white;
+  font-size: 14px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-left: 12px;
+}

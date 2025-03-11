@@ -1,0 +1,349 @@
+.billing-system {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  .search-barcode-toggle {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .search-barcode-toggle input {
+    padding: 8px;
+    width: 70%;
+  }
+  
+  .search-barcode-toggle button {
+    padding: 8px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .search-barcode-toggle button:hover {
+    background-color: #45a049;
+  }
+  
+  .barcode-scanner {
+    margin-bottom: 20px;
+  }
+  
+  .barcode-scanner input {
+    padding: 8px;
+    width: 100%;
+  }
+  
+  .product-list ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .product-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+  }
+  
+  .product-item span {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .product-item select {
+    margin-top: 10px;
+    padding: 5px;
+  }
+  
+  .quantity-input {
+    width: 60px;
+    margin-top: 10px;
+    padding: 5px;
+  }
+  
+  .add-to-order-btn {
+    padding: 8px 12px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  .add-to-order-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .order-list {
+    margin-top: 30px;
+  }
+  
+  .order-list table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .order-list th, .order-list td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .total {
+    margin-top: 15px;
+    font-size: 18px;
+  }
+  
+  .customer-info {
+    margin-top: 30px;
+  }
+  
+  .customer-info input {
+    padding: 8px;
+    margin-bottom: 10px;
+    width: 100%;
+  }
+  
+  .payment-method {
+    margin-top: 10px;
+  }
+  
+  .payment-method label {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  
+  .download-bill-btn {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .download-bill-btn:hover {
+    background-color: #45a049;
+  }
+  /* Style for the entire BillingSystem component */
+.billing-system {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Styling for the Search and Barcode Mode Toggle */
+.search-barcode-toggle {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.search-barcode-toggle input {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.search-barcode-toggle button {
+  width: 24%;
+  padding: 10px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.search-barcode-toggle button:hover {
+  background-color: #45a049;
+}
+
+/* Style for Barcode Scanner */
+.barcode-scanner, .barcode-scanner-desktop {
+  margin-bottom: 20px;
+}
+
+.barcode-scanner input {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.barcode-scanner input:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+.barcode-scanner-desktop input {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+/* Customer Info Input Fields */
+.customer-info input {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.customer-info select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.customer-info input:focus, .customer-info select:focus {
+  outline: none;
+  border-color: #4CAF50;
+}
+
+/* Styling for Download Bill Button */
+.download-bill-btn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 200px;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.download-bill-btn:hover {
+  background-color: #45a049;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .search-barcode-toggle input,
+  .barcode-scanner input,
+  .customer-info input,
+  .customer-info select {
+    width: 100%;
+  }
+
+  .search-barcode-toggle {
+    flex-direction: column;
+  }
+
+  .search-barcode-toggle button {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .download-bill-btn {
+    width: 100%;
+  }
+}
+.remove-icon {
+  color: red;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.remove-icon:hover {
+  color: darkred;
+}
+/* BillingSystem.css */
+
+/* Total Section */
+.total {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: right;
+}
+
+/* Total Discount Section */
+.total-discount {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.total-discount label {
+  font-size: 16px;
+  color: #555;
+}
+
+.total-discount input {
+  width: 80px;
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  text-align: right;
+}
+
+.total-discount input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Final Total Section */
+.final-total {
+  margin-top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #007bff;
+  text-align: right;
+}
+
+/* Error Message Styling */
+.error {
+  color: #dc3545;
+  font-size: 14px;
+  margin-top: 5px;
+  display: block;
+  text-align: right;
+}
+.toggle-bill-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.toggle-bill-btn:hover {
+  background-color: #0056b3;
+}
+
+.toggle-bill-btn svg {
+  vertical-align: middle;
+}

@@ -1,0 +1,138 @@
+.categories-page {
+  position: relative;
+  padding: 20px;
+  text-align: center;
+  background-image: url(https://i.pinimg.com/736x/f8/3a/dd/f83addccb81d5c8b55c0f41d33e34c1f.jpg);
+  color: #fff;
+}
+
+.categories-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.447);
+  z-index: 1;
+}
+
+.categories-page > * {
+  position: relative;
+  z-index: 2;
+}
+
+.categories-header h1 {
+  font-size: 40px;
+  font-weight: bold;
+  color: #f9c74f;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.categories-header p {
+  font-size: 1rem;
+  color: #ffffff;
+}
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.category-card {
+  position: relative;
+  overflow: hidden;
+  width: 100%;  /* Make cards responsive to container size */
+  height: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease;
+  background-color: #fff;
+  border-radius: 5px;  /* Added for smoother card edges */
+}
+
+.category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.category-name {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .categories-grid {
+    grid-template-columns: repeat(4, 1fr); /* 4 columns on medium screens */
+  }
+
+  .category-card {
+    height: 250px; /* Adjust height on medium screens */
+  }
+}
+
+@media (max-width: 768px) {
+  .categories-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on smaller screens */
+  }
+
+  .category-card {
+    height: 250px; /* Adjust height for smaller screens */
+  }
+}
+
+@media (max-width: 480px) {
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* 6 main cards in a row */
+    gap: 10px;
+    width: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding-bottom: 10px;
+    padding: 8px;
+    scroll-behavior: smooth; /* Smooth horizontal scrolling */
+  }
+
+  .category-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    scroll-snap-align: center;
+    width: 180px; /* Fixed width for each main card */
+    height: 200px; /* Fixed height for each main card */
+    overflow-y: auto; /* Enable vertical scrolling */
+    scroll-snap-type: y mandatory; /* Enable vertical snap inside card */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+
+  .category-item {
+    display: flex;
+    /* flex-direction: column; */
+    align-items: center;
+    scroll-snap-align: center; /* Snap each sub-item */
+    margin-bottom: 10px;
+  }
+
+  .category-name {
+    margin-top: 10px;
+    text-align: center;
+  }
+}
+
+
+
