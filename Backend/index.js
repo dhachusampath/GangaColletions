@@ -47,7 +47,7 @@ mongoose.connect(process.env.MONGO_URI,{
 // Multer configuration for file upload
 
 // Routes
-app.use('/auth', authRoutes);
+app.use('/api/auth', authRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/coupons', CouponRoutes);  // Mount the coupon routes
@@ -195,7 +195,7 @@ async function sendOrderEmail(userEmail, orderId, totalAmount, cartItems, shippi
   const emailTemplate = `
     <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px;">
       <div style="text-align: center; margin-bottom: 20px;">
-        <img src="https://gangacollection.netlify.app/assets/GC-logo-DGeKEWzg.png" alt="Company Logo" style="max-width: 150px;">
+        <img src="https://gangacollection.netlify.app/assets/GC-logo-DGeKEWzg.png" alt="Ganga Collections" style="max-width: 150px;">
       </div>
       <h2 style="color: #4CAF50;">Order Confirmation</h2>
       <p>Thank you for your order! Here are your order details:</p>
@@ -214,7 +214,7 @@ async function sendOrderEmail(userEmail, orderId, totalAmount, cartItems, shippi
   `;
 
   await transporter.sendMail({
-    from: `"Ganga Collections" <${process.env.EMAIL_USER}>`,
+    from: `"Ganga Collections"<${process.env.EMAIL_USER}>`,
     to: userEmail,
     subject: "Order Confirmation",
     html: emailTemplate,
@@ -315,7 +315,7 @@ async function sendAdminEmail(orderId, totalAmount, cartItems, shippingAddress) 
   const emailTemplate = `
     <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px;">
       <div style="text-align: center; margin-bottom: 20px;">
-        <img src="https://gangacollection.netlify.app/assets/GC-logo-DGeKEWzg.png" alt="Company Logo" style="max-width: 150px;">
+        <img src="https://gangacollection.netlify.app/assets/GC-logo-DGeKEWzg.png" alt="Ganga Collections" style="max-width: 150px;">
       </div>
       <h2 style="color: #4CAF50;">New Order Received</h2>
       <p>A new order has been placed with the following details:</p>
@@ -343,7 +343,7 @@ const xlsx = require("xlsx");
 const Product = require('./models/Product');
 const Review = require('./models/Review');
 
-app.get("/orders/:userId", async (req, res) => {
+app.get("/api/orders/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
     
@@ -363,7 +363,7 @@ app.get("/orders/:userId", async (req, res) => {
   }
 });
 
-app.put("/update-tracking/:orderId", async (req, res) => {
+app.put("/api/update-tracking/:orderId", async (req, res) => {
   try {
     const { trackingLink, deliveryStatus } = req.body;
     const updatedOrder = await Order.findOneAndUpdate(
@@ -382,7 +382,7 @@ app.put("/update-tracking/:orderId", async (req, res) => {
   }
 });
 
-app.get("/allorders/all", async (req, res) => {
+app.get("/api/allorders/all", async (req, res) => {
   try {
     const orders = await Order.find(); // Fetch all orders from the database
     res.json(orders);
@@ -414,7 +414,7 @@ const upload = multer({
 ]);
 
 // Bulk upload endpoint
-app.post("/bulk-upload", upload, async (req, res) => {
+app.post("/api/bulk-upload", upload, async (req, res) => {
   try {
     const { excelFile, images } = req.files;
     

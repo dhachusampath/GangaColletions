@@ -4,7 +4,7 @@ import "./OrderConfirmation.css";
 import { useStore } from "../Context/Store";
 
 const OrderConfirmation = () => {
-  const { url } = useStore();
+  const { API_BASE_URL } = useStore();
   const location = useLocation();
   const navigate = useNavigate(); // Add this line for navigation
 
@@ -73,7 +73,7 @@ const OrderConfirmation = () => {
             cartItems.map((item, index) => (
               <div className="order-confirmation-item" key={index}>
                 <img
-                  src={`${url}/images/${item.image}` || "https://via.placeholder.com/100"}
+                  src={`${API_BASE_URL}/images/${item.image}` || "https://via.placeholder.com/100"}
                   alt={item.name}
                   className="order-confirmation-item-image"
                 />

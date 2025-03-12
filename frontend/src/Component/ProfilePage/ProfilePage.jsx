@@ -9,12 +9,12 @@ import Loader from '../Loader/Loader';
 
 const ProfilePage = ({setActiveTab}) => {
   const [profileData, setProfileData] = useState(null); // State to store user data
-  const [url] = useState('https://gangacollection-backend.onrender.com'); // Base URL for API
+  // const [url] = useState('https://gangacollection-backend.onrender.com'); // Base URL for API
   const [loading, setLoading] = useState(true); // State for loading
   const [error, setError] = useState(null); // State for error handling
   const [selectedFile, setSelectedFile] = useState(null); // State for the selected profile image
 
-  const { userRole, setUserRole ,setAuthToken,setUserId,setCart} = useStore();
+  const { userRole, setUserRole ,setAuthToken,setUserId,setCart,API_BASE_URL} = useStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,7 +23,7 @@ const ProfilePage = ({setActiveTab}) => {
       if (!storedUserId) return; // Ensure userId exists
 
       try {
-        const response = await axios.get(`${url}/auth/user/${storedUserId}`);
+        const response = await axios.get(`${API_BASE_URL}/auth/user/${storedUserId}`);
         setProfileData(response.data.user); // Assuming response structure has 'user'
         setUserRole(response.data.user.isRetailer ? 'retailer' : 'wholesaler'); // Set role based on response
         setLoading(false);
@@ -35,7 +35,7 @@ const ProfilePage = ({setActiveTab}) => {
     };
 
     fetchProfileData();
-  }, [url, setUserRole]);
+  }, [API_BASE_URL, setUserRole]);
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]); // Update selected file state
@@ -62,7 +62,7 @@ const ProfilePage = ({setActiveTab}) => {
         formData.append('profileImage', selectedFile); // Append the selected file
       }
 
-      const response = await axios.put(`${url}/auth/user/${storedUserId}`, formData, {
+      const response = await axios.put(`${API_BASE_URL}/auth/user/${storedUserId}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -90,7 +90,7 @@ const ProfilePage = ({setActiveTab}) => {
       <section className="profile-header">
         <div className="profile-image">
         <img
-src={profileData?.profileImage ? `${url}/api/images/${profileData.profileImage}` : userprofile}
+src={profileData?.profileImage ? `${API_BASE_URL}/api/images/${profileData.profileImage}` : userprofile}
   alt="User Profile"
 />
           <label htmlFor="profileImage" className="edit-image-button">

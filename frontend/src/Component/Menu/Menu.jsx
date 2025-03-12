@@ -4,7 +4,7 @@ import "./Menu.css";
 import { useStore } from "../Context/Store";
 
 const Menu = () => {
-  const { products,userRole, categories ,url} = useStore(); // Access global state
+  const { products,userRole, categories ,API_BASE_URL} = useStore(); // Access global state
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [price, setPrice] = useState([100, 12000]);
@@ -177,7 +177,7 @@ const Menu = () => {
           {filteredProducts.map((product) => (
             <div key={product._id} className="product-card">
               <img
-                src={`${url}/images/${product.images[0]}`} alt={product.name}
+                src={`${API_BASE_URL}/images/${product.images[0]}`} alt={product.name}
                 className="product-image"
               />
               <h3 className="product-name">{product.name}</h3>

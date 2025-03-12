@@ -4,7 +4,7 @@ import './ReviewsList.css';
 import { useStore } from '../Context/Store';
 
 const ReviewsList = () => {
-  const { products } = useStore(); // Access products from StoreContext
+  const { products ,API_BASE_URL} = useStore(); // Access products from StoreContext
   const [selectedProduct, setSelectedProduct] = useState(products[0]?._id || ''); // Default to the first product
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -20,7 +20,7 @@ const ReviewsList = () => {
 
       try {
         const response = await axios.get(
-          `https://gangacollection-backend.onrender.com/api/productss/reviews/${selectedProduct}`
+          `${API_BASE_URL}/productss/reviews/${selectedProduct}`
         );
         setReviews(response.data.reviews || []);
       } catch (err) {
@@ -43,7 +43,7 @@ const ReviewsList = () => {
 
   const handleDeleteReview = async (reviewId) => {
     try {
-      await axios.delete(`https://gangacollection-backend.onrender.com/api/reviews/${reviewId}`);
+      await axios.delete(`${API_BASE_URL}/reviews/${reviewId}`);
       setReviews(reviews.filter((review) => review._id !== reviewId));
     } catch (err) {
       alert('Failed to delete review');
@@ -111,7 +111,7 @@ const ReviewsList = () => {
                       {review.media.map((file, index) => (
                         <img
                           key={index}
-                          src={`http://localhost:5000/api/images/${file}`}
+                          src={`${API_BASE_URL}/images/${file}`}
                           alt={`Review Media ${index + 1}`}
                           className="media-image"
                         />

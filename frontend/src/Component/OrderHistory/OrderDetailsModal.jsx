@@ -1,6 +1,8 @@
 import React from 'react';
 import './OrderDetailsModal.css';
+import { useStore } from '../Context/Store';
 
+const {API_BASE_URL}=useStore();
 const OrderDetailsModal = ({ order, onClose }) => {
   return (
     <div className="order-details-modal">
@@ -22,7 +24,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
             {order.cartItems.map((item) => (
               <div key={item.productId} className="order-details-modal__item">
                 <img 
-                  src={`https://gangacollection-backend.onrender.com/api/images/${item.image}`} 
+                  src={`${API_BASE_URL}/api/images/${item.image}`} 
                   alt={item.productName} 
                   className="order-details-modal__item-image"
                 />

@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import "./BulkAction.css";
+import { useStore } from "../Context/Store";
 
 function BulkAction() {
+
+  const {API_BASE_URL}=useStore();
   const [excelFile, setExcelFile] = useState(null);
   const [images, setImages] = useState([]);
   const [error, setError] = useState(null);
@@ -61,7 +64,7 @@ function BulkAction() {
 
     setLoading(true);
     try {
-      const response = await axios.post("https://gangacollection-backend.onrender.com/bulk-upload", formData, {
+      const response = await axios.post(`${API_BASE_URL}/bulk-upload`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

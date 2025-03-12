@@ -5,7 +5,7 @@ import axios from "axios";
 
 const PopularProducts = () => {
   const sliderRef = useRef(null);
-  const { url,userRole, addToCart } = useStore();
+  const { API_BASE_URL,userRole, addToCart } = useStore();
   const [products, setProducts] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const autoScrollInterval = useRef(null);
@@ -13,7 +13,7 @@ const PopularProducts = () => {
   // Fetch products from the backend
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`${url}/products/popular`);
+      const response = await axios.get(`${API_BASE_URL}/products/popular`);
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
@@ -82,7 +82,7 @@ const PopularProducts = () => {
           {products.map((product, index) => (
             <div key={product._id} className="card">
               <img
-                src={`${url}/images/${product.images[0]}`}
+                src={`${API_BASE_URL}/images/${product.images[0]}`}
                 alt={product.name}
                 className="card-image"
               />

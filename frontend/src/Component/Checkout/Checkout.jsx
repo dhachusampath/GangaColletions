@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 const Checkout = () => {
-  const { state } = useLocation();
+  const { state ,API_BASE_URL} = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -241,7 +241,7 @@ const Checkout = () => {
       try {
         const totalAmount = total * 100; // Convert to paise
     
-        const response = await fetch("https://gangacollection-backend.onrender.com/api/create-order", {
+        const response = await fetch(`${API_BASE_URL}/create-order`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -263,7 +263,7 @@ const Checkout = () => {
           return;
         }
     
-        const userResponse = await axios.get(`https://gangacollection-backend.onrender.com/auth/user/${storedUserId}`);
+        const userResponse = await axios.get(`${API_BASE_URL}/auth/user/${storedUserId}`);
         const userDetails = userResponse.data;
         
         // Extract the user's email from the response
@@ -294,7 +294,7 @@ const Checkout = () => {
               userEmail
             };
     
-            const saveOrderResponse = await fetch("https://gangacollection-backend.onrender.com/api/save-order", {
+            const saveOrderResponse = await fetch(`${API_BASE_URL}/save-order`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -308,7 +308,7 @@ const Checkout = () => {
               const uniqueOrderId = result.orderId; // Get unique order ID from backend
     
               // Remove cart items from backend
-              await fetch("https://gangacollection-backend.onrender.com/api/cart/clear-cart", {
+              await fetch(`${API_BASE_URL}/cart/clear-cart`, {
                 method: "DELETE",
                 headers: {
                   "Content-Type": "application/json",

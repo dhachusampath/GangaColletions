@@ -16,7 +16,7 @@ const StarRating = ({ rating, onRate }) => (
 );
 
 const ReviewSection = ({ productId }) => {
-  const {url} =useStore();
+  const {API_BASE_URL} =useStore();
   const [reviews, setReviews] = useState([]);
   const [formData, setFormData] = useState({
     name: '',
@@ -34,7 +34,7 @@ const ReviewSection = ({ productId }) => {
 
   const fetchReviews = async () => {
     try {
-      const response = await axios.get(`${url}/productss/reviews/${productId}`);
+      const response = await axios.get(`${API_BASE_URL}/productss/reviews/${productId}`);
       setReviews(response.data.reviews || []);
     } catch (error) {
       console.error('Error fetching reviews:', error);
@@ -60,7 +60,7 @@ const ReviewSection = ({ productId }) => {
     formData.media.forEach((file) => form.append('media', file));
 
     try {
-      await axios.post(`${url}/productss/reviews/${productId}`, form, {
+      await axios.post(`${API_BASE_URL}/productss/reviews/${productId}`, form, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
       setFormData({ name: '', rating: 0, comment: '', media: [] });

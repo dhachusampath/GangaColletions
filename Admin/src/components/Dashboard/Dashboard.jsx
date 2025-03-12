@@ -5,9 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import "./Dashboard.css";
 import { useStore } from '../Context/Store';
 
-const API_BASE_URL = 'https://gangacollection-backend.onrender.com'
 const Dashboard = () => {
-  const {  products, setLowStockAlerts,  } = useStore();
+  const {  products, setLowStockAlerts, API_BASE_URL } = useStore();
   const [orders, setOrders] = useState([]);
   const [customers, setCustomers] = useState([]);
   const [pendingOrders, setPendingOrders] = useState([]);

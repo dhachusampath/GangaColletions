@@ -209,15 +209,6 @@ const ProductManagement = () => {
     });
   };
 
-  // Remove size
-  // const removeSize = (index) => {
-  //   setNewProduct((prevProduct) => ({
-  //     ...prevProduct,
-  //     sizes: prevProduct.sizes.filter((_, i) => i !== index),
-  //     images: prevProduct.images, // Preserve the images array
-  //   }));
-  // };
-
   // Validate form
   const validateForm = () => {
     const newErrors = {};

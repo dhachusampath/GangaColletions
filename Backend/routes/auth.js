@@ -8,8 +8,8 @@ const path = require("path");
 const fs = require("fs"); // File system module to handle file deletion
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || "random#secret";
-const FRONTEND_URL = "https://gangacollection.netlify.app/";
+const JWT_SECRET = process.env.JWT_SECRET;
+const FRONTEND_URL = process.env.FRONTEND_URL;
 
 // Register Endpoint
 router.post("/register", async (req, res) => {

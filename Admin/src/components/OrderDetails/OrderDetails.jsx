@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './OrderDetails.css';
+import { useStore } from '../Context/Store';
+
+const {API_BASE_URL}=useStore();
 
 // Dummy function to simulate fetching product data by product ID (replace with actual data fetching logic)
 const fetchProductDetails = async (productId) => {
   try {
-    const response = await fetch(`https://gangacollection-backend.onrender.com/api/products/product/${productId}`);
+    const response = await fetch(`${API_BASE_URL}/products/product/${productId}`);
     if (response.ok) {
       return await response.json(); // Return the product data fetched from backend
     } else {
@@ -101,7 +104,7 @@ const OrderDetails = ({ order, onBack }) => {
                   <td>
                     <img
                       className="order-items__img"
-                      src={`https://gangacollection-backend.onrender.com/api/images/${item.image}`} // Adjust path as necessary
+                      src={`${API_BASE_URL}/images/${item.image}`} // Adjust path as necessary
                       alt={item.name}
                     />
                   </td>

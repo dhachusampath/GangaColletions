@@ -8,7 +8,7 @@ import axios from 'axios'; // Axios for API requests
 import SearchBar from "../SearchBar/SearchBar";
 
 const Header = ({ setShowLogin }) => {
-  const { cartSidebarOpen, url,toggleCartSidebar,userId, cart,setCart, updateQuantity, removeFromCart,authToken, calculateSubtotal, setAuthToken,setUserId } = useStore();
+  const { cartSidebarOpen, API_BASE_URL,toggleCartSidebar,userId, cart,setCart, updateQuantity, removeFromCart,authToken, calculateSubtotal, setAuthToken,setUserId } = useStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState({});
   const [showSearch, setShowSearch] = useState(false);
@@ -100,7 +100,7 @@ const Header = ({ setShowLogin }) => {
       if (!storedUserId) return;
   
       try {
-        const response = await axios.get(`http://localhost:5000/auth/user/${storedUserId}`);
+        const response = await axios.get(`${API_BASE_URL}/auth/user/${storedUserId}`);
         const user = response.data.user;
   
         if (user?.isRetailer === false) {
@@ -344,7 +344,7 @@ const Header = ({ setShowLogin }) => {
               {cart.map((item) => {
                 return(
                 <li key={`${item.id}-${item.size}`} className="cart-item">
-                  <img src={`${url}/images/${item.image}`} alt={item.name} className="cart-item-image" />
+                  <img src={`${API_BASE_URL}/images/${item.image}`} alt={item.name} className="cart-item-image" />
                   <div className="cart-item-details">
                     <span>{item.name}</span>
                     {item.size && <span>Size: {item.size}</span>}

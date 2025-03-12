@@ -63,7 +63,7 @@ const UserRoleUpdate = () => {
       const isRetailer = newRole === 'Retailer';
 
       // Make a PUT request to the backend to update the user's role
-      const response = await axios.put(`https://gangacollection-backend.onrender.com/auth/user/${userId}/role`, { isRetailer });
+      const response = await axios.put(`${API_BASE_URL}/auth/user/${userId}/role`, { isRetailer });
 
       // Check if the update was successful
       if (response.data.message === 'Role updated successfully') {

@@ -26,12 +26,12 @@ const App = () => {
   const [activeContent, setActiveContent] = useState('dashboard');
   const [isBackendConnected, setIsBackendConnected] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { user, setUser } = useStore();
+  const { user, setUser ,API_BASE_URL} = useStore();
 
   // Function to check backend connection
   const checkBackendConnection = async () => {
     try {
-      const response = await axios.get(`https://gangacollection-backend.onrender.com/api/health`);
+      const response = await axios.get(`${API_BASE_URL}/health`);
       if (response.status === 200) {
         setIsBackendConnected(true);
       }

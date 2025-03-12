@@ -8,28 +8,7 @@ const StoreContext = createContext();
 // Custom Hook for accessing the store
 export const useStore = () => useContext(StoreContext);
 
-// Example products (You can fetch these from an API as well)
-// const initialProducts = [
-//   {
-//     id: 1,
-//     name: "Traditional Mugapu Thali Chain",
-//     category: "Mugapu Thali chains",
-//     description: "A classic Mugapu Thali chain designed with intricate craftsmanship.",
-//     polish: "916 Hallmarked",
-//     images: [
-//       "https://firsthub.in/public/uploads/all/KWf97invUVa8aEQcpGlnKsBjOPVh8eGlekCTrbRW.webp",
-//       "https://m.media-amazon.com/images/I/71sQ4haC5jL._SY695_.jpg",
-//       "https://m.media-amazon.com/images/I/71H3O+3j87L._SY695_.jpg",
-//     ],
-    // sizes: [
-    //   { size: "24 inches", retailPrice: 1200.00, wholesalePrice: 1000.00 },
-    //   { size: "26 inches", retailPrice: 1300.00, wholesalePrice: 1100.00 },
-    // ],
-//   },
-//   // More products can follow the same structure...
-// ];
-
-   
+ 
 
 // Store Provider Component
 export const StoreProvider = ({ children }) => {
@@ -110,8 +89,8 @@ export const StoreProvider = ({ children }) => {
   const toggleCartSidebar = () => {
     setCartSidebarOpen(!cartSidebarOpen);
   };
-  const url = "https://gangacollection-backend.onrender.com/api";
-  // const url = "http://localhost:5000/api";
+
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   
   useEffect(() => {
     const fetchProfileData = async () => {
@@ -122,7 +101,7 @@ export const StoreProvider = ({ children }) => {
       }
   
       try {
-        const response = await axios.get(`https://gangacollection-backend.onrender.com/auth/user/${storedUserId}`);
+        const response = await axios.get(`${API_BASE_URL}/auth/user/${storedUserId}`);
         if (response.data?.user) {
           setUserRole(response.data.user.isRetailer ? 'retailer' : 'wholesaler');
         } else {
@@ -143,7 +122,7 @@ export const StoreProvider = ({ children }) => {
       if (!storedUserId) return;
   
       try {
-        const response = await axios.get(`https://gangacollection-backend.onrender.com/auth/user/${storedUserId}`);
+        const response = await axios.get(`${API_BASE_URL}/auth/user/${storedUserId}`);
         const user = response.data.user;
   
         if (user?.isRetailer === false) {
@@ -157,7 +136,7 @@ export const StoreProvider = ({ children }) => {
     const syncCartWithBackend = async () => {
       if (cart.length > 0) {
         try {
-          await axios.post(`${url}/cart/sync`, {
+          await axios.post(`${API_BASE_URL}/cart/sync`, {
             userId,
             cartItems: cart,
           });
@@ -174,7 +153,7 @@ export const StoreProvider = ({ children }) => {
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        const response = await axios.get(`${url}/cart/${userId}`);
+        const response = await axios.get(`${API_BASE_URL}/cart/${userId}`);
         setCart(response.data.items); // Update context or state with fetched cart items
         setLoading(false);
       } catch (error) {
@@ -190,7 +169,7 @@ export const StoreProvider = ({ children }) => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get(`${url}/products`);
+        const response = await axios.get(`${API_BASE_URL}/products`);
         console.log("Fetched products:", response.data); // Log the response data
         setProducts(response.data);
       } catch (error) {
@@ -207,65 +186,7 @@ export const StoreProvider = ({ children }) => {
     
 
   
-  // const addToCart = async (product, selectedSize, currentPrice) => {
-  //   console.log("Adding to cart:", { productId: product._id, size: selectedSize, quantity: 1 });
   
-  //   const productId = product._id;
-  
-  //   // Check if the same product with the selected size already exists in the cart
-  //   const existingItem = cart.find(
-  //     (item) => item.productId === productId && item.size === selectedSize
-  //   );
-  
-  //   if (existingItem) {
-  //     // If the same product with the same size exists, update its quantity locally
-  //     const newCart = cart.map((item) =>
-  //       item.productId === productId && item.size === selectedSize
-  //         ? { ...item, quantity: item.quantity + 1,price: currentPrice }
-  //         : item
-  //     );
-  //     setCart(newCart);
-  //     console.log("Updated Cart (existing item):", newCart);
-  
-  //     // Send update to backend
-  //     try {
-  //       await axios.post(`${url}/cart/update`, {
-  //         userId: userId, // Replace with actual user ID from your auth system
-  //         productId,
-  //         size: selectedSize,
-  //         quantity: existingItem.quantity + 1,
-  //         price: currentPrice,
-  //        });
-  //       console.log("Backend updated successfully for existing item.");
-  //     } catch (error) {
-  //       console.error("Error updating backend for existing item:", error);
-  //       // Optionally revert the change or refetch the cart from the server
-  //     }
-  //   } else {
-  //     // If no match with size is found, add as a new item locally
-  //     const newCart = [...cart, { productId, size: selectedSize, quantity: 1,price: currentPrice }];
-  //     setCart(newCart);
-  //     console.log("Updated Cart (new item):", newCart);
-  
-  //     // Send addition to backend
-  //     try {
-  //       await axios.post(`${url}/cart/add`, {
-  //         userId: userId, // Replace with actual user ID from your auth system
-  //         productId,
-  //         size: selectedSize,
-  //         quantity: 1,
-  //         price: currentPrice,
-  //        });
-  //       console.log("Backend updated successfully for new item.");
-  //     } catch (error) {
-  //       console.error("Error updating backend for new item:", error);
-  //       // Optionally revert the change or refetch the cart from the server
-  //     }
-  //   }
-  
-  //   console.log("Cart after addition:", cart); // Log the updated cart state
-  //   setCartSidebarOpen(true); // Open the cart sidebar when adding an item
-  // };
   const addToCart = async (product, selectedSize, currentPrice) => {
     const productId = product._id;
     const image = product.images?.[0]; // Get the first image from the array (if it exists)
@@ -286,7 +207,7 @@ export const StoreProvider = ({ children }) => {
   
       // Send update to backend
       try {
-        await axios.post(`${url}/cart/update`, {
+        await axios.post(`${API_BASE_URL}/cart/update`, {
           userId: userId, // Replace with actual user ID from your auth system
           productId,
           size: selectedSize,
@@ -315,7 +236,7 @@ export const StoreProvider = ({ children }) => {
   
       // Send addition to backend
       try {
-        await axios.post(`${url}/cart/add`, {
+        await axios.post(`${API_BASE_URL}/cart/add`, {
           userId: userId, // Replace with actual user ID from your auth system
           productId,
           size: selectedSize,
@@ -343,7 +264,7 @@ export const StoreProvider = ({ children }) => {
   
     // Send removal to backend
     try {
-      await axios.post(`${url}/cart/remove`, {
+      await axios.post(`${API_BASE_URL}/cart/remove`, {
         userId: userId, // Replace with actual user ID
         productId,
         size,
@@ -372,7 +293,7 @@ export const StoreProvider = ({ children }) => {
   
       // Send quantity update to backend
       try {
-        await axios.post(`${url}/cart/update`, {
+        await axios.post(`${API_BASE_URL}/cart/update`, {
           userId: userId, // Replace with actual user ID
           productId,
           size,
@@ -395,7 +316,8 @@ const calculateSubtotal = () =>  cart.reduce((total, item) => total + item.price
     products,
     setProducts,
     categories,
-    cart,setCart,url,
+    cart,setCart,
+    API_BASE_URL,
     addToCart,
     removeFromCart,
     updateQuantity,

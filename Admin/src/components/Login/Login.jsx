@@ -8,9 +8,19 @@ const Login = ({ setUser }) => {
   const navigate = useNavigate();
 
   const users = [
-    { userId: 'admin', password: 'admin123', role: 'Admin' },
-    { userId: 'staff', password: 'staff123', role: 'Staff' },
+    {
+      userId: import.meta.env.VITE_ADMIN_USER,
+      password: import.meta.env.VITE_ADMIN_PASSWORD,
+      role: import.meta.env.VITE_ADMIN_ROLE,
+    },
+    {
+      userId: import.meta.env.VITE_STAFF_USER,
+      password: import.meta.env.VITE_STAFF_PASSWORD,
+      role: import.meta.env.VITE_STAFF_ROLE,
+    }
   ];
+  
+  
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');

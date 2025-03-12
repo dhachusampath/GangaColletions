@@ -13,10 +13,10 @@ export const useStore = () => useContext(StoreContext);
 export const StoreProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
-  // const API_BASE_URL = "https://gangacollection-backend.onrender.com/api";
-  const API_BASE_URL = "http://localhost:5000/api";
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   const [lowStockAlerts, setLowStockAlerts] = useState([]);
   const [user, setUser] = useState(null); // Store logged-in user
+
   // Fetch products from the backend
   useEffect(() => {
     const fetchProducts = async () => {
@@ -41,7 +41,7 @@ export const StoreProvider = ({ children }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`https://gangacollection-backend.onrender.com/auth/users`);
+        const response = await axios.get(`${API_BASE_URL}/auth/users`);
         setUsers(response.data);
       } catch (error) {
         console.error("Error fetching users:", error);

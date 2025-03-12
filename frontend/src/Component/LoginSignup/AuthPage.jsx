@@ -8,7 +8,7 @@ import { useStore } from "../Context/Store";
 
 
 const AuthPage = ({ setShowLogin }) => {
-  const { setAuthToken, setUserId } = useStore();
+  const { setAuthToken, setUserId ,API_BASE_URL } = useStore();
   const [isRegistering, setIsRegistering] = useState(false); // Toggle between login and register
   const [formData, setFormData] = useState({
     name: "",
@@ -27,7 +27,7 @@ const AuthPage = ({ setShowLogin }) => {
     try {
       if (isRegistering) {
         // Registration
-        await axios.post(`https://gangacollection-backend.onrender.com/auth/register`, {
+        await axios.post(`${API_BASE_URL}/auth/register`, {
           name: formData.name,
           email: formData.email,
           password: formData.password,
@@ -36,7 +36,7 @@ const AuthPage = ({ setShowLogin }) => {
         toggleAuthMode();
       } else {
         // Login
-        const res = await axios.post(`https://gangacollection-backend.onrender.com/auth/login`, {
+        const res = await axios.post(`${API_BASE_URL}/auth/login`, {
           email: formData.email,
           password: formData.password,
         });
@@ -64,7 +64,7 @@ const AuthPage = ({ setShowLogin }) => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = `https://gangacollection-backend.onrender.com/auth/google`;
+    window.location.href = `${API_BASE_URL}/auth/google`;
   };
 
   useEffect(() => {

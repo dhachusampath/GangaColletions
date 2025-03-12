@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './TrackingUpdate.css';
+import { useStore } from '../Context/Store';
 
 const TrackingUpdate = ({ order, onBack }) => {
+
+  const {API_BASE_URL}=useStore();
   const [trackingNumber, setTrackingNumber] = useState('');
   const [trackingLink, setTrackingLink] = useState('');
   const [trackingImage, setTrackingImage] = useState(null);
@@ -42,7 +45,7 @@ const TrackingUpdate = ({ order, onBack }) => {
     }
 
     try {
-      const response = await fetch('https://gangacollection-backend.onrender.com/allorders/update-tracking', {
+      const response = await fetch(`${API_BASE_URL}/allorders/update-tracking`, {
         method: 'POST',
         body: formData,
       });

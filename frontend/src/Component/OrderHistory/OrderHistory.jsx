@@ -7,7 +7,7 @@ import Loader from "../Loader/Loader";
 import TrackingModal from "./TrackingModal";
 
 const OrderHistory = () => {
-  const { userId, url } = useStore();
+  const { userId, API_BASE_URL } = useStore();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [orders, setOrders] = useState([]);
@@ -21,7 +21,7 @@ const OrderHistory = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get("https://gangacollection-backend.onrender.com/api/products"); // Adjust to your products endpoint
+        const response = await axios.get(`${API_BASE_URL}/products`); // Adjust to your products endpoint
         setInitialProducts(response.data); // Store products in state
       } catch (error) {
         console.error("Error fetching products:", error);
@@ -35,7 +35,7 @@ const OrderHistory = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await axios.get(`https://gangacollection-backend.onrender.com/orders/${userId}`);
+        const response = await axios.get(`${API_BASE_URL}/orders/${userId}`);
         setOrders(response.data); // Set orders from the backend response
         setLoading(false);
       } catch (error) {
@@ -63,7 +63,7 @@ const OrderHistory = () => {
   // Handle tracking order
   const handleTrackOrder = async (orderId) => {
     try {
-      const response = await axios.get(`https://gangacollection-backend.onrender.com/allorders/track/${orderId}`);
+      const response = await axios.get(`${API_BASE_URL}/allorders/track/${orderId}`);
       setTrackingInfo(response.data);
       setIsTrackingModalOpen(true); // Open modal
     } catch (error) {
@@ -107,7 +107,7 @@ const OrderHistory = () => {
                 product ? (
                   <div key={index} className="order-preview-item">
                     <img
-                      src={`${url}/images/${product.images[0]}`}
+                      src={`${API_BASE_URL}/images/${product.images[0]}`}
                       alt={product.name}
                       className="preview-item-image"
                     />

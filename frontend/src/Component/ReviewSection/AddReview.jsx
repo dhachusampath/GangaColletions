@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import './AddReview.css';
 import ReactStars from 'react-star-rating-component';
+import { useStore } from '../Context/Store';
 
 const AddReview = ({ productId }) => {
+
+    const {API_BASE_URL} = useStore();
     const [rating, setRating] = useState(5);
     const [title, setTitle] = useState('');
     const [comment, setComment] = useState('');
@@ -33,7 +36,7 @@ const AddReview = ({ productId }) => {
 
         // Send the form data to the backend
         axios
-            .post('/api/reviews', formData, {
+            .post(`${API_BASE_URL}/api/reviews`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

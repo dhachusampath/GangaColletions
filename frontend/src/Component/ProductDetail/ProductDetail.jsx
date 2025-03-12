@@ -6,7 +6,7 @@ import { useStore } from "../Context/Store";
 import ReviewSection from "../ReviewSection/ReviewSection";
 
 const ProductDetail = () => {
-  const { products, userRole, addToCart,url } = useStore();
+  const { products, userRole, addToCart,API_BASE_URL } = useStore();
   const { productId } = useParams();  // The ID passed via URL is now the MongoDB _id
   const product = products.find((prod) => prod._id === productId);  // Search by _id
 
@@ -140,7 +140,7 @@ const ProductDetail = () => {
     onMouseLeave={handleMouseLeave}
   >
     <img
-      src={`${url}/images/${selectedImage}`}  // Update the image URL
+      src={`${API_BASE_URL}/images/${selectedImage}`}  // Update the image URL
       alt="Main Product"
       style={magnifyStyle}
       onClick={() => openFullScreen(selectedImage)}
@@ -150,7 +150,7 @@ const ProductDetail = () => {
     {product.images.map((img, index) => (
       <img
         key={index}
-        src={`${url}/images/${img}`}  // Update the image URL for thumbnails
+        src={`${API_BASE_URL}/images/${img}`}  // Update the image URL for thumbnails
         alt={`Thumbnail ${index + 1}`}
         className={`thumbnail ${img === selectedImage ? "selected" : ""}`}
         onClick={() => setSelectedImage(img)}
@@ -203,7 +203,7 @@ const ProductDetail = () => {
           <div className="fullscreen-overlay" onClick={closeFullScreen}>
             <div className="fullscreen-content" onClick={(e) => e.stopPropagation()}>
               <img
-                src={`${url}/images/${selectedImage}`}
+                src={`${API_BASE_URL}/images/${selectedImage}`}
                 alt="Fullscreen"
                 style={{ transform: `scale(${zoom})` }}
               />

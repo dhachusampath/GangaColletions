@@ -3,8 +3,11 @@ import axios from 'axios';
 import './AllOrders.css';
 import OrderDetails from '../OrderDetails/OrderDetails';
 import TrackingUpdate from '../TrackingUpdate/TrackingUpdate';
+import { useStore } from '../Context/Store';
 
 const AllOrders = () => {
+
+  const {API_BASE_URL}= useStore();
   const [orders, setOrders] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState('All');
@@ -17,7 +20,7 @@ const AllOrders = () => {
   const fetchOrders = async () => {
     setLoading(true);
     try {
-      const response = await axios.get('https://gangacollection-backend.onrender.com/allorders/all'); // Update with your backend URL
+      const response = await axios.get(`${API_BASE_URL}/allorders/all`); // Update with your backend URL
       setOrders(response.data);
       setLastUpdated(new Date().toLocaleString()); // Update last refreshed time
       setLoading(false);
