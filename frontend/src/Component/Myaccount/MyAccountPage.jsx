@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./MyAccountPage.css";
+import "./MyaccountPage.css";
 import OrderHistory from "../OrderHistory/OrderHistory";
 import ProfilePage from "../ProfilePage/ProfilePage";
 
