@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext,  useState, useEffect, useContext } from "react";
 import axios from "axios";
 
 // Define a constant for the API base URL
@@ -7,7 +7,7 @@ import axios from "axios";
 const StoreContext = createContext();
 
 // Custom Hook for accessing the store
-export const useStore = () => useContext(StoreContext);
+export const useStore = () => useContext(StoreContext)
 
 // Store Provider Component
 export const StoreProvider = ({ children }) => {

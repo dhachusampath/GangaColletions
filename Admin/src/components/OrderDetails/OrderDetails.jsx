@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './OrderDetails.css';
 import { useStore } from '../Context/Store';
 
-const {API_BASE_URL}=useStore();
 
 // Dummy function to simulate fetching product data by product ID (replace with actual data fetching logic)
 const fetchProductDetails = async (productId) => {
+  const {API_BASE_URL}=useStore();
   try {
     const response = await fetch(`${API_BASE_URL}/products/product/${productId}`);
     if (response.ok) {
