@@ -14,6 +14,8 @@ export const useStore = () => useContext(StoreContext);
 export const StoreProvider = ({ children }) => {
   const [userRole, setUserRole] = useState("retailer"); // Default to 'retailer'
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState();
   const categories = [
     { name: "All", subcategories: [] },
     { name: "Mugapu Thali chains", subcategories: [] },
