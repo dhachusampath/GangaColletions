@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require('fs');
 
 // Add a new product
-router.post('/add', upload.array('images', 5), async (req, res) => {
+router.post('/add', upload.array('newImages', 3), async (req, res) => {
   try {
     const {itemcode, name, description,polish, category, subcategory, costPrice, sizes } = req.body;
 
@@ -101,7 +101,7 @@ router.post('/add', upload.array('images', 5), async (req, res) => {
 //   }
 // });
 
-router.put('/update/:id', upload.array('newImages', 5), async (req, res) => {
+router.put('/update/:id', upload.array('newImages', 3), async (req, res) => {
   try {
     const {
       name,

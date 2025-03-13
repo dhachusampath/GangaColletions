@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./ProductManagement.css";
@@ -65,7 +65,7 @@ const categories = [
 ];
 
 const ProductManagement = () => {
-  const { products, setProducts, API_BASE_URL } = useStore();
+  const { products, setProducts, API_BASE_URL  } = useStore();
   const [newProduct, setNewProduct] = useState({
     itemcode: "",
     name: "",
@@ -104,6 +104,15 @@ const ProductManagement = () => {
       toast.success("Barcode scanned successfully!");
     }
   };
+
+  useEffect(() => {
+    axios.get(`${API_BASE_URL}/api/products`)
+      .then((res) => {
+        console.log("Fetched products:", res.data);
+        setProducts(res.data || []);  // Ensure it's always an array
+      })
+      .catch((error) => console.error("Error fetching products:", error));
+  }, []);
 
   // Toggle barcode scanner
   const toggleBarcodeScanner = (index) => {
