@@ -185,7 +185,7 @@ const ReviewSection = ({ productId }) => {
         <div className="media-viewer">
           <div className="media-overlay" onClick={() => setSelectedMedia(null)}></div>
           <div className="media-content">
-            <img src={`${url}/images/${selectedMedia.media}`} alt="Review Media" />
+            <img src={`${API_BASE_URL}/images/${selectedMedia.media}`} alt="Review Media" />
             <button className="close-button" onClick={() => setSelectedMedia(null)}>
               &times;
             </button>
