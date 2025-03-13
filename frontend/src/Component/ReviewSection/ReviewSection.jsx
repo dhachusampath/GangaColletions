@@ -146,7 +146,7 @@ const ReviewSection = ({ productId }) => {
                   {review.media.map((media, index) => (
                     <img
                       key={index}
-                      src={`${url}/images/${media}`}
+                      src={`${API_BASE_URL}/images/${media}`}
                       alt={`Review Media ${index}`}
                       onClick={() => setSelectedMedia({ media, index })}
                     />
