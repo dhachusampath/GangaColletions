@@ -21,6 +21,7 @@ const fetchProductDetails = async (productId) => {
 
 
 const OrderDetails = ({ order, onBack }) => {
+  const {API_BASE_URL}=useStore();
   const [orderDetails, setOrderDetails] = useState(order);
   const [productDetails, setProductDetails] = useState({});
 
