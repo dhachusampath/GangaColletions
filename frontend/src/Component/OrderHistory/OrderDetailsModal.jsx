@@ -3,7 +3,7 @@ import './OrderDetailsModal.css';
 import { useStore } from '../Context/Store';
 
 const OrderDetailsModal = ({ order, onClose }) => {
-  const {API_BASE_URL}=useStore();
+  const { API_BASE_URL} = useStore();
   return (
     <div className="order-details-modal">
       <div className="order-details-modal__content">
@@ -24,7 +24,7 @@ const OrderDetailsModal = ({ order, onClose }) => {
             {order.cartItems.map((item) => (
               <div key={item.productId} className="order-details-modal__item">
                 <img 
-                  src={`${API_BASE_URL}/api/images/${item.image}`} 
+                  src={`${API_BASE_URL}/images/${item.image}`} 
                   alt={item.productName} 
                   className="order-details-modal__item-image"
                 />
