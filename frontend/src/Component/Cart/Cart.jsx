@@ -6,7 +6,7 @@ import cartimg from "../../assets/empty-cart.png";
 import { useStore } from "../Context/Store";
 
 const Cart = ({setShowLogin}) => {
-  const { cart, url, updateQuantity, calculateSubtotal,removeFromCart } = useStore();
+  const { cart, API_BASE_URL, updateQuantity, calculateSubtotal,removeFromCart } = useStore();
   const [shippingCost, setShippingCost] = useState(0);
   const navigate = useNavigate();
 
@@ -57,7 +57,7 @@ const Cart = ({setShowLogin}) => {
           </div>
             {cart.map((item) => (
               <div className="cart-Item" key={item.id}>
-                <img src={`${url}/images/${item.image}`} alt={item.name} className="Product-Image" />
+                <img src={`${API_BASE_URL}/images/${item.image}`} alt={item.name} className="Product-Image" />
                 <div className="product-details">
                   <h2>{item.name}</h2>
                   <p>Variants: {item.size}</p>

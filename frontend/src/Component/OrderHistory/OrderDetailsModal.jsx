@@ -2,8 +2,8 @@ import React from 'react';
 import './OrderDetailsModal.css';
 import { useStore } from '../Context/Store';
 
-const {API_BASE_URL}=useStore();
 const OrderDetailsModal = ({ order, onClose }) => {
+  const {API_BASE_URL}=useStore();
   return (
     <div className="order-details-modal">
       <div className="order-details-modal__content">

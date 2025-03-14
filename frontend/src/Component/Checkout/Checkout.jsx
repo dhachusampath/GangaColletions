@@ -6,11 +6,11 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 
 const Checkout = () => {
-  const { state ,API_BASE_URL} = useLocation();
+  const { state} = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  const {url,userId ,setCart }=useStore();
+  const {API_BASE_URL,userId ,setCart }=useStore();
   const cartItems = state?.cartItems || []; // Fallback to an empty array if no data
   const [useSameAddress, setUseSameAddress] = useState(true);
   const [deliveryCharge, setDeliveryCharge] = useState(80); // Default charge
@@ -652,7 +652,7 @@ const Checkout = () => {
               {cartItems.map((item) => (
               <div className="order-item">
                 <img
-                  src={`${url}/images/${item.image}`}
+                  src={`${API_BASE_URL}/images/${item.image}`}
                   alt={item.name}
                   className="order-item-image"
                 />
