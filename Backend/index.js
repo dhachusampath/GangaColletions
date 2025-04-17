@@ -45,6 +45,11 @@ mongoose.connect(process.env.MONGO_URI,{
 });
 
 // Multer configuration for file upload
+// for JSON
+app.use(express.json({ limit: '50mb' }));
+
+// for form-data (file uploads)
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
 // Routes
 app.use('/api/auth', authRoutes);
