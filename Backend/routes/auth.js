@@ -6,6 +6,8 @@ const User = require("../models/User");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs"); // File system module to handle file deletion
+const dotenv = require('dotenv');
+dotenv.config();
 
 const router = express.Router();
 const JWT_SECRET = process.env.JWT_SECRET;

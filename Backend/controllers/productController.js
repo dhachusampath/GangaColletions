@@ -6,100 +6,51 @@ const path = require("path");
 const fs = require('fs');
 
 // Add a new product
-router.post('/add', upload.array('newImages', 3), async (req, res) => {
+router.post('/add', upload.array('newImages', 100), async (req, res) => {
   try {
-    const {itemcode, name, description,polish, category, subcategory, costPrice, sizes } = req.body;
+    const products = JSON.parse(req.body.products); // assuming products come as JSON string in one field
+    const files = req.files || [];
 
-    // Save only the file name instead of the full path
-    const images = req.files ? req.files.map(file => file.filename) : [];
-
-    const newProduct = new Product({
-      itemcode,
-      name,
-      description,
-      category,
-      subcategory,
-      polish,
-      costPrice,
-      images,
-      sizes: JSON.parse(sizes),
+    // Create a map of uploaded image filenames by fieldname or a naming convention
+    const imageMap = {};
+    files.forEach(file => {
+      // assuming fieldname follows product index like newImages_0, newImages_1, etc.
+      const match = file.fieldname.match(/newImages_(\d+)/);
+      if (match) {
+        const index = match[1];
+        if (!imageMap[index]) imageMap[index] = [];
+        imageMap[index].push(file.filename);
+      }
     });
 
-    await newProduct.save();
-    res.status(201).json({ message: 'Product added successfully', product: newProduct });
+    const bulkOps = products.map((product, index) => {
+      const { itemcode, name, description, category, subcategory, polish, costPrice, sizes } = product;
+      return {
+        insertOne: {
+          document: {
+            itemcode,
+            name,
+            description,
+            category,
+            subcategory,
+            polish,
+            costPrice,
+            images: imageMap[index] || [],
+            sizes: typeof sizes === 'string' ? JSON.parse(sizes) : sizes,
+          }
+        }
+      };
+    });
+
+    await Product.bulkWrite(bulkOps);
+    res.status(201).json({ message: 'Products added successfully' });
   } catch (error) {
+    console.error(error);
     res.status(400).json({ message: error.message });
   }
 });
 
-// router.put('/update/:id', upload.array('images', 5), async (req, res) => {
-//   try {
-//     const { 
-//       name, 
-//       description, 
-//       category, 
-//       polish, 
-//       subcategory, 
-//       costPrice, 
-//       sizes, 
-//       existingImages 
-//     } = req.body;
 
-//     // Parse the existing images from the request body
-//     const existingImagesList = existingImages ? JSON.parse(existingImages) : [];
-
-//     // Get the new images uploaded in the request
-//     const newImages = req.files ? req.files.map(file => file.filename) : [];
-
-//     // Combine the existing images and new images
-//     const updatedImages = [...existingImagesList, ...newImages];
-
-//     // Find images to delete (images in the existingImages but not in updatedImages)
-//     const imagesToDelete = existingImagesList.filter(img => !updatedImages.includes(img));
-
-//     // Delete the unnecessary images from the upload folder
-//     imagesToDelete.forEach((image) => {
-//       const imagePath = path.join(__dirname, 'path/to/upload/folder', image); // Replace with your upload folder path
-//       if (fs.existsSync(imagePath)) {
-//         fs.unlink(imagePath, (err) => {
-//           if (err) {
-//             console.error(`Error deleting image: ${image}`, err);
-//           } else {
-//             console.log(`Deleted image: ${image}`);
-//           }
-//         });
-//       }
-//     });
-
-//     // Update the product with the new details
-//     const updatedProduct = await Product.findByIdAndUpdate(
-//       req.params.id,
-//       {
-//         name,
-//         description,
-//         category,
-//         subcategory,
-//         costPrice,
-//         polish,
-//         images: updatedImages, // Save the merged list of images
-//         sizes: sizes ? JSON.parse(sizes) : [], // Parse sizes if provided
-//       },
-//       { new: true } // Return the updated product
-//     );
-
-//     if (!updatedProduct) {
-//       return res.status(404).json({ message: 'Product not found' });
-//     }
-
-//     res.status(200).json({
-//       message: 'Product updated successfully',
-//       product: updatedProduct,
-//     });
-//   } catch (error) {
-//     console.error('Error updating product:', error);
-//     res.status(500).json({ message: 'Failed to update product', error: error.message });
-//   }
-// });
 
 router.put('/update/:id', upload.array('newImages', 3), async (req, res) => {
   try {
