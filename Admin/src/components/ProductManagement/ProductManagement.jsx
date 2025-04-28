@@ -9,6 +9,8 @@ import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton";
 
 const categories = [
   { name: "Mugapu Thali chains", subcategories: [] },
+  { name: "BRACELETS & KADA", subcategories: [] },
+  { name: "DOLLAR CHAINS", subcategories: [] },
   {
     name: "Impon jewelleries",
     subcategories: [
@@ -63,9 +65,9 @@ const categories = [
   { name: "Combo offer sets", subcategories: [] },
   { name: "Hipbelts", subcategories: [] },
 ];
-
+const API_BASE_URL ="http://localhost:5000/api"
 const ProductManagement = () => {
-  const { products, setProducts, API_BASE_URL  } = useStore();
+  const { products, setProducts,   } = useStore();
   const [newProduct, setNewProduct] = useState({
     itemcode: "",
     name: "",
