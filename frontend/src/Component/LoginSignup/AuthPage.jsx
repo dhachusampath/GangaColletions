@@ -136,5 +136,4 @@ const AuthPage = ({ setShowLogin }) => {
   );
 };
 
-
 export default AuthPage;

@@ -25,6 +25,8 @@ const Header = ({ setShowLogin }) => {
 
   const categories = [
     { name: "Mugapu Thali chains", subcategories: [] },
+    { name: "BRACELETS & KADA", subcategories: [] },
+    { name: "DOLLAR CHAINS", subcategories: [] },
     {
       name: "Impon jewelleries",
       subcategories: [
