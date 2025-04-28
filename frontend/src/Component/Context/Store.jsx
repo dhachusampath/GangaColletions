@@ -19,6 +19,8 @@ export const StoreProvider = ({ children }) => {
   const categories = [
     { name: "All", subcategories: [] },
     { name: "Mugapu Thali chains", subcategories: [] },
+    { name: "BRACELETS & KADA", subcategories: [] },
+    { name: "DOLLAR CHAINS", subcategories: [] },
     {
       name: "Impon jewelleries",
       subcategories: [
