@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./ProductManagement.css";
-import BarcodeScannerComponent from "react-qr-barcode-scanner";
 import axios from "axios";
 import { useStore } from "../Context/Store";
 import ScrollToTopButton from "../ScrollToTopButton/ScrollToTopButton";
+import BarcodeScannerComponent from "react-qr-barcode-scanner";
+import { FiEdit, FiTrash2, FiPlus, FiX, FiSearch, FiCamera } from "react-icons/fi";
+import { FaBarcode } from "react-icons/fa";
+import "./ProductManagement.css"
 
 const categories = [
   { name: "Mugapu Thali chains", subcategories: [] },
@@ -65,9 +67,10 @@ const categories = [
   { name: "Combo offer sets", subcategories: [] },
   { name: "Hipbelts", subcategories: [] },
 ];
-const API_BASE_URL ="http://localhost:5000/api"
+
+
 const ProductManagement = () => {
-  const { products, setProducts,   } = useStore();
+  const { products, setProducts ,API_BASE_URL } = useStore();
   const [newProduct, setNewProduct] = useState({
     itemcode: "",
     name: "",
@@ -79,7 +82,7 @@ const ProductManagement = () => {
     images: [],
     sizes: [],
   });
-  const [newImageFiles, setNewImageFiles] = useState([]); // Track newly uploaded files
+  const [newImageFiles, setNewImageFiles] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
@@ -90,8 +93,8 @@ const ProductManagement = () => {
   const [sizeIndexToScan, setSizeIndexToScan] = useState(null);
   const [deletedImages, setDeletedImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState("details");
 
-  // Handle barcode scan
   const handleBarcodeScan = (err, result) => {
     if (result) {
       setNewProduct((prevProduct) => {
@@ -108,51 +111,40 @@ const ProductManagement = () => {
   };
 
   useEffect(() => {
-    axios.get(`${API_BASE_URL}/api/products`)
+    axios.get(`${API_BASE_URL}/products`)
       .then((res) => {
-        console.log("Fetched products:", res.data);
-        setProducts(res.data || []);  // Ensure it's always an array
+        setProducts(res.data || []);
       })
       .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
-  // Toggle barcode scanner
   const toggleBarcodeScanner = (index) => {
     setIsBarcodeScanning(!isBarcodeScanning);
     setSizeIndexToScan(index);
   };
 
-  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNewProduct((prevProduct) => {
-      console.log("Preserving images during input change:", prevProduct.images); // Debugging
-      return {
-        ...prevProduct,
-        [name]: value,
-        images: prevProduct.images, // Preserve the images array
-      };
-    });
+    setNewProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+      images: prevProduct.images,
+    }));
     setErrors({ ...errors, [name]: !value });
   };
 
-  // Handle category change
   const handleCategoryChange = (e) => {
     const selectedCategory = e.target.value;
     const category = categories.find((cat) => cat.name === selectedCategory);
-    setNewProduct((prevProduct) => {
-      console.log("Preserving images during category change:", prevProduct.images); // Debugging
-      return {
-        ...prevProduct,
-        category: selectedCategory,
-        subcategory: "",
-        images: prevProduct.images, // Preserve the images array
-      };
-    });
+    setNewProduct((prevProduct) => ({
+      ...prevProduct,
+      category: selectedCategory,
+      subcategory: "",
+      images: prevProduct.images,
+    }));
     setSubcategories(category ? category.subcategories : []);
   };
 
-  // Handle image upload
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     if (files.length === 0) {
@@ -160,67 +152,49 @@ const ProductManagement = () => {
       return;
     }
   
-    // Store the new files in the state
     setNewImageFiles(files);
-  
-    // Create temporary URLs for preview
     const imageUrls = files.map((file) => URL.createObjectURL(file));
   
-    // Append new image URLs to the existing images
-    setNewProduct((prevProduct) => {
-      console.log("Preserving images during image upload:", prevProduct.images); // Debugging
-      return {
-        ...prevProduct,
-        images: [...prevProduct.images, ...imageUrls], // Preserve existing images
-      };
-    });
+    setNewProduct((prevProduct) => ({
+      ...prevProduct,
+      images: [...prevProduct.images, ...imageUrls],
+    }));
   
     setErrors({ ...errors, images: false });
   };
 
-  // Add size
   const addSize = () => {
-    setNewProduct((prevProduct) => {
-      console.log("Preserving images during add size:", prevProduct.images); // Debugging
-      return {
-        ...prevProduct,
-        sizes: [
-          ...prevProduct.sizes,
-          { size: "", barcode: "", retailPrice: "", wholesalePrice: "", stock: "", thresholdStock: "" },
-        ],
-        images: prevProduct.images, // Preserve the images array
-      };
-    });
+    setNewProduct((prevProduct) => ({
+      ...prevProduct,
+      sizes: [
+        ...prevProduct.sizes,
+        { size: "", barcode: "", retailPrice: "", wholesalePrice: "", stock: "", thresholdStock: "" },
+      ],
+      images: prevProduct.images,
+    }));
   };
   
   const removeSize = (index) => {
-    setNewProduct((prevProduct) => {
-      console.log("Preserving images during remove size:", prevProduct.images); // Debugging
-      return {
-        ...prevProduct,
-        sizes: prevProduct.sizes.filter((_, i) => i !== index),
-        images: prevProduct.images, // Preserve the images array
-      };
-    });
+    setNewProduct((prevProduct) => ({
+      ...prevProduct,
+      sizes: prevProduct.sizes.filter((_, i) => i !== index),
+      images: prevProduct.images,
+    }));
   };
-  
 
-  // Update size
   const updateSize = (index, key, value) => {
     setNewProduct((prevProduct) => {
-      console.log("Preserving images during size update:", prevProduct.images); // Debugging
       const updatedSizes = prevProduct.sizes.map((size, i) =>
         i === index ? { ...size, [key]: value } : size
       );
       return {
         ...prevProduct,
         sizes: updatedSizes,
-        images: prevProduct.images, // Preserve the images array
+        images: prevProduct.images,
       };
     });
   };
 
-  // Validate form
   const validateForm = () => {
     const newErrors = {};
     let isValid = true;
@@ -241,27 +215,22 @@ const ProductManagement = () => {
     return isValid;
   };
 
-  // Delete an image
   const handleDeleteImage = (image) => {
     if (image.startsWith("blob:")) {
-      // Remove the image from the newImageFiles array
       const updatedNewImageFiles = newImageFiles.filter(
         (file) => URL.createObjectURL(file) !== image
       );
       setNewImageFiles(updatedNewImageFiles);
     } else {
-      // Add the deleted image to the deletedImages array
       setDeletedImages((prev) => [...prev, image]);
     }
   
-    // Remove the image from the current product's images
     setNewProduct((prevProduct) => ({
       ...prevProduct,
       images: prevProduct.images.filter((img) => img !== image),
     }));
   };
 
-  // Delete all images
   const handleDeleteAllImages = () => {
     setDeletedImages((prev) => [...prev, ...newProduct.images]);
     setNewProduct((prevProduct) => ({
@@ -271,7 +240,6 @@ const ProductManagement = () => {
     setNewImageFiles([]);
   };
 
-  // Save product
   const handleSaveProduct = async () => {
     if (!validateForm()) {
       toast.error("Please fill all required fields.");
@@ -290,21 +258,18 @@ const ProductManagement = () => {
     formData.append("costPrice", newProduct.costPrice);
     formData.append("sizes", JSON.stringify(newProduct.sizes));
   
-    // Preserve existing images
-    let existingImages = newProduct.images?.filter((img) => img.startsWith("http") || img.endsWith(".png") || img.endsWith(".jpg"));
+    let existingImages = newProduct.images?.filter((img) => 
+      img.startsWith("http") || img.endsWith(".png") || img.endsWith(".jpg")
+    );
     
     if (existingImages.length > 0) {
-      console.log("Existing Images Preserved:", existingImages);
       formData.append("existingImages", JSON.stringify(existingImages));
     }
   
-    // Append new image files (uploaded images)
     if (newImageFiles && newImageFiles.length > 0) {
       newImageFiles.forEach((file) => formData.append("newImages", file));
-      console.log("New Images Added:", newImageFiles);
     }
   
-    // Append deleted images (images to be removed)
     if (deletedImages && deletedImages.length > 0) {
       formData.append("deletedImages", JSON.stringify(deletedImages));
     }
@@ -316,9 +281,7 @@ const ProductManagement = () => {
         response = await axios.put(
           `${API_BASE_URL}/products/update/${products[editIndex]._id}`,
           formData,
-          {
-            headers: { "Content-Type": "multipart/form-data" },
-          }
+          { headers: { "Content-Type": "multipart/form-data" } }
         );
       } else {
         response = await axios.post(`${API_BASE_URL}/products/add`, formData, {
@@ -342,41 +305,32 @@ const ProductManagement = () => {
     }
   };
   
-  
-
-  // Edit product
   const handleEditProduct = (index) => {
     const productToEdit = products[index];
-  
     setIsEditing(true);
     setEditIndex(index);
-  
     setNewProduct({
       ...productToEdit,
-      images: productToEdit.images ? [...productToEdit.images] : [], // Preserve existing images
+      images: productToEdit.images ? [...productToEdit.images] : [],
     });
-  
-    console.log("Preserving images during edit:", productToEdit.images); // Debugging
     setShowModal(true);
   };
   
-  
-
-  // Delete product
   const handleDeleteProduct = async (index) => {
-    try {
-      const productId = products[index]._id;
-      const response = await axios.delete(`${API_BASE_URL}/products/delete/${productId}`);
-      if (response.data) {
-        toast.success("Product deleted successfully");
-        setProducts(products.filter((_, i) => i !== index));
+    if (window.confirm("Are you sure you want to delete this product?")) {
+      try {
+        const productId = products[index]._id;
+        const response = await axios.delete(`${API_BASE_URL}/products/delete/${productId}`);
+        if (response.data) {
+          toast.success("Product deleted successfully");
+          setProducts(products.filter((_, i) => i !== index));
+        }
+      } catch (error) {
+        toast.error(`Error: ${error.response?.data?.message || error.message}`);
       }
-    } catch (error) {
-      toast.error(`Error: ${error.response?.data?.message || error.message}`);
     }
   };
 
-  // Reset form
   const resetForm = () => {
     setNewProduct({
       itemcode: "",
@@ -394,284 +348,504 @@ const ProductManagement = () => {
     setEditIndex(null);
     setShowModal(false);
     setErrors({});
+    setActiveTab("details");
   };
 
-  // Filter products based on search term
   const filteredProducts = products.filter((product) =>
     [product.name, product.itemcode, product.barcode, product.category, product.subCategory]
       .some((field) => field?.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (
-    <div className="pm-container">
-      <header className="pm-header">
-        <h1 className="pm-title">Product Management</h1>
-        <div className="pm-header-actions">
-          <input
-            className={`pm-search-input ${errors.searchTerm ? "pm-input-error" : ""}`}
-            type="text"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+    <div className="jewel-admin-container">
+      <div className="jewel-admin-header">
+        <h1 className="jewel-admin-title">Product Inventory</h1>
+        <div className="jewel-admin-actions">
+          <div className="jewel-search-box">
+            <FiSearch className="jewel-search-icon" />
+            <input
+              type="text"
+              placeholder="Search products..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="jewel-search-input"
+            />
+          </div>
           <button
-            className="pm-add-product-btn"
+            className="jewel-primary-btn"
             onClick={() => setShowModal(true)}
           >
-            Add Product
+            <FiPlus className="jewel-btn-icon" /> Add Product
           </button>
         </div>
-      </header>
+      </div>
 
-      <table className="pm-product-table">
-        <thead>
-          <tr>
-            <th>Item Code</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Variants</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredProducts.map((product, index) => (
-            <tr key={index}>
-              <td>{product.itemcode}</td>
-              <td>{product.name}</td>
-              <td>{product.category}</td>
-              <td>
-                {product.sizes.map((size, idx) => (
-                  <div key={idx}>
-                    {size.size} - {size.stock} in stock
-                  </div>
-                ))}
-              </td>
-              <td>
-                <button
-                  className="pm-edit-btn"
-                  onClick={() => handleEditProduct(index)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="pm-delete-btn"
-                  onClick={() => handleDeleteProduct(index)}
-                >
-                  Delete
-                </button>
-              </td>
+      <div className="jewel-product-table-container">
+        <table className="jewel-product-table">
+          <thead>
+            <tr>
+              <th>Item Code</th>
+              <th>Product Name</th>
+              <th>Category</th>
+              <th>Variants</th>
+              <th>Stock Status</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredProducts.length > 0 ? (
+              filteredProducts.map((product, index) => (
+                <tr key={index}>
+                  <td className="jewel-code-cell">{product.itemcode}</td>
+                  <td className="jewel-name-cell">
+                    {product.images?.length > 0 && (
+                      <img 
+                        src={`${API_BASE_URL}/images/${product.images[0]}`} 
+                        alt={product.name} 
+                        className="jewel-product-thumb"
+                      />
+                    )}
+                    {product.name}
+                  </td>
+                  <td>
+                    <div className="jewel-category-badge">
+                      {product.category}
+                      {product.subcategory && (
+                        <span className="jewel-subcategory-badge">{product.subcategory}</span>
+                      )}
+                    </div>
+                  </td>
+                  <td>
+                    <div className="jewel-variants-list">
+                      {product.sizes.map((size, idx) => (
+                        <div key={idx} className="jewel-variant-item">
+                          <span className="jewel-variant-size">{size.size}</span>
+                          {size.barcode && (
+                            <span className="jewel-variant-barcode">{size.barcode}</span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </td>
+                  <td>
+                    {product.sizes.map((size, idx) => (
+                      <div key={idx} className="jewel-stock-indicator">
+                        <div className={`jewel-stock-level ${
+                          size.stock <= 0 ? 'jewel-out-of-stock' : 
+                          size.stock <= size.thresholdStock ? 'jewel-low-stock' : 'jewel-in-stock'
+                        }`}>
+                          {size.stock <= 0 ? 'Out of stock' : 
+                           size.stock <= size.thresholdStock ? 'Low stock' : 'In stock'}
+                        </div>
+                      </div>
+                    ))}
+                  </td>
+                  <td>
+                    <div className="jewel-action-buttons">
+                      <button
+                        className="jewel-edit-btn"
+                        onClick={() => handleEditProduct(index)}
+                      >
+                        <FiEdit />
+                      </button>
+                      <button
+                        className="jewel-delete-btn"
+                        onClick={() => handleDeleteProduct(index)}
+                      >
+                        <FiTrash2 />
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="jewel-no-products">
+                  No products found. Add your first product!
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
       {showModal && (
-        <div className="pm-modal">
-          <div className="pm-modal-content">
-            <h2>{isEditing ? "Edit Product" : "Add Product"}</h2>
-            <input
-              type="text"
-              name="itemcode"
-              placeholder="Item Code"
-              className={`pm-input ${errors.itemcode ? "pm-input-error" : ""}`}
-              value={newProduct.itemcode}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="name"
-              placeholder="Name"
-              className={`pm-input ${errors.name ? "pm-input-error" : ""}`}
-              value={newProduct.name}
-              onChange={handleInputChange}
-            />
-            <textarea
-              name="description"
-              placeholder="Description"
-              className={`pm-textarea ${errors.description ? "pm-input-error" : ""}`}
-              value={newProduct.description}
-              onChange={handleInputChange}
-            />
-            <input
-              type="text"
-              name="polish"
-              placeholder="Polish"
-              className={`pm-input ${errors.polish ? "pm-input-error" : ""}`}
-              value={newProduct.polish}
-              onChange={handleInputChange}
-            />
-            <select
-              name="category"
-              className={`pm-input ${errors.category ? "pm-input-error" : ""}`}
-              value={newProduct.category}
-              onChange={handleCategoryChange}
-            >
-              <option value="">Select Category</option>
-              {categories.map((cat) => (
-                <option key={cat.name} value={cat.name}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-
-            {subcategories.length > 0 && (
-              <select
-                name="subcategory"
-                className="pm-input"
-                value={newProduct.subcategory}
-                onChange={handleInputChange}
+        <div className="jewel-modal-overlay">
+          <div className="jewel-modal">
+            <div className="jewel-modal-header">
+              <h2>{isEditing ? "Edit Product" : "Add New Product"}</h2>
+              <button className="jewel-modal-close" onClick={resetForm}>
+                <FiX />
+              </button>
+            </div>
+            
+            <div className="jewel-modal-tabs">
+              <button 
+                className={`jewel-tab ${activeTab === "details" ? "active" : ""}`}
+                onClick={() => setActiveTab("details")}
               >
-                <option value="">Select Subcategory</option>
-                {subcategories.map((subcat, index) => (
-                  <option key={index} value={subcat}>
-                    {subcat}
-                  </option>
-                ))}
-              </select>
-            )}
-            <input
-              type="number"
-              name="costPrice"
-              placeholder="Cost Price"
-              className={`pm-input ${errors.costPrice ? "pm-input-error" : ""}`}
-              value={newProduct.costPrice}
-              onChange={handleInputChange}
-            />
-
-            <h3>Upload Images</h3>
-            <input
-              type="file"
-              multiple
-              className={`pm-image-input ${errors.images ? "pm-input-error" : ""}`}
-              onChange={handleImageUpload}
-              accept="image/*"
-            />
-            {newProduct.images.length > 0 && (
-              <div className="pm-image-preview">
-                <h4>Uploaded Images:</h4>
-                {newProduct.images.map((image, index) => (
-                  <div key={index} className="pm-image-item">
-                    <img
-                      src={image.startsWith("blob:") ? image : `${API_BASE_URL}/images/${image}`}
-                      alt={`Product Image ${index + 1}`}
-                      className="pm-image-thumbnail"
+                Product Details
+              </button>
+              <button 
+                className={`jewel-tab ${activeTab === "variants" ? "active" : ""}`}
+                onClick={() => setActiveTab("variants")}
+                disabled={!newProduct.itemcode}
+              >
+                Variants & Pricing
+              </button>
+              <button 
+                className={`jewel-tab ${activeTab === "images" ? "active" : ""}`}
+                onClick={() => setActiveTab("images")}
+                disabled={!newProduct.itemcode}
+              >
+                Images
+              </button>
+            </div>
+            
+            <div className="jewel-modal-body">
+              {activeTab === "details" && (
+                <div className="jewel-form-section">
+                  <div className="jewel-form-group">
+                    <label className="jewel-form-label">Item Code*</label>
+                    <input
+                      type="text"
+                      name="itemcode"
+                      placeholder="Enter unique item code"
+                      className={`jewel-form-input ${errors.itemcode ? "error" : ""}`}
+                      value={newProduct.itemcode}
+                      onChange={handleInputChange}
                     />
-                    {/* <button
-                      className="pm-remove-image-btn"
-                      type="button"
-                      onClick={() => handleDeleteImage(image)}
-                    >
-                      Delete
-                    </button> */}
+                    {errors.itemcode && <span className="jewel-error-message">Item code is required</span>}
                   </div>
-                ))}
-                <button
-                  className="pm-delete-all-images-btn"
-                  type="button"
-                  onClick={handleDeleteAllImages}
-                >
-                  Delete Images
-                </button>
-              </div>
-            )}
-
-            <h3>Variants</h3>
-            <button className="pm-add-size-btn" onClick={addSize}>
-              Add Variants
-            </button>
-            {newProduct.sizes.map((size, index) => (
-              <div key={index} className="pm-size-entry">
-                <div className="pm-serial-number">{index + 1}</div>
-                <input
-                  type="text"
-                  placeholder="Size or Color"
-                  className="pm-size-input"
-                  value={size.size}
-                  onChange={(e) => updateSize(index, "size", e.target.value)}
-                />
-                <input
-                  type="text"
-                  placeholder="Barcode"
-                  id={`barcode-${index}`}
-                  className="pm-size-input"
-                  value={size.barcode}
-                  onChange={(e) => updateSize(index, "barcode", e.target.value)}
-                />
-                <button
-                  className="pm-remove-size-btn"
-                  onClick={() => toggleBarcodeScanner(index)}
-                >
-                  {isBarcodeScanning && sizeIndexToScan === index
-                    ? "Stop Scanning"
-                    : "Scan Barcode"}
-                </button>
-                {isBarcodeScanning && (
-                  <BarcodeScannerComponent
-                    onUpdate={handleBarcodeScan}
-                    width={300}
-                    height={200}
-                  />
-                )}
-                <input
-                  type="number"
-                  placeholder="Retail Price"
-                  className="pm-size-input"
-                  value={size.retailPrice}
-                  onChange={(e) => updateSize(index, "retailPrice", e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Wholesale Price"
-                  className="pm-size-input"
-                  value={size.wholesalePrice}
-                  onChange={(e) => updateSize(index, "wholesalePrice", e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Stock"
-                  className="pm-size-input"
-                  value={size.stock}
-                  onChange={(e) => updateSize(index, "stock", e.target.value)}
-                />
-                <input
-                  type="number"
-                  placeholder="Threshold Stock"
-                  className="pm-size-input"
-                  value={size.thresholdStock}
-                  onChange={(e) => updateSize(index, "thresholdStock", e.target.value)}
-                />
-                <button
-                  className="pm-remove-size-btn"
-                  onClick={() => removeSize(index)}
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
-
-            <button
-              className="pm-save-btn"
-              onClick={handleSaveProduct}
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <span className="pm-loading-spinner"></span> Processing...
-                </>
-              ) : isEditing ? (
-                "Update Product"
-              ) : (
-                "Add Product"
+                  
+                  <div className="jewel-form-group">
+                    <label className="jewel-form-label">Product Name*</label>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Enter product name"
+                      className={`jewel-form-input ${errors.name ? "error" : ""}`}
+                      value={newProduct.name}
+                      onChange={handleInputChange}
+                    />
+                    {errors.name && <span className="jewel-error-message">Name is required</span>}
+                  </div>
+                  
+                  <div className="jewel-form-group">
+                    <label className="jewel-form-label">Description*</label>
+                    <textarea
+                      name="description"
+                      placeholder="Enter product description"
+                      className={`jewel-form-textarea ${errors.description ? "error" : ""}`}
+                      value={newProduct.description}
+                      onChange={handleInputChange}
+                      rows="3"
+                    />
+                    {errors.description && <span className="jewel-error-message">Description is required</span>}
+                  </div>
+                  
+                  <div className="jewel-form-group">
+                    <label className="jewel-form-label">Polish Type*</label>
+                    <input
+                      type="text"
+                      name="polish"
+                      placeholder="Enter polish type"
+                      className={`jewel-form-input ${errors.polish ? "error" : ""}`}
+                      value={newProduct.polish}
+                      onChange={handleInputChange}
+                    />
+                    {errors.polish && <span className="jewel-error-message">Polish is required</span>}
+                  </div>
+                  
+                  <div className="jewel-form-row">
+                    <div className="jewel-form-group jewel-form-col">
+                      <label className="jewel-form-label">Category*</label>
+                      <select
+                        name="category"
+                        className={`jewel-form-select ${errors.category ? "error" : ""}`}
+                        value={newProduct.category}
+                        onChange={handleCategoryChange}
+                      >
+                        <option value="">Select Category</option>
+                        {categories.map((cat) => (
+                          <option key={cat.name} value={cat.name}>
+                            {cat.name}
+                          </option>
+                        ))}
+                      </select>
+                      {errors.category && <span className="jewel-error-message">Category is required</span>}
+                    </div>
+                    
+                    {subcategories.length > 0 && (
+                      <div className="jewel-form-group jewel-form-col">
+                        <label className="jewel-form-label">Subcategory</label>
+                        <select
+                          name="subcategory"
+                          className="jewel-form-select"
+                          value={newProduct.subcategory}
+                          onChange={handleInputChange}
+                        >
+                          <option value="">Select Subcategory</option>
+                          {subcategories.map((subcat, index) => (
+                            <option key={index} value={subcat}>
+                              {subcat}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    )}
+                  </div>
+                  
+                  <div className="jewel-form-group">
+                    <label className="jewel-form-label">Cost Price (₹)</label>
+                    <input
+                      type="number"
+                      name="costPrice"
+                      placeholder="Enter cost price"
+                      className="jewel-form-input"
+                      value={newProduct.costPrice}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
               )}
-            </button>
-            <button className="pm-cancel-btn" onClick={resetForm}>
-              Cancel
-            </button>
+              
+              {activeTab === "variants" && (
+                <div className="jewel-form-section">
+                  <div className="jewel-variants-header">
+                    <h3>Product Variants</h3>
+                    <button className="jewel-add-variant-btn" onClick={addSize}>
+                      <FiPlus /> Add Variant
+                    </button>
+                  </div>
+                  
+                  {newProduct.sizes.length === 0 ? (
+                    <div className="jewel-no-variants">
+                      <p>No variants added yet. Add your first variant!</p>
+                    </div>
+                  ) : (
+                    <div className="jewel-variants-container">
+                      {newProduct.sizes.map((size, index) => (
+                        <div key={index} className="jewel-variant-card">
+                          <div className="jewel-variant-header">
+                            <span className="jewel-variant-number">Variant #{index + 1}</span>
+                            <button 
+                              className="jewel-remove-variant-btn"
+                              onClick={() => removeSize(index)}
+                            >
+                              <FiX />
+                            </button>
+                          </div>
+                          
+                          <div className="jewel-variant-form">
+                            <div className="jewel-form-group">
+                              <label className="jewel-form-label">Size/Color</label>
+                              <input
+                                type="text"
+                                placeholder="e.g., Small, Gold, etc."
+                                className="jewel-form-input"
+                                value={size.size}
+                                onChange={(e) => updateSize(index, "size", e.target.value)}
+                              />
+                            </div>
+                            
+                            <div className="jewel-form-group">
+                              <label className="jewel-form-label">Barcode</label>
+                              <div className="jewel-barcode-input-group">
+                                <input
+                                  type="text"
+                                  placeholder="Scan or enter barcode"
+                                  className="jewel-form-input"
+                                  value={size.barcode}
+                                  onChange={(e) => updateSize(index, "barcode", e.target.value)}
+                                />
+                                <button
+                                  className="jewel-scan-btn"
+                                  onClick={() => toggleBarcodeScanner(index)}
+                                >
+                                  <FaBarcode />
+                                </button>
+                              </div>
+                            </div>
+                            
+                            <div className="jewel-form-row">
+                              <div className="jewel-form-group jewel-form-col">
+                                <label className="jewel-form-label">Retail Price (₹)</label>
+                                <input
+                                  type="number"
+                                  placeholder="Retail price"
+                                  className="jewel-form-input"
+                                  value={size.retailPrice}
+                                  onChange={(e) => updateSize(index, "retailPrice", e.target.value)}
+                                />
+                              </div>
+                              
+                              <div className="jewel-form-group jewel-form-col">
+                                <label className="jewel-form-label">Wholesale Price (₹)</label>
+                                <input
+                                  type="number"
+                                  placeholder="Wholesale price"
+                                  className="jewel-form-input"
+                                  value={size.wholesalePrice}
+                                  onChange={(e) => updateSize(index, "wholesalePrice", e.target.value)}
+                                />
+                              </div>
+                            </div>
+                            
+                            <div className="jewel-form-row">
+                              <div className="jewel-form-group jewel-form-col">
+                                <label className="jewel-form-label">Current Stock</label>
+                                <input
+                                  type="number"
+                                  placeholder="Available quantity"
+                                  className="jewel-form-input"
+                                  value={size.stock}
+                                  onChange={(e) => updateSize(index, "stock", e.target.value)}
+                                />
+                              </div>
+                              
+                              <div className="jewel-form-group jewel-form-col">
+                                <label className="jewel-form-label">Low Stock Threshold</label>
+                                <input
+                                  type="number"
+                                  placeholder="Minimum stock level"
+                                  className="jewel-form-input"
+                                  value={size.thresholdStock}
+                                  onChange={(e) => updateSize(index, "thresholdStock", e.target.value)}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {isBarcodeScanning && (
+                    <div className="jewel-barcode-scanner-modal">
+                      <div className="jewel-barcode-scanner-container">
+                        <h4>Scan Barcode</h4>
+                        <BarcodeScannerComponent
+                          onUpdate={handleBarcodeScan}
+                          width={400}
+                          height={300}
+                        />
+                        <button
+                          className="jewel-secondary-btn"
+                          onClick={() => setIsBarcodeScanning(false)}
+                        >
+                          Cancel Scanning
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+              
+              {activeTab === "images" && (
+                <div className="jewel-form-section">
+                  <div className="jewel-images-upload">
+                    <label className="jewel-image-upload-label">
+                      <input
+                        type="file"
+                        multiple
+                        onChange={handleImageUpload}
+                        accept="image/*"
+                        className="jewel-image-upload-input"
+                      />
+                      <div className={`jewel-image-upload-box ${errors.images ? "error" : ""}`}>
+                        <FiCamera className="jewel-upload-icon" />
+                        <span>Click to upload images or drag and drop</span>
+                        <span className="jewel-upload-hint">PNG, JPG up to 5MB</span>
+                      </div>
+                    </label>
+                    {errors.images && <span className="jewel-error-message">At least one image is required</span>}
+                  </div>
+                  
+                  {newProduct.images.length > 0 && (
+                    <div className="jewel-images-preview">
+                      <div className="jewel-images-header">
+                        <h4>Product Images ({newProduct.images.length})</h4>
+                        <button
+                          className="jewel-text-btn danger"
+                          onClick={handleDeleteAllImages}
+                        >
+                          Remove All
+                        </button>
+                      </div>
+                      
+                      <div className="jewel-images-grid">
+                        {newProduct.images.map((image, index) => (
+                          <div key={index} className="jewel-image-item">
+                            <img
+                              src={image.startsWith("blob:") ? image : `${API_BASE_URL}/images/${image}`}
+                              alt={`Product ${index + 1}`}
+                              className="jewel-image-thumbnail"
+                            />
+                            <button
+                              className="jewel-image-remove-btn"
+                              onClick={() => handleDeleteImage(image)}
+                            >
+                              <FiX />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+            
+            <div className="jewel-modal-footer">
+              <button
+                className="jewel-secondary-btn"
+                onClick={resetForm}
+                disabled={loading}
+              >
+                Cancel
+              </button>
+              {activeTab !== "details" && (
+                <button
+                  className="jewel-secondary-btn"
+                  onClick={() => setActiveTab(activeTab === "variants" ? "details" : "variants")}
+                  disabled={loading}
+                >
+                  {activeTab === "variants" ? "Back" : "Previous"}
+                </button>
+              )}
+              {activeTab !== "images" ? (
+                <button
+                  className="jewel-secondary-btn"
+                  onClick={() => setActiveTab(activeTab === "details" ? "variants" : "images")}
+                  disabled={loading || !newProduct.itemcode}
+                >
+                  Next
+                </button>
+              ) : (
+                <button
+                  className="jewel-primary-btn"
+                  onClick={handleSaveProduct}
+                  disabled={loading}
+                >
+                  {loading ? (
+                    <>
+                      <span className="jewel-spinner"></span> Processing...
+                    </>
+                  ) : isEditing ? (
+                    "Update Product"
+                  ) : (
+                    "Save Product"
+                  )}
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}
+      
       <ScrollToTopButton />
-      <ToastContainer />
+      <ToastContainer position="bottom-right" autoClose={3000} />
     </div>
   );
 };
