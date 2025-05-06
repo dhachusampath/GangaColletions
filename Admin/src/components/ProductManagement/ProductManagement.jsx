@@ -359,7 +359,7 @@ const ProductManagement = () => {
   return (
     <div className="jewel-admin-container">
       <div className="jewel-admin-header">
-        <h1 className="jewel-admin-title">Product Inventory</h1>
+        <h1 className="jewel-admin-title">Manage Product</h1>
         <div className="jewel-admin-actions">
           <div className="jewel-search-box">
             <FiSearch className="jewel-search-icon" />
