@@ -65,6 +65,11 @@ const Sidebar = ({ onMenuClick, role ,setUser }) => {
                       <span className="text">Product List</span>
                     </a>
                   </li>
+                  <li className={activeMenu === 'categories' ? 'active' : ''}>
+                    <a href="#" onClick={() => handleMenuItemClick('categories')}>
+                      <span className="text">Categories Managenment</span>
+                    </a>
+                  </li>
                   <li className={activeMenu === 'popularproducts' ? 'active' : ''}>
                     <a href="#" onClick={() => handleMenuItemClick('popularproducts')}>
                       <span className="text">Popular Product</span>
