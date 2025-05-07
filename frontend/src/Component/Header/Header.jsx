@@ -8,7 +8,7 @@ import axios from 'axios'; // Axios for API requests
 import SearchBar from "../SearchBar/SearchBar";
 
 const Header = ({ setShowLogin }) => {
-  const { cartSidebarOpen, API_BASE_URL,toggleCartSidebar,userId, cart,setCart, updateQuantity, removeFromCart,authToken, calculateSubtotal, setAuthToken,setUserId } = useStore();
+  const { cartSidebarOpen, categories,API_BASE_URL,toggleCartSidebar,userId, cart,setCart, updateQuantity, removeFromCart,authToken, calculateSubtotal, setAuthToken,setUserId } = useStore();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState({});
   const [showSearch, setShowSearch] = useState(false);
@@ -23,71 +23,71 @@ const Header = ({ setShowLogin }) => {
     const [userRole, setUserRole] = useState("retailer"); // Default to 'retailer'
   
 
-  const categories = [
-    { name: "Mugapu Thali chains", subcategories: [] },
-    { name: "BRACELETS & KADA", subcategories: [] },
-    { name: "DOLLAR CHAINS", subcategories: [] },
-    {
-      name: "Impon jewelleries",
-      subcategories: [
-        "Dollar Chains",
-        "Attigai",
-        "Bangles",
-        "Rings",
-        "Metti / Toe rings",
-        "Thali urukkal",
-        "kaapu / kada",
-      ],
-    },
-    {
-      name: "Necklace",
-      subcategories: [
-        "Gold plated Necklace",
-        "Stone necklace",
-        "Antique & Matte necklace",
-      ],
-    },
-    {
-      name: "Haram",
-      subcategories: [
-        "Goldplated",
-        "Stone Haram",
-        "Antique & Matte",
-      ],
-    },
-    {
-      name: "Combo sets",
-      subcategories: [
-        "Gold plated Combo sets",
-        "Stone sets Combo sets",
-      ],
-    },
-    { name: "Daily use chains", subcategories: [] },
-    { name: "Forming", subcategories: [] },
-    {
-      name: "Bangles",
-      subcategories: [
-        "Gold plated Bangles",
-        "Microplated Bangles",
-        "Impon Bangles",
-        "Antique & Matte Bangles",
-        "Baby Bangles",
-      ],
-    },
-    {
-      name: "Earrings",
-      subcategories: [
-        "Gold plated Earrings",
-        "Microplated Earrings",
-        "Impon Earrings",
-        "Antique & Matte",
-      ],
-    },
-    { name: "Anklets", subcategories: [] },
-    { name: "Maatal & Tikka", subcategories: [] },
-    { name: "Combo offer sets", subcategories: [] },
-    { name: "Hipbelts", subcategories: [] },
-  ];
+  // const categories = [
+  //   { name: "Mugapu Thali chains", subcategories: [] },
+  //   { name: "BRACELETS & KADA", subcategories: [] },
+  //   { name: "DOLLAR CHAINS", subcategories: [] },
+  //   {
+  //     name: "Impon jewelleries",
+  //     subcategories: [
+  //       "Dollar Chains",
+  //       "Attigai",
+  //       "Bangles",
+  //       "Rings",
+  //       "Metti / Toe rings",
+  //       "Thali urukkal",
+  //       "kaapu / kada",
+  //     ],
+  //   },
+  //   {
+  //     name: "Necklace",
+  //     subcategories: [
+  //       "Gold plated Necklace",
+  //       "Stone necklace",
+  //       "Antique & Matte necklace",
+  //     ],
+  //   },
+  //   {
+  //     name: "Haram",
+  //     subcategories: [
+  //       "Goldplated",
+  //       "Stone Haram",
+  //       "Antique & Matte",
+  //     ],
+  //   },
+  //   {
+  //     name: "Combo sets",
+  //     subcategories: [
+  //       "Gold plated Combo sets",
+  //       "Stone sets Combo sets",
+  //     ],
+  //   },
+  //   { name: "Daily use chains", subcategories: [] },
+  //   { name: "Forming", subcategories: [] },
+  //   {
+  //     name: "Bangles",
+  //     subcategories: [
+  //       "Gold plated Bangles",
+  //       "Microplated Bangles",
+  //       "Impon Bangles",
+  //       "Antique & Matte Bangles",
+  //       "Baby Bangles",
+  //     ],
+  //   },
+  //   {
+  //     name: "Earrings",
+  //     subcategories: [
+  //       "Gold plated Earrings",
+  //       "Microplated Earrings",
+  //       "Impon Earrings",
+  //       "Antique & Matte",
+  //     ],
+  //   },
+  //   { name: "Anklets", subcategories: [] },
+  //   { name: "Maatal & Tikka", subcategories: [] },
+  //   { name: "Combo offer sets", subcategories: [] },
+  //   { name: "Hipbelts", subcategories: [] },
+  // ];
 
   const toggleDropdownMenu = () => setShowDropdown(!showDropdown);
   const toggleCategory = (category) => {

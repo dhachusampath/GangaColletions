@@ -16,76 +16,76 @@ export const StoreProvider = ({ children }) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState();
-  const categories = [
-    { name: "All", subcategories: [] },
-    { name: "Mugapu Thali chains", subcategories: [] },
-    { name: "BRACELETS & KADA", subcategories: [] },
-    { name: "DOLLAR CHAINS", subcategories: [] },
-    {
-      name: "Impon jewelleries",
-      subcategories: [
-        "Dollar Chains",
-        "Attigai",
-        "Bangles",
-        "Rings",
-        "Metti / Toe rings",
-        "Thali urukkal",
-        "kaapu / kada",
-      ],
-    },
-    {
-      name: "Necklace",
-      subcategories: [
-        "Gold plated Necklace",
-        "Stone necklace",
-        "Antique & Matte necklace",
-      ],
-    },
-    {
-      name: "Haram",
-      subcategories: [
-        "Goldplated",
-        "Stone Haram",
-        "Antique & Matte",
-      ],
-    },
-    {
-      name: "Combo sets",
-      subcategories: [
-        "Gold plated Combo sets",
-        "Stone sets Combo sets",
-      ],
-    },
-    { name: "Daily use chains", subcategories: [] },
-    { name: "Forming", subcategories: [] },
-    {
-      name: "Bangles",
-      subcategories: [
-        "Gold plated Bangles",
-        "Microplated Bangles",
-        "Impon Bangles",
-        "Antique & Matte Bangles",
-        "Baby Bangles",
-      ],
-    },
-    {
-      name: "Earrings",
-      subcategories: [
-        "Gold plated Earrings",
-        "Microplated Earrings",
-        "Impon Earrings",
-        "Antique & Matte",
-      ],
-    },
-    { name: "Anklets", subcategories: [] },
-    { name: "Maatal & Tikka", subcategories: [] },
-    { name: "Combo offer sets", subcategories: [] },
-    { name: "Hipbelts", subcategories: [] },
-    { name: "Rings", subcategories: ["Diamond Rings", "Gold Rings"] },
-    { name: "Necklaces", subcategories: ["Gold Necklaces", "Silver Necklaces"] },
-    { name: "Earrings", subcategories: ["Diamond Earrings", "Pearl Earrings"] },
-    { name: "Bracelets", subcategories: ["Platinum Bracelets", "Silver Bracelets"] },
-  ];
+  // const categories = [
+  //   { name: "All", subcategories: [] },
+  //   { name: "Mugapu Thali chains", subcategories: [] },
+  //   { name: "BRACELETS & KADA", subcategories: [] },
+  //   { name: "DOLLAR CHAINS", subcategories: [] },
+  //   {
+  //     name: "Impon jewelleries",
+  //     subcategories: [
+  //       "Dollar Chains",
+  //       "Attigai",
+  //       "Bangles",
+  //       "Rings",
+  //       "Metti / Toe rings",
+  //       "Thali urukkal",
+  //       "kaapu / kada",
+  //     ],
+  //   },
+  //   {
+  //     name: "Necklace",
+  //     subcategories: [
+  //       "Gold plated Necklace",
+  //       "Stone necklace",
+  //       "Antique & Matte necklace",
+  //     ],
+  //   },
+  //   {
+  //     name: "Haram",
+  //     subcategories: [
+  //       "Goldplated",
+  //       "Stone Haram",
+  //       "Antique & Matte",
+  //     ],
+  //   },
+  //   {
+  //     name: "Combo sets",
+  //     subcategories: [
+  //       "Gold plated Combo sets",
+  //       "Stone sets Combo sets",
+  //     ],
+  //   },
+  //   { name: "Daily use chains", subcategories: [] },
+  //   { name: "Forming", subcategories: [] },
+  //   {
+  //     name: "Bangles",
+  //     subcategories: [
+  //       "Gold plated Bangles",
+  //       "Microplated Bangles",
+  //       "Impon Bangles",
+  //       "Antique & Matte Bangles",
+  //       "Baby Bangles",
+  //     ],
+  //   },
+  //   {
+  //     name: "Earrings",
+  //     subcategories: [
+  //       "Gold plated Earrings",
+  //       "Microplated Earrings",
+  //       "Impon Earrings",
+  //       "Antique & Matte",
+  //     ],
+  //   },
+  //   { name: "Anklets", subcategories: [] },
+  //   { name: "Maatal & Tikka", subcategories: [] },
+  //   { name: "Combo offer sets", subcategories: [] },
+  //   { name: "Hipbelts", subcategories: [] },
+  //   { name: "Rings", subcategories: ["Diamond Rings", "Gold Rings"] },
+  //   { name: "Necklaces", subcategories: ["Gold Necklaces", "Silver Necklaces"] },
+  //   { name: "Earrings", subcategories: ["Diamond Earrings", "Pearl Earrings"] },
+  //   { name: "Bracelets", subcategories: ["Platinum Bracelets", "Silver Bracelets"] },
+  // ];
   const [cart, setCart] = useState([]);
   const [cartSidebarOpen, setCartSidebarOpen] = useState(false);
   const [authToken, setAuthToken] = useState(localStorage.getItem('token') || '');
@@ -93,9 +93,31 @@ export const StoreProvider = ({ children }) => {
   const toggleCartSidebar = () => {
     setCartSidebarOpen(!cartSidebarOpen);
   };
-
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  const [loadingCategories, setLoadingCategories] = useState(false);
+  const [categories, setCategories] = useState([]); // State for categories
   
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+  useEffect(() => {
+      fetchCategories();
+      // ... other useEffect code
+    }, []);
+  
+    const fetchCategories = async () => {
+      setLoadingCategories(true);
+      try {
+        const response = await axios.get(`${API_BASE_URL}/categories`);
+        setCategories(response.data);
+      } catch (error) {
+        toast.error("Failed to fetch categories");
+        // Fallback to hardcoded categories if API fails
+        setCategories([
+          { name: "Mugapu Thali chains", subcategories: [] },
+          // ... your hardcoded categories
+        ]);
+      } finally {
+        setLoadingCategories(false);
+      }
+    };
   useEffect(() => {
     const fetchProfileData = async () => {
       const storedUserId = localStorage.getItem('userId'); // Retrieve userId from localStorage
