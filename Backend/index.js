@@ -22,6 +22,7 @@ const Order = require("./models/Order")
 const trackingRoutes = require('./routes/trackingRoutes');
 const nodemailer = require("nodemailer");
 const orderRoutes = require("./routes/orderRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
 
 
 // Middleware
@@ -59,6 +60,7 @@ app.use('/api/coupons', CouponRoutes);  // Mount the coupon routes
 app.use('/api/productss/reviews', reviewRoutes);
 app.use('/allorders', trackingRoutes); // Use tracking routes
 app.use("/api/orders", orderRoutes);
+app.use("/api/categories", categoryRoutes);
 app.get('/api/health', (req, res) => {
   res.status(200).json({ message: 'Backend is running' });
 });
