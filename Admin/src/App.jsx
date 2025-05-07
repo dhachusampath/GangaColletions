@@ -21,6 +21,7 @@ import ReviewsList from './components/Reviews/ReviewsList';
 import ManagePopularProducts from './components/PopularProducts/ManagePopularProducts';
 import BillingOrdersAdmin from './components/BillingOrdersAdmin/BillingOrdersAdmin';
 import axios from 'axios';
+import CategoryManagement from './components/CategoryManagement/CategoryManagement';
 
 const App = () => {
   const [activeContent, setActiveContent] = useState('dashboard');
@@ -80,6 +81,7 @@ const App = () => {
                 {activeContent === 'reviewlist' && <ReviewsList />}
                 {activeContent === 'popularproducts' && <ManagePopularProducts />}
                 {activeContent === 'Bill_Orders' && <BillingOrdersAdmin />}
+                {activeContent === 'categories' && <CategoryManagement />}
               <ScrollToTopButton/>
               </div>
           </>
