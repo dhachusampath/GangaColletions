@@ -9,64 +9,64 @@ import { FiEdit, FiTrash2, FiPlus, FiX, FiSearch, FiCamera } from "react-icons/f
 import { FaBarcode } from "react-icons/fa";
 import "./ProductManagement.css"
 
-const categories = [
-  { name: "Mugapu Thali chains", subcategories: [] },
-  { name: "BRACELETS & KADA", subcategories: [] },
-  { name: "DOLLAR CHAINS", subcategories: [] },
-  {
-    name: "Impon jewelleries",
-    subcategories: [
-      "Dollar Chains",
-      "Attigai",
-      "Bangles",
-      "Rings",
-      "Metti / Toe rings",
-      "Thali urukkal",
-      "kaapu / kada",
-    ],
-  },
-  {
-    name: "Necklace",
-    subcategories: [
-      "Gold plated Necklace",
-      "Stone necklace",
-      "Antique & Matte necklace",
-    ],
-  },
-  {
-    name: "Haram",
-    subcategories: ["Goldplated", "Stone Haram", "Antique & Matte"],
-  },
-  {
-    name: "Combo sets",
-    subcategories: ["Gold plated Combo sets", "Stone sets Combo sets"],
-  },
-  { name: "Daily use chains", subcategories: [] },
-  { name: "Forming", subcategories: [] },
-  {
-    name: "Bangles",
-    subcategories: [
-      "Gold plated Bangles",
-      "Microplated Bangles",
-      "Impon Bangles",
-      "Antique & Matte Bangles",
-      "Baby Bangles",
-    ],
-  },
-  {
-    name: "Earrings",
-    subcategories: [
-      "Gold plated Earrings",
-      "Microplated Earrings",
-      "Impon Earrings",
-      "Antique & Matte",
-    ],
-  },
-  { name: "Anklets", subcategories: [] },
-  { name: "Maatal & Tikka", subcategories: [] },
-  { name: "Combo offer sets", subcategories: [] },
-  { name: "Hipbelts", subcategories: [] },
-];
+// const categories = [
+//   { name: "Mugapu Thali chains", subcategories: [] },
+//   { name: "BRACELETS & KADA", subcategories: [] },
+//   { name: "DOLLAR CHAINS", subcategories: [] },
+//   {
+//     name: "Impon jewelleries",
+//     subcategories: [
+//       "Dollar Chains",
+//       "Attigai",
+//       "Bangles",
+//       "Rings",
+//       "Metti / Toe rings",
+//       "Thali urukkal",
+//       "kaapu / kada",
+//     ],
+//   },
+//   {
+//     name: "Necklace",
+//     subcategories: [
+//       "Gold plated Necklace",
+//       "Stone necklace",
+//       "Antique & Matte necklace",
+//     ],
+//   },
+//   {
+//     name: "Haram",
+//     subcategories: ["Goldplated", "Stone Haram", "Antique & Matte"],
+//   },
+//   {
+//     name: "Combo sets",
+//     subcategories: ["Gold plated Combo sets", "Stone sets Combo sets"],
+//   },
+//   { name: "Daily use chains", subcategories: [] },
+//   { name: "Forming", subcategories: [] },
+//   {
+//     name: "Bangles",
+//     subcategories: [
+//       "Gold plated Bangles",
+//       "Microplated Bangles",
+//       "Impon Bangles",
+//       "Antique & Matte Bangles",
+//       "Baby Bangles",
+//     ],
+//   },
+//   {
+//     name: "Earrings",
+//     subcategories: [
+//       "Gold plated Earrings",
+//       "Microplated Earrings",
+//       "Impon Earrings",
+//       "Antique & Matte",
+//     ],
+//   },
+//   { name: "Anklets", subcategories: [] },
+//   { name: "Maatal & Tikka", subcategories: [] },
+//   { name: "Combo offer sets", subcategories: [] },
+//   { name: "Hipbelts", subcategories: [] },
+// ];
 
 
 const ProductManagement = () => {
@@ -93,6 +93,7 @@ const ProductManagement = () => {
   const [sizeIndexToScan, setSizeIndexToScan] = useState(null);
   const [deletedImages, setDeletedImages] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [loadingCategories, setLoadingCategories] = useState(false);
   const [activeTab, setActiveTab] = useState("details");
 
   const handleBarcodeScan = (err, result) => {
@@ -107,6 +108,28 @@ const ProductManagement = () => {
       setIsBarcodeScanning(false);
       setSizeIndexToScan(null);
       toast.success("Barcode scanned successfully!");
+    }
+  };
+  const [categories, setCategories] = useState([]); // State for categories
+  useEffect(() => {
+    fetchCategories();
+    // ... other useEffect code
+  }, []);
+
+  const fetchCategories = async () => {
+    setLoadingCategories(true);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/categories`);
+      setCategories(response.data);
+    } catch (error) {
+      toast.error("Failed to fetch categories");
+      // Fallback to hardcoded categories if API fails
+      setCategories([
+        { name: "Mugapu Thali chains", subcategories: [] },
+        // ... your hardcoded categories
+      ]);
+    } finally {
+      setLoadingCategories(false);
     }
   };
 
@@ -133,17 +156,19 @@ const ProductManagement = () => {
     setErrors({ ...errors, [name]: !value });
   };
 
-  const handleCategoryChange = (e) => {
-    const selectedCategory = e.target.value;
-    const category = categories.find((cat) => cat.name === selectedCategory);
-    setNewProduct((prevProduct) => ({
-      ...prevProduct,
-      category: selectedCategory,
-      subcategory: "",
-      images: prevProduct.images,
-    }));
-    setSubcategories(category ? category.subcategories : []);
-  };
+const handleCategoryChange = (e) => {
+  const selectedCategory = e.target.value;
+  const category = categories.find((cat) => cat.name === selectedCategory);
+  
+  setNewProduct((prevProduct) => ({
+    ...prevProduct,
+    category: selectedCategory,
+    subcategory: "",
+  }));
+  
+  // Set subcategories based on the selected category
+  setSubcategories(category ? category.subcategories : []);
+};
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
@@ -576,24 +601,24 @@ const ProductManagement = () => {
                       {errors.category && <span className="jewel-error-message">Category is required</span>}
                     </div>
                     
-                    {subcategories.length > 0 && (
-                      <div className="jewel-form-group jewel-form-col">
-                        <label className="jewel-form-label">Subcategory</label>
-                        <select
-                          name="subcategory"
-                          className="jewel-form-select"
-                          value={newProduct.subcategory}
-                          onChange={handleInputChange}
-                        >
-                          <option value="">Select Subcategory</option>
-                          {subcategories.map((subcat, index) => (
-                            <option key={index} value={subcat}>
-                              {subcat}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
+{subcategories.length > 0 && (
+  <div className="jewel-form-group jewel-form-col">
+    <label className="jewel-form-label">Subcategory</label>
+    <select
+      name="subcategory"
+      className="jewel-form-select"
+      value={newProduct.subcategory}
+      onChange={handleInputChange}
+    >
+      <option value="">Select Subcategory</option>
+      {subcategories.map((subcat, index) => (
+        <option key={index} value={subcat}>
+          {subcat}
+        </option>
+      ))}
+    </select>
+  </div>
+)}
                   </div>
                   
                   <div className="jewel-form-group">
