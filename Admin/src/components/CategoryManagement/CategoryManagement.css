@@ -1,0 +1,307 @@
+/* CategoryManagement.css */
+.jewel-category-management {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .jewel-category-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .jewel-category-header h1 {
+    color: #333;
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .jewel-category-add-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+  }
+  
+  .jewel-category-add-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .jewel-category-add-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .jewel-category-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+  
+  .jewel-category-form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .jewel-category-form h2 {
+    margin-top: 0;
+    color: #444;
+    font-size: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .jewel-form-group {
+    margin-bottom: 20px;
+  }
+  
+  .jewel-form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+  }
+  
+  .jewel-form-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+  }
+  
+  .jewel-form-input:focus {
+    border-color: #4CAF50;
+    outline: none;
+  }
+  
+  .jewel-subcategory-input-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .jewel-subcategory-add-btn {
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 0 15px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+  }
+  
+  .jewel-subcategory-add-btn:hover {
+    background-color: #0b7dda;
+  }
+  
+  .jewel-subcategory-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  
+  .jewel-subcategory-item {
+    background-color: #f0f0f0;
+    padding: 5px 10px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+  }
+  
+  .jewel-subcategory-remove-btn {
+    background: none;
+    border: none;
+    color: #ff5252;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .jewel-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  .jewel-cancel-btn {
+    background-color: #f5f5f5;
+    color: #333;
+    border: 1px solid #ddd;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .jewel-cancel-btn:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .jewel-save-btn {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .jewel-save-btn:hover {
+    background-color: #45a049;
+  }
+  
+  .jewel-save-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .jewel-category-list {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .jewel-category-list h2 {
+    margin-top: 0;
+    color: #444;
+    font-size: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .jewel-no-categories {
+    color: #777;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+  }
+  
+  .jewel-category-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .jewel-category-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .jewel-category-item:last-child {
+    border-bottom: none;
+  }
+  
+  .jewel-category-details {
+    display: flex;
+    gap: 15px;
+    flex-grow: 1;
+  }
+  
+  .jewel-category-order-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .jewel-order-btn {
+    background: none;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2px 5px;
+    cursor: pointer;
+    color: #666;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .jewel-order-btn:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .jewel-order-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .jewel-category-content {
+    flex-grow: 1;
+  }
+  
+  .jewel-category-content h3 {
+    margin: 0 0 5px 0;
+    color: #333;
+    font-size: 16px;
+  }
+  
+  .jewel-subcategory-display {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+  }
+  
+  .jewel-subcategory-display li {
+    background-color: #f5f5f5;
+    padding: 3px 8px;
+    border-radius: 4px;
+    color: #555;
+  }
+  
+  .jewel-category-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .jewel-edit-btn {
+    background: none;
+    border: none;
+    color: #2196F3;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .jewel-delete-btn {
+    background: none;
+    border: none;
+    color: #ff5252;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  @media (max-width: 768px) {
+    .jewel-category-container {
+      grid-template-columns: 1fr;
+    }
+  }
