@@ -36,6 +36,7 @@ router.post('/add', upload.array('newImages', 3), async (req, res) => {
 router.put('/update/:id', upload.array('newImages', 3), async (req, res) => {
   try {
     const {
+      itemcode,
       name,
       description,
       category,
@@ -80,6 +81,7 @@ router.put('/update/:id', upload.array('newImages', 3), async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
       {
+        itemcode,
         name,
         description,
         category,
