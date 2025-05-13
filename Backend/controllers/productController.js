@@ -6,50 +6,31 @@ const path = require("path");
 const fs = require('fs');
 
 // Add a new product
-router.post('/add', upload.array('newImages', 100), async (req, res) => {
+router.post('/add', upload.array('newImages', 3), async (req, res) => {
   try {
-    const products = JSON.parse(req.body.products); // assuming products come as JSON string in one field
-    const files = req.files || [];
+    const {itemcode, name, description,polish, category, subcategory, costPrice, sizes } = req.body;
 
-    // Create a map of uploaded image filenames by fieldname or a naming convention
-    const imageMap = {};
-    files.forEach(file => {
-      // assuming fieldname follows product index like newImages_0, newImages_1, etc.
-      const match = file.fieldname.match(/newImages_(\d+)/);
-      if (match) {
-        const index = match[1];
-        if (!imageMap[index]) imageMap[index] = [];
-        imageMap[index].push(file.filename);
-      }
+    // Save only the file name instead of the full path
+    const images = req.files ? req.files.map(file => file.filename) : [];
+
+    const newProduct = new Product({
+      itemcode,
+      name,
+      description,
+      category,
+      subcategory,
+      polish,
+      costPrice,
+      images,
+      sizes: JSON.parse(sizes),
     });
 
-    const bulkOps = products.map((product, index) => {
-      const { itemcode, name, description, category, subcategory, polish, costPrice, sizes } = product;
-      return {
-        insertOne: {
-          document: {
-            itemcode,
-            name,
-            description,
-            category,
-            subcategory,
-            polish,
-            costPrice,
-            images: imageMap[index] || [],
-            sizes: typeof sizes === 'string' ? JSON.parse(sizes) : sizes,
-          }
-        }
-      };
-    });
-
-    await Product.bulkWrite(bulkOps);
-    res.status(201).json({ message: 'Products added successfully' });
+    await newProduct.save();
+    res.status(201).json({ message: 'Product added successfully', product: newProduct });
   } catch (error) {
-    console.error(error);
     res.status(400).json({ message: error.message });
   }
 });
-
 
 
 router.put('/update/:id', upload.array('newImages', 3), async (req, res) => {
