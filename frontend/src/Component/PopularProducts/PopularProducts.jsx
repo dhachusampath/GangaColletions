@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "./PopularProducts.css";
 import { useStore } from "../Context/Store";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const PopularProducts = () => {
   const sliderRef = useRef(null);
@@ -10,7 +11,7 @@ const PopularProducts = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const autoScrollInterval = useRef(null);
-
+  const navigate = useNavigate();
   // Fetch products from the backend
   const fetchProducts = async () => {
     try {
