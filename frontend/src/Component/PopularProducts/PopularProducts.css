@@ -234,10 +234,3 @@
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }
-
-/* Prevent pointer events on the button and dropdown to avoid navigation */
-.add-to-cart, .size-dropdown {
-  pointer-events: auto;
-  position: relative; /* Ensure they stay above the clickable card */
-  z-index: 1;
-}
