@@ -107,8 +107,9 @@ const PopularProducts = () => {
                 alt={product.name}
                 className="card-image"
               />
-              <h3 className="card-name">{product.name}</h3>
-              <p className="card-price">
+<h3 className="card-name" title={product.name}>
+  {product.name.length > 18 ? `${product.name.substring(0, 18)}...` : product.name}
+</h3>              <p className="card-price">
                 ₹
                 {userRole === "retailer"
                   ? product.sizes[0].retailPrice

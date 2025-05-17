@@ -217,3 +217,10 @@
   font-size: 1.2rem;
   font-weight: 500;
 }
+.card-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  cursor: default;
+}
