@@ -1,151 +1,321 @@
-/* General Styles */
-.tracking-update-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+/* Base Styles */
+.luxe-tracking-update {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Header Styles */
+.luxe-tracking-header {
+  margin-bottom: 2rem;
+  position: relative;
+}
+
+.luxe-back-btn {
+  background: #f5f5f5;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #555;
+  transition: all 0.3s ease;
+  margin-bottom: 1rem;
+}
+
+.luxe-back-btn:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.luxe-back-btn i {
+  margin-right: 5px;
+}
+
+.luxe-tracking-title {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.luxe-tracking-title i {
+  margin-right: 10px;
+  color: #3498db;
+}
+
+/* Order Summary */
+.luxe-order-summary {
+  margin-bottom: 2rem;
+}
+
+.luxe-summary-card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.luxe-summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid #eee;
+}
+
+.luxe-summary-item:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.luxe-summary-label {
+  font-weight: 600;
+  color: #555;
+}
+
+.luxe-summary-value {
+  color: #333;
+}
+
+.luxe-status-badge {
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.luxe-status-processing {
+  background-color: #f39c12;
+  color: white;
+}
+
+.luxe-status-shipped {
+  background-color: #3498db;
+  color: white;
+}
+
+.luxe-status-cancelled {
+  background-color: #e74c3c;
+  color: white;
+}
+
+/* Form Styles */
+.luxe-tracking-form {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.luxe-form-section {
+  margin-bottom: 2rem;
+}
+
+.luxe-section-title {
+  font-size: 1.2rem;
+  color: #2c3e50;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.luxe-section-title i {
+  margin-right: 10px;
+  color: #3498db;
+}
+
+.luxe-form-group {
+  margin-bottom: 1.5rem;
+}
+
+.luxe-form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #555;
+}
+
+.luxe-form-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.luxe-form-input:focus {
+  border-color: #3498db;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.luxe-select-wrapper {
+  position: relative;
+}
+
+.luxe-form-select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  appearance: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.luxe-select-arrow {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #777;
+}
+
+/* File Upload Styles */
+.luxe-file-upload {
+  margin-top: 0.5rem;
+}
+
+.luxe-upload-label {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem 1rem;
+  background: #f9f9f9;
+  border: 1px dashed #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.luxe-upload-label:hover {
+  background: #f0f0f0;
+  border-color: #ccc;
+}
+
+.luxe-upload-label i {
+  margin-right: 10px;
+  color: #3498db;
+}
+
+.luxe-upload-label span {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.luxe-file-input {
+  display: none;
+}
+
+/* Image Preview */
+.luxe-image-preview {
+  margin-top: 1rem;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.luxe-preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.luxe-remove-img {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(0, 0, 0, 0.7);
+  border: none;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Submit Button */
+.luxe-form-actions {
+  margin-top: 2rem;
+  text-align: right;
+}
+
+.luxe-submit-btn {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.luxe-submit-btn:hover {
+  background: linear-gradient(135deg, #2980b9, #3498db);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
+}
+
+.luxe-submit-btn:active {
+  transform: translateY(0);
+}
+
+.luxe-submit-btn:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.luxe-submit-btn i {
+  margin-right: 8px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .luxe-tracking-update {
+    padding: 1rem;
   }
   
-  .tracking-update-title {
-    text-align: center;
-    color: #000;
-    font-size: 2rem;
-    margin-bottom: 20px;
+  .luxe-tracking-title {
+    font-size: 1.5rem;
   }
   
-  .order-info p {
-    font-size: 1.1rem;
-    margin: 8px 0;
-    color: #333;
+  .luxe-summary-card {
+    padding: 1rem;
   }
   
-  .status {
-    font-weight: bold;
+  .luxe-tracking-form {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .luxe-summary-item {
+    flex-direction: column;
   }
   
-  .status.pending {
-    color: orange;
+  .luxe-summary-label {
+    margin-bottom: 0.3rem;
   }
-  
-  .status.shipped {
-    color: green;
-  }
-  
-  .status.canceled {
-    color: red;
-  }
-  
-  /* Form Styles */
-  .tracking-update-form {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 2px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-label {
-    font-size: 1rem;
-    font-weight: bold;
-    margin-bottom: 8px;
-    display: block;
-  }
-  
-  .form-input,
-  .form-input-file {
-    width: 100%;
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    margin-top: 5px;
-  }
-  
-  .form-input:focus,
-  .form-input-file:focus {
-    border-color: #007BFF;
-    outline: none;
-  }
-  
-  .btn-update-tracking {
-    background-color: #000;
-    color: white;
-    border: none;
-    padding: 5px;
-    border-radius: 2px;
-    cursor: pointer;
-    border: none;
-    font-size: 1.2rem;
-  }
-  
-  .btn-update-tracking:hover {
-    background-color: #444;
-  }
-  
-  /* Image Preview Styles */
-  .image-preview {
-    margin-top: 10px;
-    text-align: center;
-  }
-  
-  .preview-image {
-    max-width: 100px;
-    height: 100px;
-    object-fit: cover;
-  }
-  .back-button{
-    background-color: blue;
-    color: white;
-    border: none;
-    padding: 5px;
-    border-radius: 5px;
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .tracking-update-container {
-      padding: 15px;
-    }
-  
-    .tracking-update-title {
-      font-size: 1.5rem;
-    }
-  
-    .order-info p {
-      font-size: 1rem;
-    }
-  
-    .form-input,
-    .form-input-file,
-    .btn-update-tracking {
-      font-size: 0.9rem;
-    }
-  
-    .btn-update-tracking {
-      padding: 12px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .tracking-update-container {
-      padding: 10px;
-    }
-  
-    .tracking-update-title {
-      font-size: 1.2rem;
-    }
-  
-    .form-input,
-    .form-input-file,
-    .btn-update-tracking {
-      font-size: 0.85rem;
-      padding: 8px;
-    }
-  
-    .btn-update-tracking {
-      padding: 10px;
-    }
-  }
-  
+}

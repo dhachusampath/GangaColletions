@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import './TrackingUpdate.css';
 import { useStore } from '../Context/Store';
+import './TrackingUpdate.css';
 
 const TrackingUpdate = ({ order, onBack }) => {
-
-  const {API_BASE_URL}=useStore();
+  const { API_BASE_URL } = useStore();
   const [trackingNumber, setTrackingNumber] = useState('');
   const [trackingLink, setTrackingLink] = useState('');
   const [trackingImage, setTrackingImage] = useState(null);
   const [status, setStatus] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (order) {
@@ -31,6 +31,7 @@ const TrackingUpdate = ({ order, onBack }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
     const formData = new FormData();
     formData.append('orderId', order.orderId);
@@ -59,36 +60,75 @@ const TrackingUpdate = ({ order, onBack }) => {
     } catch (error) {
       console.error('Error updating tracking:', error);
       alert('Error updating tracking. Please try again.');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div className="tracking-update-container">
-      <button className="back-button" onClick={onBack}>Back to Orders</button>
-      <h2 className="tracking-update-title">Tracking Update - {order.orderId}</h2>
-
-      <div className="order-info">
-        <p><strong>Customer:</strong> {`${order.billingAddress.firstName} ${order.billingAddress.lastName}`}</p>
-        <p><strong>Total:</strong> ₹{order.totalAmount}</p>
-        <p><strong>Status:</strong> <span className={`status ${status.toLowerCase()}`}>{status}</span></p>
+    <div className="luxe-tracking-update">
+      <div className="luxe-tracking-header">
+        <button className="luxe-back-btn" onClick={onBack}>
+          <i className="fas fa-arrow-left"></i> Back to Orders
+        </button>
+        <h2 className="luxe-tracking-title">
+          <i className="fas fa-truck"></i> Update Tracking - #{order.orderId}
+        </h2>
       </div>
 
-      <form onSubmit={handleSubmit} className="tracking-update-form">
-        <div className="form-group">
-          <label className="form-label">Update Status:</label>
-          <select className="form-input" value={status} onChange={handleStatusChange}>
-            <option value="Processing">Processing</option>
-            <option value="Shipped">Shipped</option>
-            <option value="Cancelled">Cancelled</option>
-          </select>
+      <div className="luxe-order-summary">
+        <div className="luxe-summary-card">
+          <div className="luxe-summary-item">
+            <span className="luxe-summary-label">Customer:</span>
+            <span className="luxe-summary-value">
+              {`${order.billingAddress.firstName} ${order.billingAddress.lastName}`}
+            </span>
+          </div>
+          <div className="luxe-summary-item">
+            <span className="luxe-summary-label">Order Total:</span>
+            <span className="luxe-summary-value">₹{order.totalAmount}</span>
+          </div>
+          <div className="luxe-summary-item">
+            <span className="luxe-summary-label">Current Status:</span>
+            <span className={`luxe-status-badge luxe-status-${status.toLowerCase()}`}>
+              {status}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <form onSubmit={handleSubmit} className="luxe-tracking-form">
+        <div className="luxe-form-section">
+          <h3 className="luxe-section-title">
+            <i className="fas fa-cog"></i> Order Status
+          </h3>
+          <div className="luxe-form-group">
+            <label className="luxe-form-label">Update Status</label>
+            <div className="luxe-select-wrapper">
+              <select
+                className="luxe-form-select"
+                value={status}
+                onChange={handleStatusChange}
+              >
+                <option value="Processing">Processing</option>
+                <option value="Shipped">Shipped</option>
+                <option value="Cancelled">Cancelled</option>
+              </select>
+              <i className="fas fa-chevron-down luxe-select-arrow"></i>
+            </div>
+          </div>
         </div>
 
         {status !== 'Cancelled' && (
-          <>
-            <div className="form-group">
-              <label className="form-label">Tracking Number:</label>
+          <div className="luxe-form-section">
+            <h3 className="luxe-section-title">
+              <i className="fas fa-shipping-fast"></i> Shipping Details
+            </h3>
+            
+            <div className="luxe-form-group">
+              <label className="luxe-form-label">Tracking Number</label>
               <input
-                className="form-input"
+                className="luxe-form-input"
                 type="text"
                 value={trackingNumber}
                 onChange={(e) => setTrackingNumber(e.target.value)}
@@ -97,40 +137,69 @@ const TrackingUpdate = ({ order, onBack }) => {
               />
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Tracking Link:</label>
+            <div className="luxe-form-group">
+              <label className="luxe-form-label">Tracking Link</label>
               <input
-                className="form-input"
+                className="luxe-form-input"
                 type="url"
                 value={trackingLink}
                 onChange={(e) => setTrackingLink(e.target.value)}
-                placeholder="Enter tracking link"
+                placeholder="Enter tracking URL"
                 required
               />
             </div>
 
-            <div className="form-group">
-              <label className="form-label">Upload Tracking Image:</label>
-              <input
-                className="form-input-file"
-                type="file"
-                onChange={(e) => setTrackingImage(e.target.files[0])}
-                accept="image/*"
-              />
+            <div className="luxe-form-group">
+              <label className="luxe-form-label">Tracking Proof</label>
+              <div className="luxe-file-upload">
+                <label className="luxe-upload-label">
+                  <i className="fas fa-cloud-upload-alt"></i>
+                  <span>{trackingImage ? trackingImage.name : 'Choose an image'}</span>
+                  <input
+                    type="file"
+                    className="luxe-file-input"
+                    onChange={(e) => setTrackingImage(e.target.files[0])}
+                    accept="image/*"
+                  />
+                </label>
+              </div>
               {trackingImage && (
-                <div className="image-preview">
+                <div className="luxe-image-preview">
                   <img
                     src={URL.createObjectURL(trackingImage)}
                     alt="Tracking Preview"
-                    className="preview-image"
+                    className="luxe-preview-img"
                   />
+                  <button
+                    type="button"
+                    className="luxe-remove-img"
+                    onClick={() => setTrackingImage(null)}
+                  >
+                    <i className="fas fa-times"></i>
+                  </button>
                 </div>
               )}
             </div>
-          </>
+          </div>
         )}
 
-        <button type="submit" className="btn-update-tracking">Update Tracking</button>
+        <div className="luxe-form-actions">
+          <button
+            type="submit"
+            className="luxe-submit-btn"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? (
+              <>
+                <i className="fas fa-spinner fa-spin"></i> Updating...
+              </>
+            ) : (
+              <>
+                <i className="fas fa-check-circle"></i> Update Tracking
+              </>
+            )}
+          </button>
+        </div>
       </form>
     </div>
   );
