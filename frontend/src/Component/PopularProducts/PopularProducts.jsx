@@ -5,18 +5,22 @@ import axios from "axios";
 
 const PopularProducts = () => {
   const sliderRef = useRef(null);
-  const { API_BASE_URL,userRole, addToCart } = useStore();
+  const { API_BASE_URL, userRole, addToCart } = useStore();
   const [products, setProducts] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const autoScrollInterval = useRef(null);
 
   // Fetch products from the backend
   const fetchProducts = async () => {
     try {
+      setIsLoading(true);
       const response = await axios.get(`${API_BASE_URL}/products/popular`);
       setProducts(response.data);
     } catch (error) {
       console.error("Error fetching products:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -60,9 +64,26 @@ const PopularProducts = () => {
   };
 
   useEffect(() => {
-    autoScroll();
+    if (products.length > 0) {
+      autoScroll();
+    }
     return () => stopAutoScroll();
   }, [products]);
+
+  if (isLoading) {
+    return (
+      <div className="popular-products-section">
+        <header className="Popular-categories-header">
+          <h1>Popular Products</h1>
+          <p>Explore our diverse range of top-rated products!</p>
+        </header>
+        <div className="loading-container">
+          <div className="gold-spinner"></div>
+          <p>Loading our finest products...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="popular-products-section">
