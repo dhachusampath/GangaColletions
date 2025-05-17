@@ -1,176 +1,341 @@
-/* Main container for the order details */
-.order-details {
+/* Base Styles */
+.luxe-order-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Header Styles */
+.luxe-order-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.luxe-back-btn {
+  background: #f5f5f5;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #555;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.luxe-back-btn:hover {
+  background: #e0e0e0;
+  color: #333;
+}
+
+.luxe-back-btn i {
+  margin-right: 8px;
+}
+
+.luxe-order-title {
+  font-size: 1.8rem;
+  color: #2c3e50;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.luxe-order-title i {
+  margin-right: 10px;
+  color: #3498db;
+}
+
+.luxe-order-status {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.luxe-status-processing {
+  background-color: #f39c12;
+  color: white;
+}
+
+.luxe-status-shipped {
+  background-color: #3498db;
+  color: white;
+}
+
+.luxe-status-delivered {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.luxe-status-cancelled {
+  background-color: #e74c3c;
+  color: white;
+}
+
+/* Order Meta */
+.luxe-order-meta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  color: #666;
+}
+
+.luxe-order-date,
+.luxe-order-payment {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+
+.luxe-order-date i,
+.luxe-order-payment i {
+  margin-right: 8px;
+  color: #7f8c8d;
+}
+
+/* Section Styles */
+.luxe-order-section {
+  margin-bottom: 1.5rem;
+  border: 1px solid #eee;
   border-radius: 8px;
+  overflow: hidden;
 }
 
-.order-details__heading {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #000000;
+.luxe-section-header {
+  background-color: #f9f9f9;
+  padding: 1rem 1.5rem;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
 }
 
-.order-details__status {
-  font-size: 18px;
-  margin-bottom: 20px;
+.luxe-section-header:hover {
+  background-color: #f0f0f0;
 }
 
-.order-details__status--completed {
-  color: green;
+.luxe-section-header h2 {
+  font-size: 1.2rem;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  color: #2c3e50;
 }
 
-.order-details__status--pending {
-  color: orange;
+.luxe-section-header i {
+  margin-right: 10px;
+  color: #3498db;
 }
 
-.order-details__created-at {
-  font-size: 16px;
-  margin-bottom: 20px;
-  color: #777;
+.luxe-section-header .fa-plus,
+.luxe-section-header .fa-minus {
+  color: #7f8c8d;
 }
 
-/* Section titles */
-.section-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  color: #000000;
-  border-bottom: 2px solid #e0e0e0;
-  padding-bottom: 5px;
-  margin-top: 30px;
+.luxe-section-content {
+  padding: 1.5rem;
+  background-color: white;
 }
 
-/* Customer info */
-.customer-info p {
-  font-size: 16px;
-  text-transform: uppercase;
-  margin: 5px 0;
-  color: #141111;
+/* Info Card Styles */
+.luxe-info-card {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1rem;
 }
 
-/* Address info */
-.addresses p {
-  font-size: 16px;
-  margin: 5px 0;
-  text-transform: uppercase;
-  color: #141111;
+.luxe-info-row {
+  margin-bottom: 0.8rem;
 }
 
-/* Order items table */
-.order-items__table {
+.luxe-info-label {
+  font-weight: 600;
+  color: #555;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+.luxe-info-value {
+  color: #333;
+  word-break: break-word;
+}
+
+/* Items Table Styles */
+.luxe-items-table-container {
+  overflow-x: auto;
+}
+
+.luxe-items-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
 }
 
-.order-items__table th,
-.order-items__table td {
-  padding: 12px 15px;
+.luxe-items-table th {
+  background-color: #f5f5f5;
+  padding: 0.8rem 1rem;
   text-align: left;
-  border-bottom: 1px solid #e0e0e0;
+  font-weight: 600;
+  color: #555;
 }
 
-.order-items__table th {
-  background-color: #f2f2f2;
-  font-weight: bold;
-  color: #000000;
+.luxe-items-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+  vertical-align: middle;
 }
 
-.order-details .back-button{
-  padding: 12px 10px;
-  margin: 5px;
-  background-color: #000000;
-  border-radius: 2px;
-}
-
-.order-items__img {
+.luxe-product-image {
   width: 60px;
   height: 60px;
   object-fit: cover;
   border-radius: 4px;
+  border: 1px solid #eee;
 }
 
-.order-items__total {
-  font-weight: bold;
-  color: #000000;
+.luxe-product-name {
+  font-weight: 500;
+  margin-bottom: 0.3rem;
 }
 
-/* Price summary */
-.order-summary {
-  margin-top: 20px;
-  background-color: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.luxe-product-subcategory {
+  font-size: 0.8rem;
+  color: #7f8c8d;
 }
 
-.order-summary p {
-  font-size: 16px;
-  margin: 5px 0;
-  color: #000000;
+/* Summary Card Styles */
+.luxe-summary-card {
+  max-width: 400px;
+  margin-left: auto;
 }
 
-.order-summary .order-summary__total {
-  font-size: 18px;
-  font-weight: bold;
-  color: #000000;
+.luxe-summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #eee;
 }
 
-/* Payment method section */
-.payment-method {
-  background-color: #fff;
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.luxe-summary-row:last-child {
+  border-bottom: none;
 }
 
-.payment-method p {
-  font-size: 16px;
-  color: #000000;
+.luxe-summary-label {
+  font-weight: 500;
 }
 
-/* Responsive styles */
+.luxe-summary-value {
+  font-weight: 600;
+}
+
+.luxe-summary-total {
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 2px solid #eee;
+}
+
+.luxe-summary-total .luxe-summary-label {
+  font-weight: 600;
+}
+
+.luxe-summary-total .luxe-summary-value {
+  color: #2ecc71;
+}
+
+/* No Items Message */
+.luxe-no-items {
+  text-align: center;
+  padding: 2rem;
+  color: #7f8c8d;
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+/* Loading State */
+.luxe-order-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #555;
+}
+
+.luxe-spinner {
+  width: 50px;
+  height: 50px;
+  border: 4px solid rgba(52, 152, 219, 0.2);
+  border-radius: 50%;
+  border-top-color: #3498db;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error State */
+.luxe-order-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 300px;
+  color: #e74c3c;
+  text-align: center;
+}
+
+.luxe-order-error i {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Responsive Styles */
 @media (max-width: 768px) {
-  .order-details {
-    padding: 15px;
-  }
-
-  .order-details__heading {
-    font-size: 20px;
-  }
-
-  .order-details__status,
-  .order-details__created-at {
-    font-size: 14px;
-  }
-
-  .section-title {
-    font-size: 18px;
-  }
-
-  .order-items__table th,
-  .order-items__table td {
-    padding: 8px;
-  }
-
-  .order-items__img {
-    width: 50px;
-    height: 50px;
-  }
-
-  .order-summary p,
-  .payment-method p {
-    font-size: 14px;
-  }
-}
-
-@media (max-width:480px) {
-  .order-items{
-    overflow-x: scroll;
+  .luxe-order-container {
+    padding: 1rem;
   }
   
+  .luxe-order-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .luxe-order-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .luxe-info-card {
+    grid-template-columns: 1fr;
+  }
+  
+  .luxe-summary-card {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .luxe-items-table th,
+  .luxe-items-table td {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+  
+  .luxe-product-image {
+    width: 40px;
+    height: 40px;
+  }
 }
