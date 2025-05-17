@@ -101,12 +101,21 @@ const PopularProducts = () => {
           onScroll={handleUserScroll}
         >
           {products.map((product, index) => (
-            <div key={product._id} className="card">
-              <img
-                src={`${API_BASE_URL}/images/${product.images[0]}`}
-                alt={product.name}
-                className="card-image"
-              />
+<div 
+  key={product._id} 
+  className="card"
+  onClick={(e) => {
+    // Only navigate if the click wasn't on the button or select dropdown
+    if (!e.target.closest('.add-to-cart, .size-dropdown')) {
+      navigate(`/product/${product._id}`);
+    }
+  }}
+  style={{ cursor: 'pointer' }}
+>              <img
+    src={`${API_BASE_URL}/images/${product.images[0]}`}
+    alt={product.name}
+    className="card-image"
+  />
 <h3 className="card-name" title={product.name}>
   {product.name.length > 18 ? `${product.name.substring(0, 18)}...` : product.name}
 </h3>              <p className="card-price">

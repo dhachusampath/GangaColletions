@@ -13,6 +13,7 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 20px;
+  height: 437px;
 }
 
 /* Product Card Styling */
@@ -223,4 +224,20 @@
   text-overflow: ellipsis;
   max-width: 100%;
   cursor: default;
+}
+.card {
+  position: relative; /* Needed for absolute positioning of children */
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Prevent pointer events on the button and dropdown to avoid navigation */
+.add-to-cart, .size-dropdown {
+  pointer-events: auto;
+  position: relative; /* Ensure they stay above the clickable card */
+  z-index: 1;
 }
