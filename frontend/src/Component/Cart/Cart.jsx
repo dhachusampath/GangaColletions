@@ -23,44 +23,39 @@ const Cart = ({ setShowLogin }) => {
   const [stockErrors, setStockErrors] = useState({});
   const navigate = useNavigate();
 
-
-  const showToast = (message,type="error") =>{
+  const showToast = (message, type = "error") => {
     toast[type](
       <div
-      style={{
-        display:"flex",
-        justifyContent:"space-between",
-        alignItems:"center"
-
-      }}
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
       >
         <span>{message}</span>
-
         <button
-         onClick={() => toast.dismiss()}
-
-         style={{
-          background:"transparent",
-          border:"none",
-          color:"white",
-          cursor:"pointer",
-          fontSize:"16px",
-          fontWeight:"bold",
-          padding:"0 0 0 10px",
-         }}
+          onClick={() => toast.dismiss()}
+          style={{
+            background: "transparent",
+            border: "none",
+            color: "white",
+            fontSize: "16px",
+            fontWeight: "bold",
+            marginLeft: "15px",
+            cursor: "pointer",
+          }}
         >
-        
           ×
         </button>
       </div>,
       {
-        position:"top-center",
-        autoClose:3000,
-        closeButton:false
-
+        position: "top-center",
+        autoClose: 3000,
+        closeButton: false,
       }
-    )
-  }
+    );
+  };
+
   const getTotalAmount = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
@@ -141,22 +136,20 @@ const Cart = ({ setShowLogin }) => {
 
   return (
     <div className="cart-container">
-  
-   
-    <ToastContainer
-  position="top-center"
-  autoClose={5000}
-  hideProgressBar={true}
-  newestOnTop={true}
-  closeOnClick={false}
-  rtl={false}
-  pauseOnFocusLoss
-  draggable={false}
-  pauseOnHover
-  className="toast-alert"
-  toastClassName="alert-toast"
-  bodyClassName="alert-body"
-/>
+      <ToastContainer
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={true}
+        newestOnTop={true}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+        className="toast-alert"
+        toastClassName="alert-toast"
+        bodyClassName="alert-body"
+      />
       <header className="cart-header">
         <h1>My Cart ({cart.length} items)</h1>
         <Link to="/menu">
