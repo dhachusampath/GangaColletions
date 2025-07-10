@@ -4,7 +4,7 @@ import "./Menu.css";
 import { useStore } from "../Context/Store";
 
 const Menu = () => {
-  const { products,userRole, categories ,API_BASE_URL} = useStore(); // Access global state
+  const { products, userRole, categories, API_BASE_URL } = useStore(); // Access global state
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedSubCategory, setSelectedSubCategory] = useState("");
   const [price, setPrice] = useState([100, 12000]);
@@ -21,7 +21,7 @@ const Menu = () => {
     if (location.state?.filter) {
       const filter = location.state.filter;
       const parentCategory = location.state.parentCategory || null;
-  
+
       if (categories.some((cat) => cat.name === filter)) {
         setSelectedCategory(filter);
         setSelectedSubCategory(""); // Reset subcategory
@@ -31,7 +31,6 @@ const Menu = () => {
       }
     }
   }, [location, categories]);
-  
 
   const handlePriceChange = (e, index) => {
     const newPrice = [...price];
@@ -40,16 +39,17 @@ const Menu = () => {
   };
 
   const filteredProducts = products.filter((product) => {
-    // console.log("Filtering product:", product); 
+    // console.log("Filtering product:", product);
     const isCategoryMatch =
       selectedCategory === "All" || product.category === selectedCategory;
-    
+
     // If no subcategory is selected or the subcategory is null, we ignore it in the filtering
     const isSubCategoryMatch =
       !selectedSubCategory || product.subcategory === selectedSubCategory;
 
     // Ensure product has sizes and select the appropriate price
-    const productSize = product.sizes && product.sizes.length > 0 ? product.sizes[0] : null; // Check if sizes exist and are non-empty
+    const productSize =
+      product.sizes && product.sizes.length > 0 ? product.sizes[0] : null; // Check if sizes exist and are non-empty
     const productPrice = productSize
       ? userRole === "wholesaler"
         ? productSize.wholesalePrice
@@ -81,7 +81,7 @@ const Menu = () => {
   };
 
   const handleProductClick = (productId) => {
-    // console.log("Product clicked:", productId); 
+    // console.log("Product clicked:", productId);
     // Navigate to the product detail page
     navigate(`/product/${productId}`);
   };
@@ -177,7 +177,8 @@ const Menu = () => {
           {filteredProducts.map((product) => (
             <div key={product._id} className="product-card">
               <img
-                src={`${API_BASE_URL}/images/${product.images[0]}`} alt={product.name}
+                src={`${API_BASE_URL}/images/${product.images[0]}`}
+                alt={product.name}
                 className="product-image"
               />
               <h3 className="product-name">{product.name}</h3>
@@ -188,7 +189,10 @@ const Menu = () => {
                     : `₹${product.sizes[0].retailPrice.toFixed(2)}`
                   : "Price not available"}
               </p>
-              <button onClick={() => handleProductClick(product._id)} className="view-button">
+              <button
+                onClick={() => handleProductClick(product._id)}
+                className="view-button"
+              >
                 View Product
               </button>
             </div>

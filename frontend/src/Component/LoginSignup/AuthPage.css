@@ -1,4 +1,4 @@
-/* Auth Overlay (Full Screen Background) */
+/* Auth Modal Overlay */
 .auth-overlay {
   position: fixed;
   top: 0;
@@ -10,115 +10,167 @@
   justify-content: center;
   align-items: center;
   z-index: 1000;
+  backdrop-filter: blur(2px);
 }
 
-/* Auth Container (Main Modal Box) */
+/* Auth Container */
 .auth-container {
   background-color: #f7f7f7;
-  border-radius: 5px;
-  padding: 30px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  width: 330px;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  width: 100%;
+  max-width: 330px;
   position: relative;
   text-align: center;
+  animation: fadeIn 0.3s ease-out;
 }
 
 /* Close Button */
 .close-button {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   background: transparent;
   border: none;
-  font-size: 20px;
-  color: #333;
+  font-size: 1.25rem;
+  color: #666;
   cursor: pointer;
+  transition: color 0.2s;
 }
 
-.google-logo {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
-.google-login-btn:hover {
-  background-color: #f0f0f0;
-  border-color: #888;
-}
-
-.google-login-btn:active {
-  background-color: #e0e0e0;
-  border-color: #666;
-}
-
-.google-login-btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.3);
-}
-/* Header Text (Login/Register) */
-.auth-header {
-  font-size: 24px;
-  font-weight: bold;
+.close-button:hover {
   color: #333;
-  margin-bottom: 20px;
 }
 
-/* Form Input Fields */
+/* Typography */
+.auth-header {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 1.5rem;
+}
+
+.auth-toggle-text {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+/* Form Elements */
 .auth-input {
   width: 100%;
-  padding: 10px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  font-size: 16px;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border-radius: 6px;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* Submit Button */
+.auth-input:focus {
+  border-color: #b68900;
+  box-shadow: 0 0 0 2px rgba(182, 137, 0, 0.2);
+  outline: none;
+}
+
+/* Buttons */
 .auth-button {
   width: 100%;
-  padding: 12px;
-  background-color: #b68900; /* Gold Color */
+  padding: 0.75rem;
+  background-color: #b68900;
   color: white;
-  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 500;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s;
+  margin-top: 0.5rem;
 }
 
 .auth-button:hover {
   background-color: #9e7c00;
+  transform: translateY(-1px);
+}
+
+.auth-button:active {
+  transform: translateY(0);
 }
 
 /* Google Button */
 .google-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  padding: 12px;
+  padding: 0.75rem;
   background-color: #4285f4;
   color: white;
-  font-size: 16px;
+  font-size: 1rem;
+  font-weight: 500;
   border: none;
-  border-radius: 5px;
+  border-radius: 6px;
   cursor: pointer;
-  margin-top: 20px;
+  margin-top: 1rem;
+  transition: all 0.3s;
 }
 
 .google-button:hover {
   background-color: #357ae8;
+  transform: translateY(-1px);
 }
 
-/* Toggle Text (Switch between Register and Login) */
-.auth-toggle-text {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #666;
+.google-button:active {
+  background-color: #2c5fcc;
+  transform: translateY(0);
 }
 
-.auth-link {
-  color: #b68900; /* Gold Color */
+.google-logo {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem;
+}
+
+/* Links */
+.auth-link, .for {
+  color: #b68900;
   cursor: pointer;
-  font-weight: bold;
+  font-weight: 600;
+  transition: color 0.2s;
 }
 
-.auth-link:hover {
+.auth-link:hover, .for:hover {
+  color: #9e7c00;
   text-decoration: underline;
+}
+
+.for {
+  display: inline-block;
+  margin-top: 0.75rem;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 480px) {
+  .auth-container {
+    padding: 1.5rem;
+    width: 90%;
+  }
+  
+  .auth-header {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
 }

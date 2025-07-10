@@ -4,6 +4,7 @@
   text-align: center;
   background-image: url(https://i.pinimg.com/736x/f8/3a/dd/f83addccb81d5c8b55c0f41d33e34c1f.jpg);
   color: #fff;
+  cursor:pointer;
 }
 
 .categories-page::before {

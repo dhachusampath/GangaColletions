@@ -131,13 +131,15 @@
     transform: scale(1);
   }
 
-  .product-image {
-    width: 100%; /* Ensures the image spans the container width */
-    height: 200px; /* Sets a fixed height for all images */
-    border-radius: 8px;
-    object-fit: cover; /* Ensures the image covers the container without stretching */
-    transition: transform 0.3s ease; /* Adds smooth scaling effect */
-  }
+   .product-image {
+  width: 100%;
+  aspect-ratio: 4 / 5;  
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+
+  
 
   .product-name {
     font-size: 18px;

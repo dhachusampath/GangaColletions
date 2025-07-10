@@ -1,10 +1,11 @@
-const CartItem = require('../models/CartItem');
+const CartItem = require("../models/CartItem");
 
 // Add to Cart
 exports.addToCart = async (req, res) => {
-  const { userId, productId, size, price, name, image } = req.body;
+  const { userId, productId, size, price, name, image, itemcode } = req.body;
 
   try {
+    
     let cart = await CartItem.findOne({ userId });
 
     if (!cart) {
@@ -37,6 +38,7 @@ exports.addToCart = async (req, res) => {
       price,
       name, // Include name
       image, // Include image
+      itemcode,
     };
     cart.items.push(newItem);
     await cart.save();
@@ -48,8 +50,6 @@ exports.addToCart = async (req, res) => {
   }
 };
 
-
-
 // Remove from Cart
 exports.removeFromCart = async (req, res) => {
   const { userId, productId, size } = req.body;
@@ -57,17 +57,19 @@ exports.removeFromCart = async (req, res) => {
   try {
     const cart = await CartItem.findOne({ userId });
     if (!cart) {
-      return res.status(404).json({ message: 'Cart not found for user' });
+      return res.status(404).json({ message: "Cart not found for user" });
     }
 
     // Remove the item from the cart
-    cart.items = cart.items.filter(item => !(item.productId.toString() === productId && item.size === size));
+    cart.items = cart.items.filter(
+      (item) => !(item.productId.toString() === productId && item.size === size)
+    );
     await cart.save();
-    
-    res.status(200).json({ message: 'Item removed from cart' });
+
+    res.status(200).json({ message: "Item removed from cart" });
   } catch (error) {
-    console.error('Error removing item from cart:', error);
-    res.status(500).json({ message: 'Error removing item from cart', error });
+    console.error("Error removing item from cart:", error);
+    res.status(500).json({ message: "Error removing item from cart", error });
   }
 };
 
@@ -78,29 +80,33 @@ exports.updateQuantity = async (req, res) => {
   try {
     const cart = await CartItem.findOne({ userId });
     if (!cart) {
-      return res.status(404).json({ message: 'Cart not found for user' });
+      return res.status(404).json({ message: "Cart not found for user" });
     }
 
-    const item = cart.items.find(item => item.productId.toString() === productId && item.size === size);
-    
+    const item = cart.items.find(
+      (item) => item.productId.toString() === productId && item.size === size
+    );
+
     if (item) {
       if (quantity <= 0) {
         // Remove the item if quantity is 0 or less
-        cart.items = cart.items.filter(item => !(item.productId.toString() === productId && item.size === size));
+        cart.items = cart.items.filter(
+          (item) =>
+            !(item.productId.toString() === productId && item.size === size)
+        );
       } else {
         item.quantity = quantity; // Update the quantity
       }
       await cart.save();
-      res.status(200).json({ message: 'Item quantity updated', item });
+      res.status(200).json({ message: "Item quantity updated", item });
     } else {
-      res.status(404).json({ message: 'Item not found in cart' });
+      res.status(404).json({ message: "Item not found in cart" });
     }
   } catch (error) {
-    console.error('Error updating quantity:', error);
-    res.status(500).json({ message: 'Error updating quantity', error });
+    console.error("Error updating quantity:", error);
+    res.status(500).json({ message: "Error updating quantity", error });
   }
 };
-
 
 exports.getCart = async (req, res) => {
   const { userId } = req.params; // Get userId from the request parameters
@@ -110,13 +116,13 @@ exports.getCart = async (req, res) => {
     const cart = await CartItem.findOne({ userId });
 
     if (!cart) {
-      return res.status(404).json({ message: 'Cart not found' });
+      return res.status(404).json({ message: "Cart not found" });
     }
 
     res.status(200).json(cart);
   } catch (error) {
-    console.error('Error fetching cart:', error);
-    res.status(500).json({ message: 'Error fetching cart', error });
+    console.error("Error fetching cart:", error);
+    res.status(500).json({ message: "Error fetching cart", error });
   }
 };
 
@@ -125,7 +131,9 @@ exports.clearCart = async (req, res) => {
     const { userId } = req.body;
 
     if (!userId) {
-      return res.status(400).json({ success: false, message: "User ID is required" });
+      return res
+        .status(400)
+        .json({ success: false, message: "User ID is required" });
     }
 
     // Delete all cart items for the user
@@ -175,9 +183,9 @@ exports.syncCart = async (req, res) => {
     // Save the cart to the database
     await cart.save();
 
-    res.status(200).json({ message: 'Cart synced successfully', cart });
+    res.status(200).json({ message: "Cart synced successfully", cart });
   } catch (error) {
-    console.error('Error syncing cart:', error);
-    res.status(500).json({ message: 'Error syncing cart', error });
+    console.error("Error syncing cart:", error);
+    res.status(500).json({ message: "Error syncing cart", error });
   }
 };

@@ -132,8 +132,10 @@
 
 .order-item-image {
     width: 5rem;
-    height: 5rem;
+    height: 7.4rem;
+    margin-top:8px;
     border-radius: 0.375rem;
+  
 }
 
 .order-item-details {
@@ -148,6 +150,9 @@
 .order-item-text {
     font-size: 0.875rem;
     color: #4b5563;
+}
+.i{
+    color: #4b5563
 }
 
 .order-item-price {

@@ -1,5 +1,5 @@
 .cart-container {
-  width: 90%;
+  width: 100%;
   max-width: 1200px;
   margin: 20px auto;
   color: #333;
@@ -10,6 +10,12 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+}
+.item-code{
+  position:relative;
+left:1070px;
+top:-24px;
+
 }
 
 .cart-header h1 {
@@ -53,20 +59,26 @@ text-align: center;
 }
 
 .Cart-items {
-  margin: 20px 0;
+ 
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
+  width: 1400px;
+    width: 100%;
+  margin: 0 auto;
+  overflow-x: auto;
 }
 
-.cart-item-Header, .cart-Item {
+.cart-item-Header,
+.cart-Item {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr 1fr;
   align-items: center;
   padding: 15px;
   color: rgb(11, 3, 3);
   border-bottom: 1px solid #ddd;
 }
+
 .cart-Item{
   color: white;
 }
@@ -75,20 +87,36 @@ text-align: center;
   font-weight: bold;
   text-align: center;
 }
-
+.Product-code {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #000;
+}
+.product-code{
+   position:relative;
+   color: #fff;
+   left: 60px;
+}
 .cart-item-Header div {
   text-transform: uppercase;
 }
+.item-code {
+  position: relative;
+  left: 1070px;
+  top: -24px;
+}
+
 
 .cart-Item:last-child {
   border-bottom: none;
 }
 
 .Product-Image {
-  max-width: 80px;
-  max-height: 80px;
+  width: 90px;
+   height: 120px;
   object-fit: cover;
   border-radius: 8px;
+  margin-left: 104px;
 }
 
 .product-details h2 {
@@ -107,6 +135,21 @@ text-align: center;
 .product-total {
   text-align: center;
   font-size: 1rem;
+}
+
+/* Custom toast styling */
+.Toastify__toast--error {
+  background: #ff4444 !important;
+  color: white !important;
+  font-weight: bold;
+  text-align: center;
+  border-radius: 4px;
+  padding: 10px 15px;
+}
+
+/* Remove default close button spacing */
+.Toastify__close-button {
+  display: none !important;
 }
 
 .product-quantity button {
@@ -171,20 +214,24 @@ text-align: center;
 }
 
 @media (max-width: 768px) {
+
   .cart-item-Header, .cart-Item {
     grid-template-columns: 1fr 2fr 1fr 1fr;
     grid-gap: 10px;
   }
 
-  .Product-image {
-    display: none;
-  }
+.Cart-items{
+  position:relative;
+
+}
 
   .cart-summary {
     font-size: 0.9rem;
   }
+  
 }
 @media (max-width:480px) {
+ 
   .cart-item-Header{
     display: none;
   }

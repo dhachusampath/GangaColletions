@@ -17,7 +17,14 @@ const PopularProducts = () => {
     try {
       setIsLoading(true);
       const response = await axios.get(`${API_BASE_URL}/products/popular`);
-      setProducts(response.data);
+      if(response.data && Array.isArray(response.data)){
+ setProducts(response.data);
+      }
+      else{
+        console.error("Unexpected response format",response.data);
+        setProducts([]);
+      }
+     
     } catch (error) {
       console.error("Error fetching products:", error);
     } finally {

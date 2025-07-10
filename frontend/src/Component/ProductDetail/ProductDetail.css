@@ -28,6 +28,7 @@
   position: relative;
   /* border: 2px solid #e0d6c7;  */
   cursor: crosshair;
+
   /* background-color: #ffffff; */
   border-radius: 6px;
   /* box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); */
@@ -474,4 +475,120 @@
     display:block;
   }
   
+}
+
+.warning-message {
+  color: #fff;
+  background-color: #d9534f; /* Bootstrap danger red */
+  padding: 10px 12px;
+  margin: 10px 0;
+  font-weight: 600;
+  border-radius: 4px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.cart-message {
+  text-align: center;
+  background-color: #dff0d8;
+  color: #3c763d;
+  padding: 12px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  border-radius: 4px;
+}
+
+/* Add these styles to your existing ProductDetail.css */
+.price-hint {
+  color: #666;
+  font-style: italic;
+  margin: 10px 0;
+}
+
+.add-to-cart-button.invalid {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+  cursor: not-allowed;
+}
+
+.add-to-cart-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.size-dropdown {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}/* Add these styles to your existing ProductDetail.css */
+.price-hint {
+  color: #666;
+  font-style: italic;
+  margin: 10px 0;
+}
+
+.add-to-cart-button.invalid {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+  cursor: not-allowed;
+}
+
+.add-to-cart-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.size-dropdown {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}/* Add to ProductDetail.css */
+.price-hint {
+  color: #666;
+  font-style: italic;
+  margin: 10px 0;
+}
+
+.add-to-cart-button.invalid {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ef9a9a;
+}
+
+.add-to-cart-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.Toastify__toast {
+  font-family: inherit;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.Toastify__toast--error {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.Toastify__toast--success {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.size-dropdown {
+  display: block;
+  width: 100%;
+  padding: 8px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }

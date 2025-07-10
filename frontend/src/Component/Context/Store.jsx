@@ -8,8 +8,6 @@ const StoreContext = createContext();
 // Custom Hook for accessing the store
 export const useStore = () => useContext(StoreContext);
 
- 
-
 // Store Provider Component
 export const StoreProvider = ({ children }) => {
   const [userRole, setUserRole] = useState("retailer"); // Default to 'retailer'
@@ -88,69 +86,77 @@ export const StoreProvider = ({ children }) => {
   // ];
   const [cart, setCart] = useState([]);
   const [cartSidebarOpen, setCartSidebarOpen] = useState(false);
-  const [authToken, setAuthToken] = useState(localStorage.getItem('token') || '');
+  const [authToken, setAuthToken] = useState(
+    localStorage.getItem("token") || ""
+  );
   const [userId, setUserId] = useState(localStorage.getItem("userId") || null);
   const toggleCartSidebar = () => {
     setCartSidebarOpen(!cartSidebarOpen);
   };
   const [loadingCategories, setLoadingCategories] = useState(false);
   const [categories, setCategories] = useState([]); // State for categories
-  
+
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
   useEffect(() => {
-      fetchCategories();
-      // ... other useEffect code
-    }, []);
-  
-    const fetchCategories = async () => {
-      setLoadingCategories(true);
-      try {
-        const response = await axios.get(`${API_BASE_URL}/categories`);
-        setCategories(response.data);
-      } catch (error) {
-        toast.error("Failed to fetch categories");
-        // Fallback to hardcoded categories if API fails
-        setCategories([
-          { name: "Mugapu Thali chains", subcategories: [] },
-          // ... your hardcoded categories
-        ]);
-      } finally {
-        setLoadingCategories(false);
-      }
-    };
+    fetchCategories();
+    // ... other useEffect code
+  }, []);
+
+  const fetchCategories = async () => {
+    setLoadingCategories(true);
+    try {
+      const response = await axios.get(`${API_BASE_URL}/categories`);
+      setCategories(response.data);
+    } catch (error) {
+      toast.error("Failed to fetch categories");
+      // Fallback to hardcoded categories if API fails
+      setCategories([
+        { name: "Mugapu Thali chains", subcategories: [] },
+        // ... your hardcoded categories
+      ]);
+    } finally {
+      setLoadingCategories(false);
+    }
+  };
   useEffect(() => {
     const fetchProfileData = async () => {
-      const storedUserId = localStorage.getItem('userId'); // Retrieve userId from localStorage
+      const storedUserId = localStorage.getItem("userId"); // Retrieve userId from localStorage
       if (!storedUserId) {
-        console.warn('No userId found in localStorage.');
+        console.warn("No userId found in localStorage.");
         return;
       }
-  
+
       try {
-        const response = await axios.get(`${API_BASE_URL}/auth/user/${storedUserId}`);
+        const response = await axios.get(
+          `${API_BASE_URL}/auth/user/${storedUserId}`
+        );
         if (response.data?.user) {
-          setUserRole(response.data.user.isRetailer ? 'retailer' : 'wholesaler');
+          setUserRole(
+            response.data.user.isRetailer ? "retailer" : "wholesaler"
+          );
         } else {
-          console.error('User data is missing in the response:', response.data);
+          console.error("User data is missing in the response:", response.data);
         }
       } catch (err) {
-        console.error('Error fetching profile data:', err);
-        setError('Failed to fetch profile data.');
+        console.error("Error fetching profile data:", err);
+        setError("Failed to fetch profile data.");
       }
     };
-  
+
     fetchProfileData();
   }, []);
 
   useEffect(() => {
     const fetchUserRole = async () => {
-      const storedUserId = localStorage.getItem('userId');
+      const storedUserId = localStorage.getItem("userId");
       if (!storedUserId) return;
-  
+
       try {
-        const response = await axios.get(`${API_BASE_URL}/auth/user/${storedUserId}`);
+        const response = await axios.get(
+          `${API_BASE_URL}/auth/user/${storedUserId}`
+        );
         const user = response.data.user;
-  
+
         if (user?.isRetailer === false) {
           setUserRole("wholesaler");
         }
@@ -183,15 +189,14 @@ export const StoreProvider = ({ children }) => {
         setCart(response.data.items); // Update context or state with fetched cart items
         setLoading(false);
       } catch (error) {
-        setError('Error fetching cart');
+        setError("Error fetching cart");
         setLoading(false);
       }
     };
 
     fetchCart();
   }, [setCart, userId]);
-  
-  
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -202,26 +207,23 @@ export const StoreProvider = ({ children }) => {
         console.error("Error fetching products:", error);
       }
     };
-  
+
     fetchProducts();
   }, []);
-  
+
   useEffect(() => {
     console.log("Products updated:", products); // This will log after products are updated
   }, [products]);
-    
 
-  
-  
   const addToCart = async (product, selectedSize, currentPrice) => {
     const productId = product._id;
     const image = product.images?.[0]; // Get the first image from the array (if it exists)
-  
+
     // Check if the same product with the selected size already exists in the cart
     const existingItem = cart.find(
       (item) => item.productId === productId && item.size === selectedSize
     );
-  
+
     if (existingItem) {
       // If the same product with the same size exists, update its quantity locally
       const newCart = cart.map((item) =>
@@ -230,7 +232,7 @@ export const StoreProvider = ({ children }) => {
           : item
       );
       setCart(newCart);
-  
+
       // Send update to backend
       try {
         await axios.post(`${API_BASE_URL}/cart/update`, {
@@ -240,6 +242,7 @@ export const StoreProvider = ({ children }) => {
           quantity: existingItem.quantity + 1,
           price: currentPrice,
           name: product.name,
+          itemcode: product.itemcode,
           image,
         });
       } catch (error) {
@@ -255,11 +258,12 @@ export const StoreProvider = ({ children }) => {
           quantity: 1,
           price: currentPrice,
           name: product.name,
+                    itemcode: product.itemcode,
           image, // Include the image
         },
       ];
       setCart(newCart);
-  
+
       // Send addition to backend
       try {
         await axios.post(`${API_BASE_URL}/cart/add`, {
@@ -268,6 +272,7 @@ export const StoreProvider = ({ children }) => {
           size: selectedSize,
           quantity: 1,
           price: currentPrice,
+          itemcode: product.itemcode,
           name: product.name,
           image, // Include the image in the request
         });
@@ -275,19 +280,19 @@ export const StoreProvider = ({ children }) => {
         console.error("Error updating backend for new item:", error);
       }
     }
-  
+
     setCartSidebarOpen(true); // Open the cart sidebar when adding an item
   };
-  
-   
-  
+
   const removeFromCart = async (productId, size) => {
     // Remove item locally
     setCart((prevCart) =>
-      prevCart.filter((item) => !(item.productId === productId && item.size === size))
+      prevCart.filter(
+        (item) => !(item.productId === productId && item.size === size)
+      )
     );
     console.log(`Removed product with ID: ${productId}, size: ${size}`);
-  
+
     // Send removal to backend
     try {
       await axios.post(`${API_BASE_URL}/cart/remove`, {
@@ -301,7 +306,7 @@ export const StoreProvider = ({ children }) => {
       // Optionally refetch the cart to ensure state consistency
     }
   };
-  
+
   const updateQuantity = async (productId, size, quantity) => {
     if (quantity <= 0) {
       // Remove the product if quantity is zero or less
@@ -315,8 +320,10 @@ export const StoreProvider = ({ children }) => {
             : item
         )
       );
-      console.log(`Updated quantity locally for productId: ${productId}, size: ${size}, to: ${quantity}`);
-  
+      console.log(
+        `Updated quantity locally for productId: ${productId}, size: ${size}, to: ${quantity}`
+      );
+
       // Send quantity update to backend
       try {
         await axios.post(`${API_BASE_URL}/cart/update`, {
@@ -332,17 +339,16 @@ export const StoreProvider = ({ children }) => {
       }
     }
   };
-  
-  
-  
-  
-const calculateSubtotal = () =>  cart.reduce((total, item) => total + item.price * item.quantity, 0);
+
+  const calculateSubtotal = () =>
+    cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   const value = {
     products,
     setProducts,
     categories,
-    cart,setCart,
+    cart,
+    setCart,
     API_BASE_URL,
     addToCart,
     removeFromCart,
@@ -350,10 +356,15 @@ const calculateSubtotal = () =>  cart.reduce((total, item) => total + item.price
     calculateSubtotal,
     cartSidebarOpen,
     toggleCartSidebar,
-    userRole, setUserRole,
-    authToken, setAuthToken,userId, setUserId,
-    
+    userRole,
+    setUserRole,
+    authToken,
+    setAuthToken,
+    userId,
+    setUserId,
   };
 
-  return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>;
+  return (
+    <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+  );
 };

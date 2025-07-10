@@ -1,23 +1,23 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-// Define the schema for the CartItem (which represents the cart for a user)
+// Define the CartItem schema
 const CartItemSchema = new Schema(
   {
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User', // Assuming you have a User model
+      ref: "User",
       required: true,
     },
     items: [
       {
         productId: {
           type: mongoose.Schema.Types.ObjectId,
-          ref: 'Product', // Assuming you have a Product model
+          ref: "Product",
           required: true,
         },
         size: {
-          type: String, // or String[] if multiple sizes are possible
+          type: String,
           required: true,
         },
         quantity: {
@@ -31,19 +31,21 @@ const CartItemSchema = new Schema(
         },
         image: {
           type: String,
-          required:true,
-        } ,
+          required: true,
+        },
         name: {
           type: String,
-          required:true,
-        },  
+          required: true,
+        },
+        itemcode: {
+          type: String,
+          required: true,
+        },
       },
     ],
   },
   { timestamps: true }
 );
 
-// Create and export the CartItem model
-const CartItem = mongoose.model('CartItem', CartItemSchema);
-
-module.exports = CartItem;
+// Export the model
+module.exports = mongoose.model("CartItem", CartItemSchema);

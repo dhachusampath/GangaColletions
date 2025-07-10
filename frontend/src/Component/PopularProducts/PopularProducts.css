@@ -6,6 +6,7 @@
   position: relative;
   max-width: 1200px;
   margin: 20px auto;
+
 }
 .slider-wrapper {
   display: flex;
@@ -13,7 +14,7 @@
   overflow-x: auto;
   scroll-behavior: smooth;
   padding: 20px;
-  height: 437px;
+  height: 497px;
 }
 
 /* Product Card Styling */
@@ -25,7 +26,7 @@
   text-align: center;
   padding: 20px;
   width: 250px;
-  height: 370px;
+  height: 450px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
