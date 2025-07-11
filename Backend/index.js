@@ -75,18 +75,48 @@ const razorpay = new Razorpay({
 
 app.post("/api/create-order", async (req, res) => {
   try {
+    // 1. Validate input
     const { amount } = req.body;
+
+    if (!amount || isNaN(amount)) {
+      return res.status(400).json({ error: "Valid amount is required" });
+    }
+
+    // 2. Log environment variables for debugging
+    console.log(
+      "Razorpay Key ID:",
+      process.env.RAZORPAY_KEY_ID ? "***REDACTED***" : "MISSING"
+    );
+    console.log("Request amount:", amount);
+
+    // 3. Convert amount to smallest currency unit (paise for INR)
+    const amountInPaise = Math.round(amount * 100); // Razorpay expects amount in paise
+
+    // 4. Create order with proper error handling
     const options = {
-      amount: amount,
+      amount: amountInPaise, // Must be in paise for INR
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
+      payment_capture: 1, // Auto-capture payment
     };
 
+    console.log("Creating order with options:", options);
+
     const order = await razorpay.orders.create(options);
+    console.log("Order created successfully:", order.id);
+
     res.json(order);
   } catch (error) {
-    console.error("Error creating Razorpay order:", error);
-    res.status(500).json({ error: "Failed to create order" });
+    console.error("Detailed Razorpay error:", {
+      message: error.message,
+      statusCode: error.statusCode,
+      error: error.error,
+    });
+
+    res.status(500).json({
+      error: "Failed to create order",
+      details: error.error?.description || error.message,
+    });
   }
 });
 
