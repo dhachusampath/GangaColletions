@@ -3,23 +3,25 @@ const Order = require("../models/Billingorder");
 
 const router = express.Router();
 
-// Create a new order
+// ✅ Create a new order
 router.post("/", async (req, res) => {
   try {
     const newOrder = new Order(req.body);
     await newOrder.save();
-    res.json({ message: "Order placed successfully!" });
+    res.status(201).json({ message: "Order placed successfully!" });
   } catch (error) {
+    console.error("Error placing order:", error);
     res.status(500).json({ message: "Error placing order", error });
   }
 });
 
-// Fetch all orders (for Admin Panel)
+// ✅ Fetch all orders (Admin)
 router.get("/", async (req, res) => {
   try {
-    const orders = await Order.find();  // Fetch all orders
+    const orders = await Order.find();
     res.json(orders);
   } catch (error) {
+    console.error("Error fetching orders:", error);
     res.status(500).json({ message: "Error fetching orders", error });
   }
 });
