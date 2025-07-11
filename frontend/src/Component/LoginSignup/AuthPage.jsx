@@ -7,10 +7,9 @@ import { useStore } from "../Context/Store";
 
 const AuthPage = ({ setShowLogin }) => {
   const { setAuthToken, setUserId, API_BASE_URL } = useStore();
-  const [authMode, setAuthMode] = useState("login"); // 'login', 'register', 'forgot', 'verify-otp', 'reset'
+  const [authMode, setAuthMode] = useState("login");
   const [emailForReset, setEmailForReset] = useState("");
 
-  // Form states
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [registerData, setRegisterData] = useState({
     name: "",
@@ -25,7 +24,6 @@ const AuthPage = ({ setShowLogin }) => {
     resetToken: "",
   });
 
-  // Handle login
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -35,14 +33,17 @@ const AuthPage = ({ setShowLogin }) => {
       setUserId(userId);
       localStorage.setItem("token", token);
       localStorage.setItem("userId", userId);
-      toast.success("Login successful!");
-      setTimeout(() => setShowLogin(false), 1500);
+      toast.success("Login successful!", {
+        autoClose: 1500,
+        onClose: () => setShowLogin(false),
+      });
     } catch (err) {
-      toast.error(err.response?.data?.error || "Login failed");
+      toast.error(err.response?.data?.error || "Login failed", {
+        autoClose: 4000,
+      });
     }
   };
 
-  // Handle register
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -54,11 +55,10 @@ const AuthPage = ({ setShowLogin }) => {
     }
   };
 
-  // Handle password reset request
   const handleForgotPassword = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post(`${API_BASE_URL}/auth/request-reset`, {
+      await axios.post(`${API_BASE_URL}/auth/request-reset`, {
         email: forgotData.email,
       });
       toast.success("OTP sent to your email if account exists");
@@ -69,7 +69,6 @@ const AuthPage = ({ setShowLogin }) => {
     }
   };
 
-  // Handle OTP verification
   const handleVerifyOtp = async (e) => {
     e.preventDefault();
     try {
@@ -77,15 +76,16 @@ const AuthPage = ({ setShowLogin }) => {
         email: emailForReset,
         otp: otpData.otp,
       });
-      toast.success("OTP verified successfully");
+      toast.success("OTP verified successfully", { autoClose: 2000 });
       setResetData({ ...resetData, resetToken: res.data.resetToken });
       setAuthMode("reset");
     } catch (err) {
-      toast.error(err.response?.data?.message || "Invalid OTP");
+      toast.error(err.response?.data?.message || "Invalid OTP", {
+        autoClose: 4000,
+      });
     }
   };
 
-  // Handle password reset
   const handleResetPassword = async (e) => {
     e.preventDefault();
     if (resetData.newPassword !== resetData.confirmPassword) {
@@ -98,19 +98,17 @@ const AuthPage = ({ setShowLogin }) => {
         newPassword: resetData.newPassword,
         confirmPassword: resetData.confirmPassword,
       });
-      toast.success("Password reset successfully!");
+      toast.success("Password reset successfully!", { autoClose: 1500 });
       setAuthMode("login");
     } catch (err) {
       toast.error(err.response?.data?.message || "Error resetting password");
     }
   };
 
-  // Handle Google login
   const handleGoogleLogin = () => {
     window.location.href = `${API_BASE_URL}/auth/google`;
   };
 
-  // Check for Google auth callback
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const token = urlParams.get("token");
@@ -124,7 +122,16 @@ const AuthPage = ({ setShowLogin }) => {
 
   return (
     <div className="auth-overlay">
-      <ToastContainer />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="auth-container">
         <button className="close-button" onClick={() => setShowLogin(false)}>
           X
@@ -137,7 +144,7 @@ const AuthPage = ({ setShowLogin }) => {
           {authMode === "reset" && "Set New Password"}
         </h2>
 
-        {/* Login Form */}
+        {/* === All Forms === */}
         {authMode === "login" && (
           <>
             <form className="auth-form" onSubmit={handleLogin}>
@@ -165,16 +172,14 @@ const AuthPage = ({ setShowLogin }) => {
                 Login
               </button>
             </form>
-
             <button className="google-button" onClick={handleGoogleLogin}>
               <img
                 src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                alt="Google logo"
+                alt="Google"
                 className="google-logo"
               />
               Login with Google
             </button>
-
             <p className="auth-toggle-text">
               Don't have an account?{" "}
               <span
@@ -184,14 +189,12 @@ const AuthPage = ({ setShowLogin }) => {
                 Register here
               </span>
             </p>
-
             <p className="for" onClick={() => setAuthMode("forgot")}>
               Forgot Password?
             </p>
           </>
         )}
 
-        {/* Register Form */}
         {authMode === "register" && (
           <form className="auth-form" onSubmit={handleRegister}>
             <input
@@ -236,7 +239,6 @@ const AuthPage = ({ setShowLogin }) => {
           </form>
         )}
 
-        {/* Forgot Password Form */}
         {authMode === "forgot" && (
           <form className="auth-form" onSubmit={handleForgotPassword}>
             <input
@@ -259,7 +261,6 @@ const AuthPage = ({ setShowLogin }) => {
           </form>
         )}
 
-        {/* Verify OTP Form */}
         {authMode === "verify-otp" && (
           <form className="auth-form" onSubmit={handleVerifyOtp}>
             <p className="auth-toggle-text">
@@ -285,7 +286,6 @@ const AuthPage = ({ setShowLogin }) => {
           </form>
         )}
 
-        {/* Reset Password Form */}
         {authMode === "reset" && (
           <form className="auth-form" onSubmit={handleResetPassword}>
             <input

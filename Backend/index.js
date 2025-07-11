@@ -1,15 +1,15 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const cors = require("cors");
-const authRoutes = require("./routes/auth");
-const cartRoutes = require("./routes/cartRoutes");
-const productRoutes = require("./controllers/productController");
-const bodyParser = require("body-parser");
-const CouponRoutes = require("./routes/couponsRoutes"); // Import
-const reviewRoutes = require("./routes/reviews");
+const express = require('express');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
+const cors = require('cors');
+const authRoutes = require('./routes/auth');
+const cartRoutes = require('./routes/cartRoutes');
+const productRoutes = require('./controllers/productController');
+const bodyParser = require('body-parser');
+const CouponRoutes = require('./routes/couponsRoutes');  // Import 
+const reviewRoutes = require('./routes/reviews');
 // const orderRoutes = require('./routes/orderRoutes');
-const passport = require("passport");
+const passport = require('passport');
 const multer = require("multer");
 const path = require("path");
 const Razorpay = require("razorpay");
@@ -18,105 +18,73 @@ const fs = require("fs");
 dotenv.config();
 const { v4: uuidv4 } = require("uuid"); // For generating unique order ID
 const app = express();
-const Order = require("./models/Order");
-const trackingRoutes = require("./routes/trackingRoutes");
+const Order = require("./models/Order")
+const trackingRoutes = require('./routes/trackingRoutes');
 const nodemailer = require("nodemailer");
 const orderRoutes = require("./routes/orderRoutes");
 const categoryRoutes = require("./routes/categoryRoutes");
+
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/api/images", express.static("uploads"));
+app.use("/api/images", express.static('uploads'));
 
 require("./controllers/google");
 app.use(passport.initialize());
 // MongoDB connection
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
-  })
-  .then(() => {
-    console.log("Connected to MongoDB");
-  })
-  .catch((err) => {
-    console.log("Error connecting to MongoDB:", err);
-  });
+mongoose.connect(process.env.MONGO_URI,{
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  serverSelectionTimeoutMS: 30000, // Increase timeout to 30 seconds
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch(err => {
+  console.log('Error connecting to MongoDB:', err);
+});
 
 // Multer configuration for file upload
 // for JSON
 
 // Set large limit for JSON and URL-encoded
-app.use(bodyParser.json({ limit: "50mb" }));
-app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 // Routes
-app.use("/api/auth", authRoutes);
-app.use("/api/cart", cartRoutes);
-app.use("/api/products", productRoutes);
-app.use("/api/coupons", CouponRoutes); // Mount the coupon routes
-app.use("/api/productss/reviews", reviewRoutes);
-app.use("/allorders", trackingRoutes); // Use tracking routes
+app.use('/api/auth', authRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/coupons', CouponRoutes);  // Mount the coupon routes
+app.use('/api/productss/reviews', reviewRoutes);
+app.use('/allorders', trackingRoutes); // Use tracking routes
 app.use("/api/orders", orderRoutes);
 app.use("/api/categories", categoryRoutes);
-app.get("/api/health", (req, res) => {
-  res.status(200).json({ message: "Backend is running" });
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ message: 'Backend is running' });
 });
+
 
 const razorpay = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
   key_secret: process.env.RAZORPAY_KEY_SECRET,
-  hostname: "api.razorpay.com",
 });
 
 app.post("/api/create-order", async (req, res) => {
   try {
-    // 1. Validate input
     const { amount } = req.body;
-
-    if (!amount || isNaN(amount)) {
-      return res.status(400).json({ error: "Valid amount is required" });
-    }
-
-    // 2. Log environment variables for debugging
-    console.log(
-      "Razorpay Key ID:",
-      process.env.RAZORPAY_KEY_ID ? "***REDACTED***" : "MISSING"
-    );
-    console.log("Request amount:", amount);
-
-    // 3. Convert amount to smallest currency unit (paise for INR)
-    const amountInPaise = Math.round(amount * 100); // Razorpay expects amount in paise
-
-    // 4. Create order with proper error handling
     const options = {
-      amount: amountInPaise, // Must be in paise for INR
+      amount: amount,
       currency: "INR",
       receipt: `receipt_${Date.now()}`,
-      payment_capture: 1, // Auto-capture payment
     };
 
-    console.log("Creating order with options:", options);
-
     const order = await razorpay.orders.create(options);
-    console.log("Order created successfully:", order.id);
-
     res.json(order);
   } catch (error) {
-    console.error("Detailed Razorpay error:", {
-      message: error.message,
-      statusCode: error.statusCode,
-      error: error.error,
-    });
-
-    res.status(500).json({
-      error: "Failed to create order",
-      details: error.error?.description || error.message,
-    });
+    console.error("Error creating Razorpay order:", error);
+    res.status(500).json({ error: "Failed to create order" });
   }
 });
 
@@ -140,9 +108,7 @@ app.post("/api/save-order", async (req, res) => {
     const uniqueOrderId = `ORD-${Date.now()}-${uuidv4().slice(0, 8)}`;
 
     if (!mongoose.Types.ObjectId.isValid(userId)) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid User ID" });
+      return res.status(400).json({ success: false, message: "Invalid User ID" });
     }
 
     // Verify Razorpay Signature
@@ -153,9 +119,7 @@ app.post("/api/save-order", async (req, res) => {
       .digest("hex");
 
     if (expectedSignature !== razorpay_signature) {
-      return res
-        .status(400)
-        .json({ success: false, message: "Invalid signature" });
+      return res.status(400).json({ success: false, message: "Invalid signature" });
     }
 
     // **Fetch payment details from Razorpay API**
@@ -188,56 +152,42 @@ app.post("/api/save-order", async (req, res) => {
     });
 
     await newOrder.save();
-    await sendOrderEmail(
-      userEmail,
-      uniqueOrderId,
-      totalAmount,
-      cartItems,
-      shippingAddress
-    );
-    await sendAdminEmail(
-      uniqueOrderId,
-      totalAmount,
-      cartItems,
-      shippingAddress
-    );
+    await sendOrderEmail(userEmail ,uniqueOrderId, totalAmount, cartItems, shippingAddress);
+    await sendAdminEmail(uniqueOrderId, totalAmount, cartItems, shippingAddress);
 
     // **Reduce stock after successful order**
     for (const item of cartItems) {
       console.log("Processing Item:", item); // Debugging Log
-
+    
       const { productId, size, quantity } = item;
-
+    
       if (!productId || !size) {
         console.error("Missing productId or size:", item);
         continue; // Skip this iteration if data is incorrect
       }
-
+    
       const updatedProduct = await Product.findOneAndUpdate(
         { _id: productId, "sizes.size": size }, // Find product by _id and size
         { $inc: { "sizes.$.stock": -quantity } }, // Reduce stock quantity
         { new: true }
       );
-
+    
       if (!updatedProduct) {
-        console.error(
-          `Product with productId ${productId} and size ${size} not found.`
-        );
+        console.error(`Product with productId ${productId} and size ${size} not found.`);
       } else {
         console.log(`Stock updated successfully for ${productId} - ${size}`);
       }
     }
+    
+    
 
-    res.json({
-      success: true,
-      orderId: uniqueOrderId,
-      message: "Payment verified, order saved & stock updated",
-    });
+    res.json({ success: true, orderId: uniqueOrderId, message: "Payment verified, order saved & stock updated" });
   } catch (error) {
     console.error("Error saving order:", error);
     res.status(500).json({ success: false, message: "Failed to save order" });
   }
 });
+
 
 const transporter = nodemailer.createTransport({
   service: "Gmail",
@@ -248,13 +198,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Send Email to User
-async function sendOrderEmail(
-  userEmail,
-  orderId,
-  totalAmount,
-  cartItems,
-  shippingAddress
-) {
+async function sendOrderEmail(userEmail, orderId, totalAmount, cartItems, shippingAddress) {
   const emailTemplate = `
     <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px;">
       <div style="text-align: center; margin-bottom: 20px;">
@@ -265,15 +209,9 @@ async function sendOrderEmail(
       <p><strong>Order ID:</strong> ${orderId}</p>
       <p><strong>Total Amount:</strong> ₹${totalAmount}</p>
       <h3 style="color: #4CAF50;">Shipping Address:</h3>
-      <p>${shippingAddress.streetAddress}, ${shippingAddress.city}, ${
-    shippingAddress.state
-  }, ${shippingAddress.zipCode}</p>
+      <p>${shippingAddress.streetAddress}, ${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.zipCode}</p>
       <h3 style="color: #4CAF50;">Items:</h3>
-      <ul>${cartItems
-        .map(
-          (item) => `<li>${item.name} - ₹${item.price} x ${item.quantity}</li>`
-        )
-        .join("")}</ul>
+      <ul>${cartItems.map((item) => `<li>${item.name} - ₹${item.price} x ${item.quantity}</li>`).join("")}</ul>
       <p>We will notify you when your order is shipped.</p>
       <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #777;">
         <p>This is an automated email, please do not reply.</p>
@@ -322,17 +260,14 @@ app.post("/api/contact", async (req, res) => {
       </div>
     `,
   };
+  
 
   try {
     await transporter.sendMail(mailOptions);
-    res
-      .status(200)
-      .json({ success: true, message: "Message sent successfully" });
+    res.status(200).json({ success: true, message: "Message sent successfully" });
   } catch (error) {
     console.error("Error sending email:", error);
-    res
-      .status(500)
-      .json({ success: false, message: "Server error, message not sent" });
+    res.status(500).json({ success: false, message: "Server error, message not sent" });
   }
 });
 
@@ -344,14 +279,8 @@ app.post("/api/subscribe", async (req, res) => {
   }
 
   // Ensure environment variables are set
-  if (
-    !process.env.EMAIL_USER ||
-    !process.env.EMAIL_PASS ||
-    !process.env.ADMIN_EMAIL
-  ) {
-    return res
-      .status(500)
-      .json({ message: "Server email configuration is missing ❌" });
+  if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS || !process.env.ADMIN_EMAIL) {
+    return res.status(500).json({ message: "Server email configuration is missing ❌" });
   }
 
   try {
@@ -380,21 +309,15 @@ app.post("/api/subscribe", async (req, res) => {
 
     await transporter.sendMail(mailOptions);
     res.json({ message: "Subscription successful! ✅" });
+
   } catch (error) {
     console.error("Subscription email error:", error);
-    res
-      .status(500)
-      .json({ message: "Subscription failed. ❌", error: error.message });
+    res.status(500).json({ message: "Subscription failed. ❌", error: error.message });
   }
 });
 
 // Send Email to Admin
-async function sendAdminEmail(
-  orderId,
-  totalAmount,
-  cartItems,
-  shippingAddress
-) {
+async function sendAdminEmail(orderId, totalAmount, cartItems, shippingAddress) {
   const adminEmail = process.env.ADMIN_EMAIL;
   const emailTemplate = `
     <div style="font-family: Arial, sans-serif; color: #333; max-width: 600px; margin: auto; border: 1px solid #ddd; padding: 20px;">
@@ -406,15 +329,9 @@ async function sendAdminEmail(
       <p><strong>Order ID:</strong> ${orderId}</p>
       <p><strong>Total Amount:</strong> ₹${totalAmount}</p>
       <h3 style="color: #4CAF50;">Shipping Address:</h3>
-      <p>${shippingAddress.streetAddress}, ${shippingAddress.city}, ${
-    shippingAddress.state
-  }, ${shippingAddress.zipCode}</p>
+      <p>${shippingAddress.streetAddress}, ${shippingAddress.city}, ${shippingAddress.state}, ${shippingAddress.zipCode}</p>
       <h3 style="color: #4CAF50;">Items:</h3>
-      <ul>${cartItems
-        .map(
-          (item) => `<li>${item.name} - ₹${item.price} x ${item.quantity}</li>`
-        )
-        .join("")}</ul>
+      <ul>${cartItems.map((item) => `<li>${item.name} - ₹${item.price} x ${item.quantity}</li>`).join("")}</ul>
       <div style="text-align: center; margin-top: 20px; font-size: 12px; color: #777;">
         <p>This is an automated email, please do not reply.</p>
         <p>&copy; 2025 Ganga Collections. All rights reserved.</p>
@@ -430,13 +347,13 @@ async function sendAdminEmail(
   });
 }
 const xlsx = require("xlsx");
-const Product = require("./models/Product");
-const Review = require("./models/Review");
+const Product = require('./models/Product');
+const Review = require('./models/Review');
 
 app.get("/api/orders/:userId", async (req, res) => {
   try {
     const { userId } = req.params;
-
+    
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       return res.status(400).json({ message: "Invalid User ID" });
     }
@@ -444,9 +361,7 @@ app.get("/api/orders/:userId", async (req, res) => {
     const orders = await Order.find({ userId }).sort({ createdAt: -1 });
 
     if (orders.length === 0) {
-      return res
-        .status(404)
-        .json({ message: "No orders found for this user." });
+      return res.status(404).json({ message: "No orders found for this user." });
     }
 
     res.status(200).json(orders);
@@ -463,11 +378,11 @@ app.put("/api/update-tracking/:orderId", async (req, res) => {
       { trackingLink, deliveryStatus },
       { new: true }
     );
-
+    
     if (!updatedOrder) {
       return res.status(404).json({ error: "Order not found" });
     }
-
+    
     res.json({ success: true, updatedOrder });
   } catch (error) {
     res.status(500).json({ error: "Failed to update tracking details" });
@@ -481,7 +396,7 @@ app.get("/api/allorders/all", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: "Failed to fetch orders" });
   }
-});
+})
 
 // Multer storage configuration
 const storage = multer.diskStorage({
@@ -502,14 +417,14 @@ const upload = multer({
   limits: { fileSize: 10 * 1024 * 1024 }, // 10MB max file size
 }).fields([
   { name: "excelFile", maxCount: 1 }, // Excel file upload (1 file)
-  { name: "images", maxCount: 100 }, // Multiple image uploads (up to 10 files)
+  { name: "images", maxCount: 100 },   // Multiple image uploads (up to 10 files)
 ]);
 
 // Bulk upload endpoint
 app.post("/api/bulk-upload", upload, async (req, res) => {
   try {
     const { excelFile, images } = req.files;
-
+    
     if (!excelFile) {
       return res.status(400).json({ message: "Excel file is required" });
     }
@@ -546,18 +461,12 @@ app.post("/api/bulk-upload", upload, async (req, res) => {
       if (row.images) {
         row.images.split(",").forEach((img) => {
           const imageName = img.trim(); // Directly take the name of the image
-
+          
           // Check if the image exists in the uploaded files and store it
-          const uploadedImage = images.find(
-            (image) => image.originalname === imageName
-          );
+          const uploadedImage = images.find(image => image.originalname === imageName);
           if (uploadedImage) {
             // Image file path in uploads folder
-            const destinationPath = path.join(
-              __dirname,
-              "uploads",
-              uploadedImage.originalname
-            );
+            const destinationPath = path.join(__dirname, "uploads", uploadedImage.originalname);
             groupedData[itemCode].images.push(uploadedImage.originalname); // Store only the image name
           } else {
             console.error(`Image not found in the upload folder: ${imageName}`);
@@ -607,19 +516,17 @@ app.post("/api/bulk-upload", upload, async (req, res) => {
     res.status(200).json({ message: "Bulk upload successful!" });
   } catch (error) {
     console.error("Error during bulk upload:", error);
-    res
-      .status(500)
-      .json({ message: "Error processing upload", error: error.message });
+    res.status(500).json({ message: "Error processing upload", error: error.message });
   }
 });
 
-app.delete("/api/reviews/:reviewId", async (req, res) => {
+app.delete('/api/reviews/:reviewId', async (req, res) => {
   const { reviewId } = req.params;
   try {
     await Review.findByIdAndDelete(reviewId);
-    res.json({ message: "Review deleted" });
+    res.json({ message: 'Review deleted' });
   } catch (err) {
-    res.status(500).json({ message: "Error deleting review" });
+    res.status(500).json({ message: 'Error deleting review' });
   }
 });
 

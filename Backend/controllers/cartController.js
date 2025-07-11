@@ -5,7 +5,6 @@ exports.addToCart = async (req, res) => {
   const { userId, productId, size, price, name, image, itemcode } = req.body;
 
   try {
-    
     let cart = await CartItem.findOne({ userId });
 
     if (!cart) {

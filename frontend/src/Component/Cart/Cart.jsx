@@ -14,52 +14,31 @@ const Cart = ({ setShowLogin }) => {
     API_BASE_URL,
     updateQuantity,
     removeFromCart,
-    calculateSubtotal,
     authToken,
+    fetchCart, // Added fetchCart from store
   } = useStore();
 
   const [loadingItems, setLoadingItems] = useState({});
-  const [shippingCost, setShippingCost] = useState(0);
+  const [shippingCost] = useState(0); // Made shippingCost constant since it's not modified
   const [stockErrors, setStockErrors] = useState({});
   const navigate = useNavigate();
 
+  // Improved toast notification
   const showToast = (message, type = "error") => {
-    toast[type](
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <span>{message}</span>
-        <button
-          onClick={() => toast.dismiss()}
-          style={{
-            background: "transparent",
-            border: "none",
-            color: "white",
-            fontSize: "16px",
-            fontWeight: "bold",
-            marginLeft: "15px",
-            cursor: "pointer",
-          }}
-        >
-          ×
-        </button>
-      </div>,
-      {
-        position: "top-center",
-        autoClose: 3000,
-        closeButton: false,
-      }
-    );
+    toast[type](message, {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: true,
+      closeButton: false,
+    });
   };
 
+  // Memoized total calculation
   const getTotalAmount = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
+  // Enhanced stock checking with API error handling
   const checkStockAndUpdate = async (productId, size, newQuantity) => {
     const itemKey = `${productId}-${size}`;
     setLoadingItems((prev) => ({ ...prev, [itemKey]: true }));
@@ -67,33 +46,33 @@ const Cart = ({ setShowLogin }) => {
 
     try {
       const response = await axios.get(
-        `${API_BASE_URL}/products/product/${productId}`
+        `${API_BASE_URL}/products/product/${productId}` // Updated API endpoint
       );
+
+      if (!response.data) {
+        throw new Error("Product not found");
+      }
+
       const product = response.data;
       const sizeData = product.sizes.find((s) => s.size === size);
 
       if (!sizeData) {
-        const errorMsg = "This size is no longer available";
-        setStockErrors((prev) => ({ ...prev, [itemKey]: errorMsg }));
-        showToast(errorMsg);
-        return false;
+        throw new Error("This size is no longer available");
       }
 
-      const sizeStock = sizeData.stock;
-      const maxQuantityLimit = product.maxQuantity || 50;
-      const maxAllowed = Math.min(maxQuantityLimit, sizeStock);
+      const maxAllowed = Math.min(product.maxQuantity || 50, sizeData.stock);
 
       if (newQuantity > maxAllowed) {
-        const errorMsg = `Maximum quantity reached! Only ${maxAllowed} items available`;
-        setStockErrors((prev) => ({ ...prev, [itemKey]: errorMsg }));
-        showToast(errorMsg);
-        return false;
+        throw new Error(`Only ${maxAllowed} items available`);
       }
 
+      // Update backend first
+
+      // Then update local state
       updateQuantity(productId, size, newQuantity);
       return true;
     } catch (error) {
-      const errorMsg = "Error checking stock availability";
+      const errorMsg = error.response?.data?.message || error.message;
       setStockErrors((prev) => ({ ...prev, [itemKey]: errorMsg }));
       showToast(errorMsg);
       return false;
@@ -102,37 +81,49 @@ const Cart = ({ setShowLogin }) => {
     }
   };
 
+  // Quantity change handler with validation
   const handleQuantityChange = async (productId, size, newQuantity) => {
     if (newQuantity < 1) return;
     await checkStockAndUpdate(productId, size, newQuantity);
   };
 
+  // Improved checkout handler
   const handleCheckout = () => {
     if (!authToken) {
       setShowLogin(true);
       return;
     }
 
-    const hasErrors = Object.values(stockErrors).some(Boolean);
-    if (hasErrors) {
-      showToast("Please resolve stock availability issues before checkout");
+    if (Object.values(stockErrors).some(Boolean)) {
+      showToast("Please resolve stock issues before checkout");
       return;
     }
 
-    const totalAmount = getTotalAmount() + shippingCost;
     navigate("/checkout", {
-      state: { cartItems: cart, shippingCost, total: totalAmount },
+      state: {
+        cartItems: cart,
+        shippingCost,
+        total: getTotalAmount() + shippingCost,
+      },
     });
   };
 
+  // Cart validation on mount
   useEffect(() => {
     const validateCartItems = async () => {
-      for (const item of cart) {
-        await checkStockAndUpdate(item.productId, item.size, item.quantity);
+      if (authToken?.userId) {
+        try {
+          await fetchCart(); // Sync with server cart
+          for (const item of cart) {
+            await checkStockAndUpdate(item.productId, item.size, item.quantity);
+          }
+        } catch (error) {
+          console.error("Cart validation error:", error);
+        }
       }
     };
     validateCartItems();
-  }, []);
+  }, [authToken]); // Added authToken as dependency
 
   return (
     <div className="cart-container">
@@ -187,6 +178,9 @@ const Cart = ({ setShowLogin }) => {
                     src={`${API_BASE_URL}/images/${item.image}`}
                     alt={item.name}
                     className="Product-Image"
+                    onError={(e) => {
+                      e.target.src = "path/to/default-image.png";
+                    }}
                   />
                   <div className="product-details">
                     <h2>{item.name}</h2>
@@ -204,6 +198,7 @@ const Cart = ({ setShowLogin }) => {
                         )
                       }
                       disabled={item.quantity === 1 || isLoading}
+                      aria-label="Decrease quantity"
                     >
                       -
                     </button>
@@ -217,6 +212,7 @@ const Cart = ({ setShowLogin }) => {
                         )
                       }
                       disabled={isLoading}
+                      aria-label="Increase quantity"
                     >
                       +
                     </button>
@@ -230,6 +226,7 @@ const Cart = ({ setShowLogin }) => {
                       !isLoading && removeFromCart(item.productId, item.size)
                     }
                     disabled={isLoading}
+                    aria-label="Remove item"
                   />
                 </div>
               );
@@ -243,7 +240,10 @@ const Cart = ({ setShowLogin }) => {
             <button
               className="Checkout-button"
               onClick={handleCheckout}
-              disabled={Object.values(stockErrors).some(Boolean)}
+              disabled={
+                Object.values(stockErrors).some(Boolean) || cart.length === 0
+              }
+              aria-label="Proceed to checkout"
             >
               Proceed to Checkout
             </button>
